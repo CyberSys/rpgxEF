@@ -211,7 +211,7 @@ static void M_TransporterMenu_Graphics(void)
 
 
 	UI_DrawProportionalString(xTurboStart, 24,
-		menu_normal_text[MNT_TRANSPORTER], UI_BIGFONT | UI_RIGHT, colorTable[CT_WHITE]);
+	                          menu_normal_text[MNT_TRANSPORTER], UI_BIGFONT | UI_RIGHT, colorTable[CT_WHITE]);
 
 	trap_R_SetColor(colorTable[CT_DKPURPLE1]); //DKGOLD1
 	UI_DrawHandlePic(607, 24, -16, 32, leftRound);
@@ -320,21 +320,19 @@ void TransporterMenu_Init(void)
 
 	AdminGeneric_InitLists();
 
-	s_transporter.menu.nitems = 0;
-	s_transporter.menu.draw = TransporterMenu_Draw;
-	s_transporter.menu.key = TransporterMenu_Key;
-	s_transporter.menu.wrapAround = qtrue;
-	s_transporter.menu.descX = MENU_DESC_X;
-	s_transporter.menu.descY = MENU_DESC_Y;
-	s_transporter.menu.titleX = MENU_TITLE_X;
-	s_transporter.menu.titleY = MENU_TITLE_Y;
+	s_transporter.menu.m_ItemCount = 0;
+	s_transporter.menu.OnDraw = TransporterMenu_Draw;
+	s_transporter.menu.OnKey = TransporterMenu_Key;
+	s_transporter.menu.m_WrapAround = true;
+	s_transporter.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_transporter.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y } };
 
 	pad = PROP_BIG_HEIGHT + 10;
 	width = MENU_BUTTON_MED_WIDTH - 20;
 	y = 72;
 	x = 208;
 
-	s_transporter.engage.generic.type = MTYPE_BITMAP;
+	s_transporter.engage.generic.m_Type = EMenuItemType::Bitmap;
 	s_transporter.engage.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_transporter.engage.generic.x = x;
 	s_transporter.engage.generic.y = y;
@@ -354,7 +352,7 @@ void TransporterMenu_Init(void)
 
 	y += pad;
 
-	s_transporter.engage2.generic.type = MTYPE_BITMAP;
+	s_transporter.engage2.generic.m_Type = EMenuItemType::Bitmap;
 	s_transporter.engage2.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_transporter.engage2.generic.x = x;
 	s_transporter.engage2.generic.y = y;
@@ -374,7 +372,7 @@ void TransporterMenu_Init(void)
 
 	y += pad;
 
-	s_transporter.quitmenu.generic.type = MTYPE_BITMAP;
+	s_transporter.quitmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_transporter.quitmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_transporter.quitmenu.generic.x = x;
 	s_transporter.quitmenu.generic.y = y;
@@ -395,7 +393,7 @@ void TransporterMenu_Init(void)
 	y -= (2 * pad);
 	x += width + 8;
 
-	s_transporter.locButton.generic.type = MTYPE_SPINCONTROL;
+	s_transporter.locButton.generic.m_Type = EMenuItemType::SpinControl;
 	s_transporter.locButton.generic.flags = QMF_HIGHLIGHT_IF_FOCUS | QMF_ALTERNATE;
 	s_transporter.locButton.generic.x = x;
 	s_transporter.locButton.generic.y = y;
@@ -412,7 +410,7 @@ void TransporterMenu_Init(void)
 
 	y += pad;
 
-	s_transporter.srvButton.generic.type = MTYPE_SPINCONTROL;
+	s_transporter.srvButton.generic.m_Type = EMenuItemType::SpinControl;
 	s_transporter.srvButton.generic.flags = QMF_HIGHLIGHT_IF_FOCUS | QMF_ALTERNATE;
 	s_transporter.srvButton.generic.x = x;
 	s_transporter.srvButton.generic.y = y;
@@ -429,7 +427,7 @@ void TransporterMenu_Init(void)
 
 	y += pad;
 
-	s_transporter.delButton.generic.type = MTYPE_SPINCONTROL;
+	s_transporter.delButton.generic.m_Type = EMenuItemType::SpinControl;
 	s_transporter.delButton.generic.flags = QMF_HIGHLIGHT_IF_FOCUS | QMF_ALTERNATE;
 	s_transporter.delButton.generic.x = x;
 	s_transporter.delButton.generic.y = y;

@@ -144,7 +144,7 @@ static void UI_CDKeyMenu_DrawKey(void *self)
 
 	f = (menufield_s *)self;
 
-	focus = static_cast<qboolean>(f->generic.parent->cursor == f->generic.menuPosition);
+	focus = static_cast<qboolean>(f->generic.parent->m_Cursor == f->generic.menuPosition);
 
 	style = UI_LEFT;
 	if (focus)
@@ -255,17 +255,14 @@ static void UI_CDKeyMenu_Init(void)
 
 	UI_CDKeyMenu_Cache();
 
-	cdkeyMenuInfo.menu.wrapAround = qtrue;
-	cdkeyMenuInfo.menu.fullscreen = qtrue;
-	cdkeyMenuInfo.menu.draw = CDKey_MenuDraw;
-	cdkeyMenuInfo.menu.descX = MENU_DESC_X;
-	cdkeyMenuInfo.menu.descY = MENU_DESC_Y;
-	cdkeyMenuInfo.menu.titleX = MENU_TITLE_X;
-	cdkeyMenuInfo.menu.titleY = MENU_TITLE_Y;
-	cdkeyMenuInfo.menu.titleI = MNT_CDKEYMENU_TITLE;
-	cdkeyMenuInfo.menu.footNoteEnum = MNT_CDKEY;
+	cdkeyMenuInfo.menu.m_WrapAround = true;
+	cdkeyMenuInfo.menu.m_Fullscreen = qtrue;
+	cdkeyMenuInfo.menu.OnDraw = CDKey_MenuDraw;
+	cdkeyMenuInfo.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	cdkeyMenuInfo.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CDKEYMENU_TITLE };
+	cdkeyMenuInfo.menu.m_FootNote = MNT_CDKEY;
 
-	cdkeyMenuInfo.cdkey.generic.type = MTYPE_FIELD;
+	cdkeyMenuInfo.cdkey.generic.m_Type = EMenuItemType::Field;
 	cdkeyMenuInfo.cdkey.generic.flags = QMF_UPPERCASE;
 	cdkeyMenuInfo.cdkey.generic.x = 256;
 	cdkeyMenuInfo.cdkey.generic.y = 242;
@@ -279,7 +276,7 @@ static void UI_CDKeyMenu_Init(void)
 	cdkeyMenuInfo.cdkey.field.textcolor2 = CT_LTGOLD1;
 
 
-	cdkeyMenuInfo.accept.generic.type = MTYPE_BITMAP;
+	cdkeyMenuInfo.accept.generic.m_Type = EMenuItemType::Bitmap;
 	cdkeyMenuInfo.accept.generic.name = GRAPHIC_SQUARE;
 	cdkeyMenuInfo.accept.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	cdkeyMenuInfo.accept.generic.id = ID_ACCEPT;
@@ -431,18 +428,15 @@ static void UI_CDKeyMenu2_Init(void)
 
 	UI_CDKeyMenu_Cache();
 
-	cdkeyMenuInfo.menu.wrapAround = qtrue;
-	cdkeyMenuInfo.menu.fullscreen = qtrue;
-	cdkeyMenuInfo.menu.draw = CDKey2_MenuDraw;
-	cdkeyMenuInfo.menu.key = M_CDKey2Menu_Key;
-	cdkeyMenuInfo.menu.descX = MENU_DESC_X;
-	cdkeyMenuInfo.menu.descY = MENU_DESC_Y;
-	cdkeyMenuInfo.menu.titleX = MENU_TITLE_X;
-	cdkeyMenuInfo.menu.titleY = MENU_TITLE_Y;
-	cdkeyMenuInfo.menu.titleI = MNT_CDKEYMENU_TITLE;
-	cdkeyMenuInfo.menu.footNoteEnum = MNT_CDKEY;
+	cdkeyMenuInfo.menu.m_WrapAround = true;
+	cdkeyMenuInfo.menu.m_Fullscreen = qtrue;
+	cdkeyMenuInfo.menu.OnDraw = CDKey2_MenuDraw;
+	cdkeyMenuInfo.menu.OnKey = M_CDKey2Menu_Key;
+	cdkeyMenuInfo.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	cdkeyMenuInfo.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CDKEYMENU_TITLE };
+	cdkeyMenuInfo.menu.m_FootNote = MNT_CDKEY;
 
-	cdkeyMenuInfo.cdkey.generic.type = MTYPE_FIELD;
+	cdkeyMenuInfo.cdkey.generic.m_Type = EMenuItemType::Field;
 	cdkeyMenuInfo.cdkey.generic.flags = QMF_UPPERCASE;
 	cdkeyMenuInfo.cdkey.generic.x = 260;
 	cdkeyMenuInfo.cdkey.generic.y = 172;
@@ -455,7 +449,7 @@ static void UI_CDKeyMenu2_Init(void)
 	cdkeyMenuInfo.cdkey.field.textcolor = CT_DKGOLD1;
 	cdkeyMenuInfo.cdkey.field.textcolor2 = CT_LTGOLD1;
 
-	cdkeyMenuInfo.accept.generic.type = MTYPE_BITMAP;
+	cdkeyMenuInfo.accept.generic.m_Type = EMenuItemType::Bitmap;
 	cdkeyMenuInfo.accept.generic.name = GRAPHIC_SQUARE;
 	cdkeyMenuInfo.accept.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	cdkeyMenuInfo.accept.generic.id = ID_ACCEPT;
@@ -472,7 +466,7 @@ static void UI_CDKeyMenu2_Init(void)
 	cdkeyMenuInfo.accept.textcolor = CT_BLACK;
 	cdkeyMenuInfo.accept.textcolor2 = CT_WHITE;
 
-	cdkeyMenuInfo.acceptlater.generic.type = MTYPE_BITMAP;
+	cdkeyMenuInfo.acceptlater.generic.m_Type = EMenuItemType::Bitmap;
 	cdkeyMenuInfo.acceptlater.generic.name = GRAPHIC_SQUARE;
 	cdkeyMenuInfo.acceptlater.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	cdkeyMenuInfo.acceptlater.generic.id = ID_ACCEPTLATER;

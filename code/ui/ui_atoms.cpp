@@ -126,20 +126,20 @@ void UI_PushMenu(menuframework_s *menu)
 	uis.activemenu = menu;
 
 	/* default cursor position */
-	menu->cursor = 0;
-	menu->cursor_prev = 0;
+	menu->m_Cursor = 0;
+	menu->m_CursorPrev = 0;
 
 	m_entersound = qtrue;
 
 	trap_Key_SetCatcher(KEYCATCH_UI);
 
 	/* force first available item to have focus */
-	for (i = 0; i < menu->nitems; i++)
+	for (i = 0; i < menu->m_ItemCount; i++)
 	{
-		item = (menucommon_s *)menu->items[i];
+		item = (menucommon_s *)menu->m_Items[i];
 		if (!(item->flags & (QMF_GRAYED | QMF_MOUSEONLY | QMF_INACTIVE)))
 		{
-			menu->cursor_prev = -1;
+			menu->m_CursorPrev = -1;
 			Menu_SetCursor(menu, i);
 			break;
 		}
@@ -191,7 +191,7 @@ void UI_ForceMenuOff(void)
 UI_LerpColor
 =================
 */
-static void UI_LerpColor(vec4_t a, vec4_t b, vec4_t c, float t)
+static void UI_LerpColor(const float* a, const float* b, float* c, float t)
 {
 	UI_LogFuncBegin();
 	int32_t i;
@@ -221,9 +221,9 @@ enum ui_atomsProportionalString2_e {
 	CHARMAX = 256
 };
 
-static int32_t	propMapBig[CHARMAX][3];
-static int32_t	propMap[CHARMAX][3];
-static int32_t	propMapTiny[CHARMAX][3];
+int32_t	propMapBig[CHARMAX][3];
+int32_t	propMap[CHARMAX][3];
+int32_t	propMapTiny[CHARMAX][3];
 
 static int32_t const propMapB[26][3] = {
 	{ 11, 12, 33 },
@@ -424,7 +424,7 @@ int32_t UI_ProportionalStringWidth(const char* str, int32_t style) {
 	return width;
 }
 
-static int32_t specialTinyPropChars[CHARMAX][2] = {
+int32_t specialTinyPropChars[CHARMAX][2] = {
 	{ 0, 0 },
 	{ 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 },	/* 10 */
 	{ 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 },	/* 20 */
@@ -486,7 +486,7 @@ static int32_t specialPropChars[CHARMAX][2] = {
 };
 
 
-static int32_t specialBigPropChars[CHARMAX][2] = {
+int32_t specialBigPropChars[CHARMAX][2] = {
 	{ 0, 0 },
 	{ 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 },	/* 10 */
 	{ 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 },	/* 20 */
@@ -523,7 +523,7 @@ static int32_t showColorChars;
 UI_DrawProportionalString2
 =================
 */
-static void UI_DrawProportionalString2(int32_t x, int32_t y, const char* str, vec4_t color, int32_t style, qhandle_t charset)
+static void UI_DrawProportionalString2(int32_t x, int32_t y, const char* str, const float* color, int32_t style, qhandle_t charset)
 {
 	UI_LogFuncBegin();
 	const char* s;
@@ -749,7 +749,7 @@ float UI_ProportionalSizeScale(int32_t style) {
 UI_DrawProportionalString
 =================
 */
-void UI_DrawProportionalString(int32_t x, int32_t y, const char* str, int32_t style, vec4_t color) {
+void UI_DrawProportionalString(int32_t x, int32_t y, const char* str, int32_t style, const float* color) {
 	UI_LogFuncBegin();
 	vec4_t	drawcolor;
 	int32_t		width;
@@ -857,7 +857,7 @@ void UI_DrawProportionalString(int32_t x, int32_t y, const char* str, int32_t st
 UI_DrawString2
 =================
 */
-static void UI_DrawString2(int32_t x, int32_t y, const char* str, vec4_t color, int32_t charw, int32_t charh)
+static void UI_DrawString2(int32_t x, int32_t y, const char* str, const float* color, int32_t charw, int32_t charh)
 {
 	UI_LogFuncBegin();
 	const char* s;
@@ -942,7 +942,7 @@ static void UI_DrawString2(int32_t x, int32_t y, const char* str, vec4_t color, 
 UI_DrawString
 =================
 */
-void UI_DrawString(int32_t x, int32_t y, const char* str, int32_t style, vec4_t color, qboolean highRes)
+void UI_DrawString(int32_t x, int32_t y, const char* str, int32_t style, const float* color, qboolean highRes)
 {
 	UI_LogFuncBegin();
 	int32_t		len;
@@ -950,7 +950,7 @@ void UI_DrawString(int32_t x, int32_t y, const char* str, int32_t style, vec4_t 
 	int32_t		charh;
 	vec4_t	newcolor;
 	vec4_t	lowlight;
-	float	*drawcolor;
+	const float	*drawcolor;
 	vec4_t	dropcolor;
 
 	if (!str) {
@@ -1050,7 +1050,7 @@ void UI_DrawString(int32_t x, int32_t y, const char* str, int32_t style, vec4_t 
 UI_DrawChar
 =================
 */
-void UI_DrawChar(int32_t x, int32_t y, int32_t ch, int32_t style, vec4_t color)
+void UI_DrawChar(int32_t x, int32_t y, int32_t ch, int32_t style, const float* color)
 {
 	UI_LogFuncBegin();
 	char	buff[2];
@@ -1061,14 +1061,14 @@ void UI_DrawChar(int32_t x, int32_t y, int32_t ch, int32_t style, vec4_t color)
 	UI_DrawString(x, y, buff, style, color, qfalse);
 }
 
-qboolean UI_IsFullscreen(void) {
+bool UI_IsFullscreen(void) {
 	UI_LogFuncEnd();
 	if (uis.activemenu && (trap_Key_GetCatcher() & KEYCATCH_UI)) {
 		UI_LogFuncEnd();
-		return uis.activemenu->fullscreen;
+		return uis.activemenu->m_Fullscreen;
 	}
 	UI_LogFuncEnd();
-	return qfalse;
+	return false;
 }
 
 static void NeedCDAction(qboolean result) {
@@ -1124,8 +1124,8 @@ void UI_KeyEvent(int32_t key) {
 		return;
 	}
 
-	if (uis.activemenu->key)
-		s = uis.activemenu->key(key);
+	if (uis.activemenu->OnKey)
+		s = uis.activemenu->OnKey(key);
 	else
 		s = Menu_DefaultKey(uis.activemenu, key);
 
@@ -1176,15 +1176,15 @@ void UI_MouseEvent(int32_t dx, int32_t dy)
 		uis.cursory = SCREEN_HEIGHT;
 
 	/* RPG-X: TiM - Skip new selections if a spin control window is open */
-	if (uis.activemenu->noNewSelecting){
+	if (uis.activemenu->m_NoNewSelecting){
 		UI_LogFuncEnd();
 		return;
 	}
 
 	/* region test the active menu items */
-	for (i = 0; i < uis.activemenu->nitems; i++)
+	for (i = 0; i < uis.activemenu->m_ItemCount; i++)
 	{
-		m = (menucommon_s*)uis.activemenu->items[i];
+		m = (menucommon_s*)uis.activemenu->m_Items[i];
 
 		if (m->flags & (QMF_GRAYED | QMF_INACTIVE))
 			continue;
@@ -1199,24 +1199,24 @@ void UI_MouseEvent(int32_t dx, int32_t dy)
 		}
 
 		/* set focus to item at cursor */
-		if (uis.activemenu->cursor != i)
+		if (uis.activemenu->m_Cursor != i)
 		{
 			Menu_SetCursor(uis.activemenu, i);
-			((menucommon_s*)(uis.activemenu->items[uis.activemenu->cursor_prev]))->flags &= ~QMF_HASMOUSEFOCUS;
+			((menucommon_s*)(uis.activemenu->m_Items[uis.activemenu->m_CursorPrev]))->flags &= ~QMF_HASMOUSEFOCUS;
 
-			if (!(((menucommon_s*)(uis.activemenu->items[uis.activemenu->cursor]))->flags & QMF_SILENT)) {
+			if (!(((menucommon_s*)(uis.activemenu->m_Items[uis.activemenu->m_Cursor]))->flags & QMF_SILENT)) {
 				trap_S_StartLocalSound(menu_move_sound, CHAN_LOCAL_SOUND);
 			}
 		}
 
-		((menucommon_s*)(uis.activemenu->items[uis.activemenu->cursor]))->flags |= QMF_HASMOUSEFOCUS;
+		((menucommon_s*)(uis.activemenu->m_Items[uis.activemenu->m_Cursor]))->flags |= QMF_HASMOUSEFOCUS;
 		UI_LogFuncEnd();
 		return;
 	}
 
-	if (uis.activemenu->nitems > 0) {
+	if (uis.activemenu->m_ItemCount > 0) {
 		/* out of any region */
-		((menucommon_s*)(uis.activemenu->items[uis.activemenu->cursor]))->flags &= ~QMF_HASMOUSEFOCUS;
+		((menucommon_s*)(uis.activemenu->m_Items[uis.activemenu->m_Cursor]))->flags &= ~QMF_HASMOUSEFOCUS;
 	}
 	UI_LogFuncEnd();
 }
@@ -2203,13 +2203,13 @@ void UI_Refresh(int32_t realtime)
 	{
 		uis.widescreen.state = WIDESCREEN_NONE;
 
-		if (uis.activemenu->fullscreen)
+		if (uis.activemenu->m_Fullscreen)
 		{
 			/* draw the background */
 			trap_R_SetColor(colorTable[CT_BLACK]);
 			UI_DrawHandlePic(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, uis.whiteShader);
 		}
-		else if (!uis.activemenu->nobackground)
+		else if (!uis.activemenu->m_NoBackground)
 		{
 			/* draw the background */
 			color[0] = colorTable[CT_BLACK][0];
@@ -2223,8 +2223,8 @@ void UI_Refresh(int32_t realtime)
 
 		uis.widescreen.state = WIDESCREEN_CENTER;
 
-		if (uis.activemenu->draw)
-			uis.activemenu->draw();
+		if (uis.activemenu->OnDraw)
+			uis.activemenu->OnDraw();
 		else
 			Menu_Draw(uis.activemenu);
 
@@ -2386,10 +2386,10 @@ void UI_PrintMenuGraphics(menugraphics_s *menuGraphics, int32_t maxI)
 			}
 
 			UI_DrawProportionalString(menuGraphics[i].x,
-				menuGraphics[i].y,
-				text,
-				menuGraphics[i].style,
-				colorTable[menuGraphics[i].color]);
+			                          menuGraphics[i].y,
+			                          text,
+			                          menuGraphics[i].style,
+			                          colorTable[menuGraphics[i].color]);
 		}
 		else if (menuGraphics[i].type == MG_NUMBER)
 		{
@@ -2474,10 +2474,10 @@ static void UI_FrameTop_Graphics(menuframework_s *menu)
 	/*RPG-X REMOVE trap_R_SetColor( colorTable[CT_LTBROWN1]);*/
 	UI_DrawHandlePic(368, 136, 111, 7, uis.whiteShader); /* 5th line across bottom of top third section */
 
-	if (menu->titleI)
+	if (menu->m_Title)
 	{
-		UI_DrawProportionalString(menu->titleX, menu->titleY, menu_normal_text[menu->titleI],
-			UI_RIGHT | UI_BIGFONT, colorTable[CT_LTORANGE]);
+		UI_DrawProportionalString(menu->m_Title.m_Position.X(), menu->m_Title.m_Position.Y(), menu_normal_text[menu->m_Title],
+		                          UI_RIGHT | UI_BIGFONT, colorTable[CT_LTORANGE]);
 	}
 	UI_LogFuncEnd();
 }
@@ -2563,11 +2563,11 @@ void UI_MenuFrame(menuframework_s *menu)
 
 	if (!ingameFlag)
 	{
-		menu->fullscreen = qtrue;
+		menu->m_Fullscreen = qtrue;
 	}
 	else	/* In game menu */
 	{
-		menu->fullscreen = qfalse;
+		menu->m_Fullscreen = qfalse;
 	}
 
 	/* Graphic frame */
@@ -2575,10 +2575,10 @@ void UI_MenuFrame(menuframework_s *menu)
 	UI_FrameBottom_Graphics();	/* Bottom two thirds */
 
 	/* Add foot note */
-	if (menu->footNoteEnum)
+	if (menu->m_FootNote)
 	{
-		UI_DrawProportionalString(MENU_TITLE_X, 440, menu_normal_text[menu->footNoteEnum], UI_RIGHT | UI_SMALLFONT, colorTable[CT_LTORANGE]);
-		UI_MenuBottomLineEnd_Graphics(menu_normal_text[menu->footNoteEnum], CT_LTBROWN1, &space);
+		UI_DrawProportionalString(MENU_TITLE_X, 440, menu_normal_text[menu->m_FootNote], UI_RIGHT | UI_SMALLFONT, colorTable[CT_LTORANGE]);
+		UI_MenuBottomLineEnd_Graphics(menu_normal_text[menu->m_FootNote], CT_LTBROWN1, &space);
 	}
 
 	/* Print version */
@@ -2605,17 +2605,17 @@ void UI_MenuFrame2(menuframework_s *menu)
 
 	if (!ingameFlag)
 	{
-		menu->fullscreen = qtrue;
+		menu->m_Fullscreen = qtrue;
 	}
 	else	/* In game menu */
 	{
-		menu->fullscreen = qfalse;
+		menu->m_Fullscreen = qfalse;
 	}
 
-	if (menu->titleI)
+	if (menu->m_Title)
 	{
-		UI_DrawProportionalString(menu->titleX, menu->titleY, menu_normal_text[menu->titleI],
-			UI_RIGHT | UI_BIGFONT, colorTable[CT_LTORANGE]);
+		UI_DrawProportionalString(menu->m_Title.m_Position.X(), menu->m_Title.m_Position.Y(), menu_normal_text[menu->m_Title],
+		                          UI_RIGHT | UI_BIGFONT, colorTable[CT_LTORANGE]);
 	}
 
 	trap_R_SetColor(colorTable[CT_DKBROWN1]);
@@ -2631,10 +2631,10 @@ void UI_MenuFrame2(menuframework_s *menu)
 	UI_DrawHandlePic(96, 438, 268, 18, uis.whiteShader);	/* Bottom front Line */
 
 	/* Add foot note */
-	if (menu->footNoteEnum)
+	if (menu->m_FootNote)
 	{
-		UI_DrawProportionalString(MENU_TITLE_X, 440, menu_normal_text[menu->footNoteEnum], UI_RIGHT | UI_SMALLFONT, colorTable[CT_LTORANGE]);
-		UI_MenuBottomLineEnd_Graphics(menu_normal_text[menu->footNoteEnum], CT_LTBROWN1, &space);
+		UI_DrawProportionalString(MENU_TITLE_X, 440, menu_normal_text[menu->m_FootNote], UI_RIGHT | UI_SMALLFONT, colorTable[CT_LTORANGE]);
+		UI_MenuBottomLineEnd_Graphics(menu_normal_text[menu->m_FootNote], CT_LTBROWN1, &space);
 	}
 	trap_R_SetColor(NULL);
 
@@ -2876,7 +2876,7 @@ UI_InitSpinControl
 void UI_InitSpinControl(menulist_s *spincontrol)
 {
 	UI_LogFuncBegin();
-	spincontrol->generic.type = MTYPE_SPINCONTROL;
+	spincontrol->generic.m_Type = EMenuItemType::SpinControl;
 	spincontrol->generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	spincontrol->textcolor = CT_BLACK;
 	spincontrol->textcolor2 = CT_WHITE;

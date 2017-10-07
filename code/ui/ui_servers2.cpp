@@ -1612,19 +1612,16 @@ static void ArenaServers_MenuInit(void)
 
 	ArenaServers_Cache();
 
-	g_arenaservers.menu.fullscreen = qtrue;
-	g_arenaservers.menu.wrapAround = qtrue;
-	g_arenaservers.menu.draw = ArenaServers_MenuDraw;
-	g_arenaservers.menu.key = ArenaServers_MenuKey;
-	g_arenaservers.menu.descX = MENU_DESC_X;
-	g_arenaservers.menu.descY = MENU_DESC_Y;
-	g_arenaservers.menu.titleX = MENU_TITLE_X;
-	g_arenaservers.menu.titleY = MENU_TITLE_Y;
-	g_arenaservers.menu.titleI = MNT_MULTIPLAYER_TITLE;
-	g_arenaservers.menu.footNoteEnum = MNT_FINDSERVER;
+	g_arenaservers.menu.m_Fullscreen = qtrue;
+	g_arenaservers.menu.m_WrapAround = true;
+	g_arenaservers.menu.OnDraw = ArenaServers_MenuDraw;
+	g_arenaservers.menu.OnKey = ArenaServers_MenuKey;
+	g_arenaservers.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	g_arenaservers.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_MULTIPLAYER_TITLE };
+	g_arenaservers.menu.m_FootNote = MNT_FINDSERVER;
 
 
-	g_arenaservers.mainmenu.generic.type = MTYPE_BITMAP;
+	g_arenaservers.mainmenu.generic.m_Type = EMenuItemType::Bitmap;
 	g_arenaservers.mainmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_arenaservers.mainmenu.generic.x = 110;
 	g_arenaservers.mainmenu.generic.y = 391;
@@ -1641,7 +1638,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.mainmenu.textcolor = CT_BLACK;
 	g_arenaservers.mainmenu.textcolor2 = CT_WHITE;
 
-	g_arenaservers.back.generic.type = MTYPE_BITMAP;
+	g_arenaservers.back.generic.m_Type = EMenuItemType::Bitmap;
 	g_arenaservers.back.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_arenaservers.back.generic.x = 110;
 	g_arenaservers.back.generic.y = 415;
@@ -1658,7 +1655,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.back.textcolor = CT_BLACK;
 	g_arenaservers.back.textcolor2 = CT_WHITE;
 
-	g_arenaservers.master.generic.type = MTYPE_SPINCONTROL;
+	g_arenaservers.master.generic.m_Type = EMenuItemType::SpinControl;
 	g_arenaservers.master.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_arenaservers.master.generic.callback = ArenaServers_Event;
 	g_arenaservers.master.generic.id = ID_MASTER;
@@ -1674,7 +1671,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.master.textY = 2;
 	g_arenaservers.master.listnames = master_items;
 
-	g_arenaservers.gametype.generic.type = MTYPE_SPINCONTROL;
+	g_arenaservers.gametype.generic.m_Type = EMenuItemType::SpinControl;
 	g_arenaservers.gametype.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_arenaservers.gametype.generic.callback = ArenaServers_Event;
 	g_arenaservers.gametype.generic.id = ID_GAMETYPE;
@@ -1690,7 +1687,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.gametype.textY = 2;
 	g_arenaservers.gametype.listnames = servertype_items;
 
-	g_arenaservers.sortkey.generic.type = MTYPE_SPINCONTROL;
+	g_arenaservers.sortkey.generic.m_Type = EMenuItemType::SpinControl;
 	g_arenaservers.sortkey.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_arenaservers.sortkey.generic.callback = ArenaServers_Event;
 	g_arenaservers.sortkey.generic.id = ID_SORTKEY;
@@ -1707,7 +1704,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.sortkey.listnames = sortkey_items;
 
 
-	g_arenaservers.showfull.generic.type = MTYPE_SPINCONTROL;
+	g_arenaservers.showfull.generic.m_Type = EMenuItemType::SpinControl;
 	g_arenaservers.showfull.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_arenaservers.showfull.generic.callback = ArenaServers_Event;
 	g_arenaservers.showfull.generic.id = ID_SHOW_FULL;
@@ -1723,7 +1720,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.showfull.textY = 2;
 	g_arenaservers.showfull.listnames = noyes_items;
 
-	g_arenaservers.showempty.generic.type = MTYPE_SPINCONTROL;
+	g_arenaservers.showempty.generic.m_Type = EMenuItemType::SpinControl;
 	g_arenaservers.showempty.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_arenaservers.showempty.generic.callback = ArenaServers_Event;
 	g_arenaservers.showempty.generic.id = ID_SHOW_EMPTY;
@@ -1739,7 +1736,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.showempty.textY = 2;
 	g_arenaservers.showempty.listnames = noyes_items;
 
-	g_arenaservers.list.generic.type = MTYPE_SCROLLLIST;
+	g_arenaservers.list.generic.m_Type = EMenuItemType::ScrollList;
 	g_arenaservers.list.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_arenaservers.list.generic.id = ID_LIST;
 	g_arenaservers.list.generic.callback = ArenaServers_Event;
@@ -1753,7 +1750,7 @@ static void ArenaServers_MenuInit(void)
 		g_arenaservers.items[i] = g_arenaservers.table[i].buff;
 	}
 
-	g_arenaservers.mappic.generic.type = MTYPE_BITMAP;
+	g_arenaservers.mappic.generic.m_Type = EMenuItemType::Bitmap;
 	g_arenaservers.mappic.generic.flags = QMF_LEFT_JUSTIFY | QMF_INACTIVE;
 	g_arenaservers.mappic.generic.x = 95;
 	g_arenaservers.mappic.generic.y = 71;
@@ -1761,7 +1758,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.mappic.height = 96;
 	g_arenaservers.mappic.errorpic = (char*)ART_UNKNOWNMAP;
 
-	g_arenaservers.up.generic.type = MTYPE_BITMAP;
+	g_arenaservers.up.generic.m_Type = EMenuItemType::Bitmap;
 	g_arenaservers.up.generic.flags = QMF_HIGHLIGHT_IF_FOCUS | QMF_MOUSEONLY;
 	g_arenaservers.up.generic.callback = ArenaServers_Event;
 	g_arenaservers.up.generic.id = ID_SCROLL_UP;
@@ -1774,7 +1771,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.up.generic.name = "menu/common/arrow_up_16.tga";
 	g_arenaservers.up.textEnum = MBT_ARROW_UP;
 
-	g_arenaservers.down.generic.type = MTYPE_BITMAP;
+	g_arenaservers.down.generic.m_Type = EMenuItemType::Bitmap;
 	g_arenaservers.down.generic.flags = QMF_HIGHLIGHT_IF_FOCUS | QMF_MOUSEONLY;
 	g_arenaservers.down.generic.callback = ArenaServers_Event;
 	g_arenaservers.down.generic.id = ID_SCROLL_DOWN;
@@ -1787,7 +1784,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.down.generic.name = "menu/common/arrow_dn_16.tga";
 	g_arenaservers.down.textEnum = MBT_ARROW_DOWN;
 
-	g_arenaservers.favorite.generic.type = MTYPE_BITMAP;
+	g_arenaservers.favorite.generic.m_Type = EMenuItemType::Bitmap;
 	g_arenaservers.favorite.generic.flags = QMF_HIGHLIGHT_IF_FOCUS | QMF_MOUSEONLY;
 	g_arenaservers.favorite.generic.callback = ArenaServers_Event;
 	g_arenaservers.favorite.generic.id = ID_FAVORITE;
@@ -1805,7 +1802,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.favorite.textcolor2 = CT_WHITE;
 
 
-	g_arenaservers.status.generic.type = MTYPE_TEXT;
+	g_arenaservers.status.generic.m_Type = EMenuItemType::Text;
 	g_arenaservers.status.generic.flags = QMF_INACTIVE;
 	g_arenaservers.status.generic.x = 129;
 	g_arenaservers.status.generic.y = 368;
@@ -1813,7 +1810,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.status.style = UI_SMALLFONT;
 	g_arenaservers.status.color = menu_text_color;
 
-	g_arenaservers.refresh.generic.type = MTYPE_BITMAP;
+	g_arenaservers.refresh.generic.m_Type = EMenuItemType::Bitmap;
 	g_arenaservers.refresh.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_arenaservers.refresh.generic.callback = ArenaServers_Event;
 	g_arenaservers.refresh.generic.id = ID_REFRESH;
@@ -1831,7 +1828,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.refresh.textcolor = CT_BLACK;
 	g_arenaservers.refresh.textcolor2 = CT_WHITE;
 
-	g_arenaservers.stoprefresh.generic.type = MTYPE_BITMAP;
+	g_arenaservers.stoprefresh.generic.m_Type = EMenuItemType::Bitmap;
 	g_arenaservers.stoprefresh.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_arenaservers.stoprefresh.generic.callback = ArenaServers_Event;
 	g_arenaservers.stoprefresh.generic.id = ID_STOPREFRESH;
@@ -1848,7 +1845,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.stoprefresh.textcolor = CT_BLACK;
 	g_arenaservers.stoprefresh.textcolor2 = CT_WHITE;
 
-	g_arenaservers.remove.generic.type = MTYPE_BITMAP;
+	g_arenaservers.remove.generic.m_Type = EMenuItemType::Bitmap;
 	g_arenaservers.remove.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_arenaservers.remove.generic.callback = ArenaServers_Event;
 	g_arenaservers.remove.generic.id = ID_REMOVE;
@@ -1865,7 +1862,7 @@ static void ArenaServers_MenuInit(void)
 	g_arenaservers.remove.textcolor = CT_BLACK;
 	g_arenaservers.remove.textcolor2 = CT_WHITE;
 
-	g_arenaservers.go.generic.type = MTYPE_BITMAP;
+	g_arenaservers.go.generic.m_Type = EMenuItemType::Bitmap;
 	g_arenaservers.go.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_arenaservers.go.generic.x = 462;
 	g_arenaservers.go.generic.y = 391;
@@ -2041,18 +2038,15 @@ static void ChooseServerType_MenuInit(void)
 	// zero set all our globals
 	memset(&g_chooseservertype, 0, sizeof(chooseservertype_t));
 
-	g_chooseservertype.menu.fullscreen = qtrue;
-	g_chooseservertype.menu.wrapAround = qtrue;
-	g_chooseservertype.menu.draw = ChooseServerType_MenuDraw;
-	g_chooseservertype.menu.key = ChooseServerType_MenuKey;
-	g_chooseservertype.menu.descX = MENU_DESC_X;
-	g_chooseservertype.menu.descY = MENU_DESC_Y;
-	g_chooseservertype.menu.titleX = MENU_TITLE_X;
-	g_chooseservertype.menu.titleY = MENU_TITLE_Y;
-	g_chooseservertype.menu.titleI = MNT_MULTIPLAYER_TITLE;
-	g_chooseservertype.menu.footNoteEnum = MNT_FINDSERVER;
+	g_chooseservertype.menu.m_Fullscreen = qtrue;
+	g_chooseservertype.menu.m_WrapAround = true;
+	g_chooseservertype.menu.OnDraw = ChooseServerType_MenuDraw;
+	g_chooseservertype.menu.OnKey = ChooseServerType_MenuKey;
+	g_chooseservertype.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	g_chooseservertype.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_MULTIPLAYER_TITLE };
+	g_chooseservertype.menu.m_FootNote = MNT_FINDSERVER;
 
-	g_chooseservertype.main.generic.type = MTYPE_BITMAP;
+	g_chooseservertype.main.generic.m_Type = EMenuItemType::Bitmap;
 	g_chooseservertype.main.generic.name = BUTTON_GRAPHIC_LONGRIGHT;
 	g_chooseservertype.main.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	g_chooseservertype.main.generic.id = ID_BACK;
@@ -2069,7 +2063,7 @@ static void ChooseServerType_MenuInit(void)
 	g_chooseservertype.main.textcolor = CT_BLACK;
 	g_chooseservertype.main.textcolor2 = CT_WHITE;
 
-	s_find_server.generic.type = MTYPE_BITMAP;
+	s_find_server.generic.m_Type = EMenuItemType::Bitmap;
 	s_find_server.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_find_server.generic.x = 282;
 	s_find_server.generic.y = 229;
@@ -2086,7 +2080,7 @@ static void ChooseServerType_MenuInit(void)
 	s_find_server.textcolor = CT_BLACK;
 	s_find_server.textcolor2 = CT_WHITE;
 
-	s_create_server.generic.type = MTYPE_BITMAP;
+	s_create_server.generic.m_Type = EMenuItemType::Bitmap;
 	s_create_server.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_create_server.generic.x = 282;
 	s_create_server.generic.y = 279;
@@ -2103,7 +2097,7 @@ static void ChooseServerType_MenuInit(void)
 	s_create_server.textcolor = CT_BLACK;
 	s_create_server.textcolor2 = CT_WHITE;
 
-	s_specific_server.generic.type = MTYPE_BITMAP;
+	s_specific_server.generic.m_Type = EMenuItemType::Bitmap;
 	s_specific_server.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_specific_server.generic.x = 282;
 	s_specific_server.generic.y = 329;

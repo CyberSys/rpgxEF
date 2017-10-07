@@ -359,21 +359,18 @@ static void Demos_MenuInit(void)
 	char	*demoname;
 
 	memset(&s_demos, 0, sizeof(demos_t));
-	s_demos.menu.key = UI_DemosMenu_Key;
+	s_demos.menu.OnKey = UI_DemosMenu_Key;
 
 	UI_DemosMenu_Cache();
 
-	s_demos.menu.fullscreen = qtrue;
-	s_demos.menu.wrapAround = qtrue;
-	s_demos.menu.draw = Demos_MenuDraw;
-	s_demos.menu.descX = MENU_DESC_X;
-	s_demos.menu.descY = MENU_DESC_Y;
-	s_demos.menu.titleX = MENU_TITLE_X;
-	s_demos.menu.titleY = MENU_TITLE_Y;
-	s_demos.menu.titleI = MNT_DEMOS_TITLE;
-	s_demos.menu.footNoteEnum = MNT_DEMOS;
+	s_demos.menu.m_Fullscreen = qtrue;
+	s_demos.menu.m_WrapAround = true;
+	s_demos.menu.OnDraw = Demos_MenuDraw;
+	s_demos.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_demos.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_DEMOS_TITLE };
+	s_demos.menu.m_FootNote = MNT_DEMOS;
 
-	s_demos.main.generic.type = MTYPE_BITMAP;
+	s_demos.main.generic.m_Type = EMenuItemType::Bitmap;
 	s_demos.main.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_demos.main.generic.x = 482;
 	s_demos.main.generic.y = 136;
@@ -390,7 +387,7 @@ static void Demos_MenuInit(void)
 	s_demos.main.textcolor = CT_BLACK;
 	s_demos.main.textcolor2 = CT_WHITE;
 
-	s_demos.engage.generic.type = MTYPE_BITMAP;
+	s_demos.engage.generic.m_Type = EMenuItemType::Bitmap;
 	s_demos.engage.generic.flags = (QMF_INACTIVE | QMF_GRAYED);
 	s_demos.engage.generic.x = 283;
 	s_demos.engage.generic.y = 101;
@@ -407,7 +404,7 @@ static void Demos_MenuInit(void)
 	s_demos.engage.textcolor = CT_BLACK;
 	s_demos.engage.textcolor2 = CT_WHITE;
 
-	s_demos.upArrow.generic.type = MTYPE_BITMAP;
+	s_demos.upArrow.generic.m_Type = EMenuItemType::Bitmap;
 	s_demos.upArrow.generic.flags = (QMF_INACTIVE | QMF_GRAYED);
 	s_demos.upArrow.generic.x = 486;
 	s_demos.upArrow.generic.y = 195;
@@ -421,7 +418,7 @@ static void Demos_MenuInit(void)
 	s_demos.upArrow.textcolor = CT_BLACK;
 	s_demos.upArrow.textcolor2 = CT_WHITE;
 
-	s_demos.downArrow.generic.type = MTYPE_BITMAP;
+	s_demos.downArrow.generic.m_Type = EMenuItemType::Bitmap;
 	s_demos.downArrow.generic.flags = (QMF_INACTIVE | QMF_GRAYED);
 	s_demos.downArrow.generic.x = 486;
 	s_demos.downArrow.generic.y = 404;
@@ -435,7 +432,7 @@ static void Demos_MenuInit(void)
 	s_demos.downArrow.textcolor = CT_BLACK;
 	s_demos.downArrow.textcolor2 = CT_WHITE;
 
-	s_demos.currentFile.generic.type = MTYPE_BITMAP;
+	s_demos.currentFile.generic.m_Type = EMenuItemType::Bitmap;
 	s_demos.currentFile.generic.flags = QMF_INACTIVE;
 	s_demos.currentFile.generic.x = 218;
 	s_demos.currentFile.generic.y = 68;
@@ -452,7 +449,7 @@ static void Demos_MenuInit(void)
 	s_demos.currentFile.textPtr = NULL;
 	s_demos.currentFile.textcolor = CT_YELLOW;
 
-	s_demos.list.generic.type = MTYPE_SCROLLLIST;
+	s_demos.list.generic.m_Type = EMenuItemType::ScrollList;
 	s_demos.list.generic.flags = QMF_PULSEIFFOCUS;
 	s_demos.list.generic.callback = Demos_MenuEvent;
 	s_demos.list.generic.id = ID_LIST;
@@ -469,7 +466,7 @@ static void Demos_MenuInit(void)
 	i = 0;
 	while (g_demoline[i])
 	{
-		((menubitmap_s *)g_demoline[i])->generic.type = MTYPE_BITMAP;
+		((menubitmap_s *)g_demoline[i])->generic.m_Type = EMenuItemType::Bitmap;
 		((menubitmap_s *)g_demoline[i])->generic.flags = QMF_INACTIVE | QMF_HIDDEN;
 		((menubitmap_s *)g_demoline[i])->generic.x = x;
 		((menubitmap_s *)g_demoline[i])->generic.y = y;

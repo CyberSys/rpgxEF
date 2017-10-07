@@ -1,6 +1,7 @@
 #include "cg_logger.h"
+#include "cg_local.h"
 
-void QDECL CG_Logger(int level, char* fmt, ...)
+void CG_Logger(int level, char* fmt, ...)
 {
 	va_list argptr;
 	char	text[1024];
@@ -37,7 +38,7 @@ void QDECL CG_Logger(int level, char* fmt, ...)
 	}
 }
 
-void QDECL _CG_LocLogger(const char* file, int line, int level, char* fmt, ...)
+void _CG_LocLogger(const char* file, int line, int level, char* fmt, ...)
 {
 	va_list argptr;
 	char	text[1024];

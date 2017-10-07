@@ -203,7 +203,7 @@ static void M_HolodeckMenu_Graphics (void)
 
 
 	UI_DrawProportionalString( xTurboStart, 24,
-		menu_normal_text[MNT_HOLODECK],   UI_BIGFONT | UI_RIGHT, colorTable[CT_WHITE]);		
+	                           menu_normal_text[MNT_HOLODECK], UI_BIGFONT | UI_RIGHT, colorTable[CT_WHITE]);		
 
 	trap_R_SetColor( colorTable[CT_DKPURPLE1]); //DKGOLD1
 	UI_DrawHandlePic( 607,  24,-16,   32, leftRound);
@@ -296,21 +296,19 @@ void HolodeckMenu_Init()
 
 	PrgmList_Init();
 
-	s_holodeck.menu.nitems				= 0;
-	s_holodeck.menu.draw				= HolodeckMenu_Draw;
-	s_holodeck.menu.key					= HolodeckMenu_Key;
-	s_holodeck.menu.wrapAround			= qtrue;
-	s_holodeck.menu.descX				= MENU_DESC_X;
-	s_holodeck.menu.descY				= MENU_DESC_Y;
-	s_holodeck.menu.titleX				= MENU_TITLE_X;
-	s_holodeck.menu.titleY				= MENU_TITLE_Y;
+	s_holodeck.menu.m_ItemCount				= 0;
+	s_holodeck.menu.OnDraw				= HolodeckMenu_Draw;
+	s_holodeck.menu.OnKey					= HolodeckMenu_Key;
+	s_holodeck.menu.m_WrapAround			= true;
+	s_holodeck.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_holodeck.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y } };
 
 	pad = PROP_BIG_HEIGHT + 10;
 	width = MENU_BUTTON_MED_WIDTH-20;
 	y = 72;
 	x = 86;
 
-	s_holodeck.engage.generic.type		= MTYPE_BITMAP;
+	s_holodeck.engage.generic.m_Type		= EMenuItemType::Bitmap;
 	s_holodeck.engage.generic.flags		= QMF_HIGHLIGHT_IF_FOCUS;
 	s_holodeck.engage.generic.x			= x;
 	s_holodeck.engage.generic.y			= y;
@@ -330,7 +328,7 @@ void HolodeckMenu_Init()
 
 	x += width + 8;
 
-	s_holodeck.quitmenu.generic.type	= MTYPE_BITMAP;
+	s_holodeck.quitmenu.generic.m_Type	= EMenuItemType::Bitmap;
 	s_holodeck.quitmenu.generic.flags	= QMF_HIGHLIGHT_IF_FOCUS;
 	s_holodeck.quitmenu.generic.x		= x;
 	s_holodeck.quitmenu.generic.y		= y;
@@ -351,7 +349,7 @@ void HolodeckMenu_Init()
 	x -= width + 8;
 	y += pad;
 
-	s_holodeck.progButton.generic.type	= MTYPE_SPINCONTROL;
+	s_holodeck.progButton.generic.m_Type	= EMenuItemType::SpinControl;
 	s_holodeck.progButton.generic.flags	= QMF_HIGHLIGHT_IF_FOCUS | QMF_ALTERNATE2;
 	s_holodeck.progButton.generic.x		= x;
 	s_holodeck.progButton.generic.y		= y;

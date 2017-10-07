@@ -331,7 +331,7 @@ static void Text_Draw(menuframework_s *menu, menutext_s *t )
 		{
 			if (menu_button_text[t->buttontextEnum][1])
 			{
-				UI_DrawProportionalString( menu->descX, menu->descY, menu_button_text[t->buttontextEnum][1], UI_LEFT|UI_TINYFONT, colorTable[CT_BLACK]);
+				UI_DrawProportionalString( menu->m_DescriptionPosition.X(), menu->m_DescriptionPosition.Y(), menu_button_text[t->buttontextEnum][1], UI_LEFT|UI_TINYFONT, colorTable[CT_BLACK]);
 			}
 		}
 	}
@@ -601,7 +601,7 @@ void Bitmap_Draw( menubitmap_s *b )
 		// If there's a description for this bitmap, print it
 		if (menu_button_text[b->textEnum][1])
 		{
-			UI_DrawProportionalString( menu->descX, menu->descY, menu_button_text[b->textEnum][1], UI_LEFT|UI_TINYFONT, colorTable[CT_BLACK]);
+			UI_DrawProportionalString( menu->m_DescriptionPosition.X(), menu->m_DescriptionPosition.Y(), menu_button_text[b->textEnum][1], UI_LEFT|UI_TINYFONT, colorTable[CT_BLACK]);
 		}
 
 		trap_R_SetColor( NULL );
@@ -749,13 +749,13 @@ static void Action_Draw( menuaction_s *a )
 		buttonColor = a->color3;
 		textColor = a->textcolor3;
 	}
-	else if (( a->generic.flags & QMF_PULSEIFFOCUS ) && ( a->generic.parent->cursor == a->generic.menuPosition ))
+	else if (( a->generic.flags & QMF_PULSEIFFOCUS ) && ( a->generic.parent->m_Cursor == a->generic.menuPosition ))
 	{
 		buttonColor = a->color2;
 		textColor = a->textcolor2;
 		style = UI_PULSE;
 	}
-	else if (( a->generic.flags & QMF_HIGHLIGHT_IF_FOCUS ) && ( a->generic.parent->cursor == a->generic.menuPosition ))
+	else if (( a->generic.flags & QMF_HIGHLIGHT_IF_FOCUS ) && ( a->generic.parent->m_Cursor == a->generic.menuPosition ))
 	{
 		buttonColor = a->color2;
 		textColor = a->textcolor2;
@@ -887,7 +887,7 @@ static void RadioButton_Draw( menuradiobutton_s *rb )
 	x = rb->generic.x;
 	y = rb->generic.y;
 
-	focus = static_cast<qboolean>(rb->generic.parent->cursor == rb->generic.menuPosition);
+	focus = static_cast<qboolean>(rb->generic.parent->m_Cursor == rb->generic.menuPosition);
 
 	if ( rb->generic.flags & QMF_GRAYED )
 	{
@@ -1081,14 +1081,14 @@ static void Slider_Draw( menuslider_s *s )
 	//TiM - Reset 
 	if ( !trap_Key_IsDown( K_MOUSE1 ) && s->mouseDown ) {
 		s->mouseDown = qfalse;
-		s->generic.parent->noNewSelecting = qfalse;
+		s->generic.parent->m_NoNewSelecting = qfalse;
 	}
 
 	if ( s->mouseDown ) {
 		s->curvalue = ((uis.cursorx - s->generic.x)/(float)(s->focusWidth)) * (s->maxvalue-s->minvalue) + s->minvalue;
 		s->curvalue = Com_Clamp( s->minvalue, s->maxvalue, s->curvalue);
 
-		s->generic.parent->noNewSelecting = qtrue;
+		s->generic.parent->m_NoNewSelecting = qtrue;
 	}
 
 	// Print pic
@@ -1107,7 +1107,7 @@ static void Slider_Draw( menuslider_s *s )
 
 	if ((focus) && (menu_button_text[s->textEnum][1]))
 	{
-		UI_DrawProportionalString( s->generic.parent->descX, s->generic.parent->descY, menu_button_text[s->textEnum][1], UI_LEFT|UI_TINYFONT, colorTable[CT_BLACK]);
+		UI_DrawProportionalString( s->generic.parent->m_DescriptionPosition.X(), s->generic.parent->m_DescriptionPosition.Y(), menu_button_text[s->textEnum][1], UI_LEFT|UI_TINYFONT, colorTable[CT_BLACK]);
 	}
 
 	// clamp thumb
@@ -1274,8 +1274,10 @@ static void SpinControl_Init( menulist_s *s )
 
 static sfxHandle_t	SpinControl_InitListRender( menulist_s* s ) {
 	UI_LogFuncBegin();
-	if ( !s->generic.parent->displaySpinList ) {
-		if ( (s->generic.flags & QMF_HASMOUSEFOCUS) ) { //we clicked on the button, and the list wasn't open lol
+	if ( !s->generic.parent->m_DisplaySpinList ) 
+  {
+		if ( (s->generic.flags & QMF_HASMOUSEFOCUS) ) 
+    { //we clicked on the button, and the list wasn't open lol
 			//in case the data was changed, init the box height data and such again
 			{
 				//init the data area
@@ -1367,8 +1369,8 @@ static sfxHandle_t	SpinControl_InitListRender( menulist_s* s ) {
 			}
 
 			//set the main menu to know to draw the box for this
-			s->generic.parent->displaySpinList = s;
-			s->generic.parent->noNewSelecting = qtrue;
+			s->generic.parent->m_DisplaySpinList = s;
+			s->generic.parent->m_NoNewSelecting = qtrue;
 
 			UI_LogFuncEnd();
 			return menu_move_sound;
@@ -1403,16 +1405,16 @@ static sfxHandle_t	SpinControl_InitListRender( menulist_s* s ) {
 
 			s->curvalue = selectedNum;
 
-			s->generic.parent->displaySpinList = NULL;
-			s->generic.parent->noNewSelecting = qfalse;
+			s->generic.parent->m_DisplaySpinList = NULL;
+			s->generic.parent->m_NoNewSelecting = qfalse;
 
 			UI_LogFuncEnd();
 			return menu_out_sound;
 		}
 		else //clicked outside the box, so just cancel
 		{
-			s->generic.parent->displaySpinList = NULL;
-			s->generic.parent->noNewSelecting = qfalse;
+			s->generic.parent->m_DisplaySpinList = NULL;
+			s->generic.parent->m_NoNewSelecting = qfalse;
 			UI_LogFuncEnd();
 			return menu_out_sound;
 		}
@@ -1440,7 +1442,7 @@ static sfxHandle_t SpinControl_Key( menulist_s *s, int32_t key )
 		case K_KP_ENTER:
 			if ( !s->listshaders && !s->ignoreList ) {
 				sound = SpinControl_InitListRender( s );
-				if ( !s->generic.parent->displaySpinList ) {
+				if ( !s->generic.parent->m_DisplaySpinList ) {
 					callback = qtrue;
 				}
 			}
@@ -1522,7 +1524,7 @@ static void SpinControl_Draw( menulist_s *s )
 		// Button description
 		if (menu_button_text[s->textEnum][1])
 		{
-			UI_DrawProportionalString( s->generic.parent->descX, s->generic.parent->descY, menu_button_text[s->textEnum][1], UI_LEFT|UI_TINYFONT, colorTable[CT_BLACK]);
+			UI_DrawProportionalString( s->generic.parent->m_DescriptionPosition.X(), s->generic.parent->m_DescriptionPosition.Y(), menu_button_text[s->textEnum][1], UI_LEFT|UI_TINYFONT, colorTable[CT_BLACK]);
 		}
 
 		buttonColor = s->color2;
@@ -2010,7 +2012,7 @@ void ScrollList_Draw( menulist_s *l )
 	qboolean	hasfocus;
 	int32_t			style;
 
-	hasfocus = static_cast<qboolean>(l->generic.parent->cursor == l->generic.menuPosition);
+	hasfocus = static_cast<qboolean>(l->generic.parent->m_Cursor == l->generic.menuPosition);
 
 	x =	l->generic.x;
 	for( column = 0; column < l->columns; column++ ) {
@@ -2048,11 +2050,11 @@ void ScrollList_Draw( menulist_s *l )
 			}
 
 			UI_DrawString(
-				x,
-				y,
-				l->itemnames[i],
-				style,
-				color, qfalse);
+			              x,
+			              y,
+			              l->itemnames[i],
+			              style,
+			              color, qfalse);
 
 			y += SMALLCHAR_HEIGHT;
 		}
@@ -2071,67 +2073,67 @@ void Menu_AddItem( menuframework_s *menu, void *item )
 	UI_LogFuncBegin();
 	menucommon_s	*itemptr;
 
-	if (menu->nitems >= MAX_MENUITEMS)
+	if (menu->m_ItemCount >= MAX_MENUITEMS)
 		trap_Error ("Menu_AddItem: excessive items");
 
-	menu->items[menu->nitems] = item;
-	((menucommon_s*)menu->items[menu->nitems])->parent        = menu;
-	((menucommon_s*)menu->items[menu->nitems])->menuPosition  = menu->nitems;
-	((menucommon_s*)menu->items[menu->nitems])->flags        &= ~QMF_HASMOUSEFOCUS;
+	menu->m_Items[menu->m_ItemCount] = item;
+	((menucommon_s*)menu->m_Items[menu->m_ItemCount])->parent        = menu;
+	((menucommon_s*)menu->m_Items[menu->m_ItemCount])->menuPosition  = menu->m_ItemCount;
+	((menucommon_s*)menu->m_Items[menu->m_ItemCount])->flags        &= ~QMF_HASMOUSEFOCUS;
 
 	// perform any item specific initializations
 	itemptr = (menucommon_s*)item;
 	if (!(itemptr->flags & QMF_NODEFAULTINIT))
 	{
-		switch (itemptr->type)
+		switch (itemptr->m_Type)
 		{
-			case MTYPE_ACTION:
+			case EMenuItemType::Action:
 				Action_Init((menuaction_s*)item);
 				break;
 
-			case MTYPE_FIELD:
+			case EMenuItemType::Field:
 				MenuField_Init((menufield_s*)item);
 				break;
 
-			case MTYPE_SPINCONTROL:
+			case EMenuItemType::SpinControl:
 				SpinControl_Init((menulist_s*)item);
 				break;
 
-			case MTYPE_RADIOBUTTON:
+			case EMenuItemType::RadioButton:
 				RadioButton_Init((menuradiobutton_s*)item);
 				break;
 
-			case MTYPE_SLIDER:
+			case EMenuItemType::Slider:
 				Slider_Init((menuslider_s*)item);
 				break;
 
-			case MTYPE_BITMAP:
+			case EMenuItemType::Bitmap:
 				Bitmap_Init((menubitmap_s*)item);
 				break;
 
-			case MTYPE_TEXT:
+			case EMenuItemType::Text:
 				Text_Init((menutext_s*)item);
 				break;
 
-			case MTYPE_SCROLLLIST:
+			case EMenuItemType::ScrollList:
 				ScrollList_Init((menulist_s*)item);
 				break;
 
-			case MTYPE_PTEXT:
+			case EMenuItemType::PText:
 				PText_Init((menutext_s*)item);
 				break;
 
-			case MTYPE_BTEXT:
+			case EMenuItemType::BText:
 				BText_Init((menutext_s*)item);
 				break;
 
 			default:
 				//UI_Logger( LL_ERROR, "Menu_Init: unknown type %d, ID was %i\n", itemptr->type, itemptr->id );
-				trap_Error( va("Menu_Init: unknown type %d, ID was %i", itemptr->type, itemptr->id) );
+				trap_Error( va("Menu_Init: unknown type %d, ID was %i", itemptr->m_Type, itemptr->id) );
 		}
 	}
 
-	menu->nitems++;
+	menu->m_ItemCount++;
 	UI_LogFuncEnd();
 }
 
@@ -2145,23 +2147,23 @@ void Menu_CursorMoved( menuframework_s *m )
 	UI_LogFuncBegin();
 	void (*callback)( void *self, int32_t notification );
 	
-	if (m->cursor_prev == m->cursor){
+	if (m->m_CursorPrev == m->m_Cursor){
 		UI_LogFuncEnd();
 		return;
 	}
 
-	if (m->cursor_prev >= 0 && m->cursor_prev < m->nitems)
+	if (m->m_CursorPrev >= 0 && m->m_CursorPrev < m->m_ItemCount)
 	{
-		callback = ((menucommon_s*)(m->items[m->cursor_prev]))->callback;
+		callback = ((menucommon_s*)(m->m_Items[m->m_CursorPrev]))->callback;
 		if (callback)
-			callback(m->items[m->cursor_prev],QM_LOSTFOCUS);
+			callback(m->m_Items[m->m_CursorPrev],QM_LOSTFOCUS);
 	}
 	
-	if (m->cursor >= 0 && m->cursor < m->nitems)
+	if (m->m_Cursor >= 0 && m->m_Cursor < m->m_ItemCount)
 	{
-		callback = ((menucommon_s*)(m->items[m->cursor]))->callback;
+		callback = ((menucommon_s*)(m->m_Items[m->m_Cursor]))->callback;
 		if (callback)
-			callback(m->items[m->cursor],QM_GOTFOCUS);
+			callback(m->m_Items[m->m_Cursor],QM_GOTFOCUS);
 	}
 	UI_LogFuncEnd();
 }
@@ -2174,15 +2176,15 @@ Menu_SetCursor
 void Menu_SetCursor( menuframework_s *m, int32_t cursor )
 {
 	UI_LogFuncBegin();
-	if (((menucommon_s*)(m->items[cursor]))->flags & (QMF_GRAYED|QMF_INACTIVE))
+	if (((menucommon_s*)(m->m_Items[cursor]))->flags & (QMF_GRAYED|QMF_INACTIVE))
 	{
 		// cursor can't go there
 		UI_LogFuncEnd();
 		return;
 	}
 
-	m->cursor_prev = m->cursor;
-	m->cursor      = cursor;
+	m->m_CursorPrev = m->m_Cursor;
+	m->m_Cursor      = cursor;
 
 	Menu_CursorMoved( m );
 	UI_LogFuncEnd();
@@ -2198,9 +2200,9 @@ void Menu_SetCursorToItem( menuframework_s *m, void* ptr )
 	UI_LogFuncBegin();
 	int32_t	i;
 
-	for (i=0; i<m->nitems; i++)
+	for (i=0; i<m->m_ItemCount; i++)
 	{
-		if (m->items[i] == ptr)
+		if (m->m_Items[i] == ptr)
 		{
 			Menu_SetCursor( m, i );
 			UI_LogFuncEnd();
@@ -2223,10 +2225,10 @@ void Menu_AdjustCursor( menuframework_s *m, int32_t dir ) {
 	qboolean		wrapped = qfalse;
 
 wrap:
-	while ( m->cursor >= 0 && m->cursor < m->nitems ) {
-		item = ( menucommon_s * ) m->items[m->cursor];
+	while ( m->m_Cursor >= 0 && m->m_Cursor < m->m_ItemCount ) {
+		item = ( menucommon_s * ) m->m_Items[m->m_Cursor];
 		if (( item->flags & (QMF_GRAYED|QMF_MOUSEONLY|QMF_INACTIVE) ) ) {
-			m->cursor += dir;
+			m->m_Cursor += dir;
 		}
 		else {
 			break;
@@ -2234,33 +2236,33 @@ wrap:
 	}
 
 	if ( dir == 1 ) {
-		if ( m->cursor >= m->nitems ) {
-			if ( m->wrapAround ) {
+		if ( m->m_Cursor >= m->m_ItemCount ) {
+			if ( m->m_WrapAround ) {
 				if ( wrapped ) {
-					m->cursor = m->cursor_prev;
+					m->m_Cursor = m->m_CursorPrev;
 					UI_LogFuncEnd();
 					return;
 				}
-				m->cursor = 0;
+				m->m_Cursor = 0;
 				wrapped = qtrue;
 				goto wrap;
 			}
-			m->cursor = m->cursor_prev;
+			m->m_Cursor = m->m_CursorPrev;
 		}
 	}
 	else {
-		if ( m->cursor < 0 ) {
-			if ( m->wrapAround ) {
+		if ( m->m_Cursor < 0 ) {
+			if ( m->m_WrapAround ) {
 				if ( wrapped ) {
-					m->cursor = m->cursor_prev;
+					m->m_Cursor = m->m_CursorPrev;
 					UI_LogFuncEnd();
 					return;
 				}
-				m->cursor = m->nitems - 1;
+				m->m_Cursor = m->m_ItemCount - 1;
 				wrapped = qtrue;
 				goto wrap;
 			}
-			m->cursor = m->cursor_prev;
+			m->m_Cursor = m->m_CursorPrev;
 		}
 	}
 	UI_LogFuncEnd();
@@ -2278,9 +2280,9 @@ void Menu_Draw( menuframework_s *menu )
 	menucommon_s	*itemptr;
 
 	// draw menu
-	for (i=0; i<menu->nitems; i++)
+	for (i=0; i<menu->m_ItemCount; i++)
 	{
-		itemptr = (menucommon_s*)menu->items[i];
+		itemptr = (menucommon_s*)menu->m_Items[i];
 
 		if (itemptr->flags & QMF_HIDDEN)
 			continue;
@@ -2292,50 +2294,50 @@ void Menu_Draw( menuframework_s *menu )
 		}	
 		else 
 		{
-			switch (itemptr->type)
+			switch (itemptr->m_Type)
 			{	
-				case MTYPE_RADIOBUTTON:
+				case EMenuItemType::RadioButton:
 					RadioButton_Draw( (menuradiobutton_s*)itemptr );
 					break;
 
-				case MTYPE_FIELD:
+				case EMenuItemType::Field:
 					MenuField_Draw( (menufield_s*)itemptr );
 					break;
 		
-				case MTYPE_SLIDER:
+				case EMenuItemType::Slider:
 					Slider_Draw( (menuslider_s*)itemptr );
 					break;
  
-				case MTYPE_SPINCONTROL:
+				case EMenuItemType::SpinControl:
 					SpinControl_Draw( (menulist_s*)itemptr );
 					break;
 		
-				case MTYPE_ACTION:
+				case EMenuItemType::Action:
 					Action_Draw( (menuaction_s*)itemptr );
 					break;
 		
-				case MTYPE_BITMAP:
+				case EMenuItemType::Bitmap:
 					Bitmap_Draw( (menubitmap_s*)itemptr );
 					break;
 
-				case MTYPE_TEXT:
+				case EMenuItemType::Text:
 					Text_Draw( menu,(menutext_s*)itemptr );
 					break;
 
-				case MTYPE_SCROLLLIST:
+				case EMenuItemType::ScrollList:
 					ScrollList_Draw( (menulist_s*)itemptr );
 					break;
 				
-				case MTYPE_PTEXT:
+				case EMenuItemType::PText:
 					PText_Draw( (menutext_s*)itemptr );
 					break;
 
-				case MTYPE_BTEXT:
+				case EMenuItemType::BText:
 					BText_Draw( (menutext_s*)itemptr );
 					break;
 
 				default:
-					trap_Error( va("Menu_Draw: unknown type %d", itemptr->type) );
+					trap_Error( va("Menu_Draw: unknown type %d", itemptr->m_Type) );
 			}
 		}
 
@@ -2366,13 +2368,13 @@ void Menu_Draw( menuframework_s *menu )
 //=================================================================
 
 	//TiM - Small override.  To make the scroll list render over all else, it must be put here:
-	if ( menu->displaySpinList )
+	if ( menu->m_DisplaySpinList )
 	{
 		menulist_s	*s;
 		int32_t selectedNum;
 		int32_t i;
 
-		s = (menulist_s *) menu->displaySpinList;
+		s = (menulist_s *) menu->m_DisplaySpinList;
 
 		//first... the black box
 		trap_R_SetColor( colorTable[CT_BLACK] );
@@ -2469,12 +2471,12 @@ Menu_ItemAtCursor
 void *Menu_ItemAtCursor( menuframework_s *m )
 {
 	UI_LogFuncBegin();
-	if ( m->cursor < 0 || m->cursor >= m->nitems ){
+	if ( m->m_Cursor < 0 || m->m_Cursor >= m->m_ItemCount ){
 		UI_LogFuncEnd();
 		return 0;
 	}
 	UI_LogFuncEnd();
-	return m->items[m->cursor];
+	return m->m_Items[m->m_Cursor];
 }
 
 /*
@@ -2513,9 +2515,9 @@ sfxHandle_t Menu_DefaultKey( menuframework_s *m, int32_t key )
 		case K_MOUSE2:
 		case K_ESCAPE:
 			//TiM - Escape from spin menu if we're in it
-			if ( m->displaySpinList ) {
-				m->displaySpinList = NULL;
-				m->noNewSelecting = qfalse;
+			if ( m->m_DisplaySpinList ) {
+				m->m_DisplaySpinList = NULL;
+				m->m_NoNewSelecting = qfalse;
 				UI_LogFuncEnd();
 				return menu_out_sound;
 			}
@@ -2526,7 +2528,7 @@ sfxHandle_t Menu_DefaultKey( menuframework_s *m, int32_t key )
 			}
 	}
 
-	if (!m || !m->nitems){
+	if (!m || !m->m_ItemCount){
 		UI_LogFuncEnd();
 		return 0;
 	}
@@ -2535,25 +2537,25 @@ sfxHandle_t Menu_DefaultKey( menuframework_s *m, int32_t key )
 	item = static_cast<menucommon_s*>(Menu_ItemAtCursor( m ));
 	if (item && !(item->flags & (QMF_GRAYED|QMF_INACTIVE)))
 	{
-		switch (item->type)
+		switch (item->m_Type)
 		{
-			case MTYPE_SPINCONTROL:
+			case EMenuItemType::SpinControl:
 				sound = SpinControl_Key( (menulist_s*)item, key );
 				break;
 
-			case MTYPE_RADIOBUTTON:
+			case EMenuItemType::RadioButton:
 				sound = RadioButton_Key( (menuradiobutton_s*)item, key );
 				break;
 
-			case MTYPE_SLIDER:
+			case EMenuItemType::Slider:
 				sound = Slider_Key( (menuslider_s*)item, key );
 				break;
 
-			case MTYPE_SCROLLLIST:
+			case EMenuItemType::ScrollList:
 				sound = ScrollList_Key( (menulist_s*)item, key );
 				break;
 
-			case MTYPE_FIELD:
+			case EMenuItemType::Field:
 				sound = MenuField_Key( (menufield_s*)item, &key );
 				break;
 		}
@@ -2579,11 +2581,11 @@ sfxHandle_t Menu_DefaultKey( menuframework_s *m, int32_t key )
 #endif
 		case K_KP_UPARROW:
 		case K_UPARROW:
-			cursor_prev    = m->cursor;
-			m->cursor_prev = m->cursor;
-			m->cursor--;
+			cursor_prev    = m->m_Cursor;
+			m->m_CursorPrev = m->m_Cursor;
+			m->m_Cursor--;
 			Menu_AdjustCursor( m, -1 );
-			if ( cursor_prev != m->cursor ) {
+			if ( cursor_prev != m->m_Cursor ) {
 				Menu_CursorMoved( m );
 				sound = menu_move_sound;
 			}
@@ -2592,11 +2594,11 @@ sfxHandle_t Menu_DefaultKey( menuframework_s *m, int32_t key )
 		case K_TAB:
 		case K_KP_DOWNARROW:
 		case K_DOWNARROW:
-			cursor_prev    = m->cursor;
-			m->cursor_prev = m->cursor;
-			m->cursor++;
+			cursor_prev    = m->m_Cursor;
+			m->m_CursorPrev = m->m_Cursor;
+			m->m_Cursor++;
 			Menu_AdjustCursor( m, 1 );
-			if ( cursor_prev != m->cursor ) {
+			if ( cursor_prev != m->m_Cursor ) {
 				Menu_CursorMoved( m );
 				sound = menu_move_sound;
 			}

@@ -9,19 +9,9 @@
 #include <cctype>
 #include <optional>
 
-#if defined (UNICODE)
-#define _T(X) L##X
-#else
-#define _T(X) X
-#endif
-
 namespace Common
 {
-#if defined (UNICODE)
-  using char_t = wchar_t;
-#else
   using char_t = char;
-#endif
 
   using String = std::basic_string<char_t>;
   using StringView = std::basic_string_view<char_t>;
@@ -35,7 +25,7 @@ namespace Common
 
   namespace Detail
   {
-    static constexpr const char_t WHITE_SPACE_CHARS[2] = { _T(' '), _T('\t') };
+    static constexpr const char_t WHITE_SPACE_CHARS[2] = { ' ', '\t' };
 
     bool IsWhiteSpace(char_t C);
   }
@@ -178,7 +168,7 @@ namespace Common
 
     for(auto i = 0; i < sizeof...(Args); i++)
     {
-      ReplaceAll(Copy, _T("%") + ToString(i), StringArgs[i]);
+      ReplaceAll(Copy, "%" + ToString(i), StringArgs[i]);
     }
 
     return Copy;

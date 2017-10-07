@@ -284,21 +284,18 @@ void SoundMenu_Init(void)
 
 	UI_SoundMenu_Cache();
 
-	soundOptionsInfo.menu.nitems = 0;
-	soundOptionsInfo.menu.wrapAround = qtrue;
-	soundOptionsInfo.menu.draw = M_Sound_MenuDraw;
-	soundOptionsInfo.menu.key = M_Sound_MenuKey;
-	soundOptionsInfo.menu.fullscreen = qtrue;
-	soundOptionsInfo.menu.wrapAround = qfalse;
-	soundOptionsInfo.menu.descX = MENU_DESC_X;
-	soundOptionsInfo.menu.descY = MENU_DESC_Y;
-	soundOptionsInfo.menu.titleX = MENU_TITLE_X;
-	soundOptionsInfo.menu.titleY = MENU_TITLE_Y;
-	soundOptionsInfo.menu.titleI = MNT_CONTROLSMENU_TITLE;
-	soundOptionsInfo.menu.footNoteEnum = MNT_SOUND_SETUP;
+	soundOptionsInfo.menu.m_ItemCount = 0;
+	soundOptionsInfo.menu.m_WrapAround = true;
+	soundOptionsInfo.menu.OnDraw = M_Sound_MenuDraw;
+	soundOptionsInfo.menu.OnKey = M_Sound_MenuKey;
+	soundOptionsInfo.menu.m_Fullscreen = qtrue;
+	soundOptionsInfo.menu.m_WrapAround = false;
+	soundOptionsInfo.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	soundOptionsInfo.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	soundOptionsInfo.menu.m_FootNote = MNT_SOUND_SETUP;
 
 	x = 212;
-	soundOptionsInfo.rate.generic.type = MTYPE_SPINCONTROL;
+	soundOptionsInfo.rate.generic.m_Type = EMenuItemType::SpinControl;
 	soundOptionsInfo.rate.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	soundOptionsInfo.rate.generic.x = x;
 	soundOptionsInfo.rate.generic.y = 192;
@@ -314,7 +311,7 @@ void SoundMenu_Init(void)
 	soundOptionsInfo.rate.listnames = rate_items;
 
 	y = 256;
-	soundOptionsInfo.sfxvolume.generic.type = MTYPE_SLIDER;
+	soundOptionsInfo.sfxvolume.generic.m_Type = EMenuItemType::Slider;
 	soundOptionsInfo.sfxvolume.generic.x = x + MENU_BUTTON_MED_WIDTH + 35;
 	soundOptionsInfo.sfxvolume.generic.y = y;
 	soundOptionsInfo.sfxvolume.generic.flags = QMF_SMALLFONT;
@@ -347,7 +344,7 @@ void SoundMenu_Init(void)
 	soundOptionsInfo.sfxvolume.thumbColor2 = CT_LTBLUE1;
 
 	y = 278;
-	soundOptionsInfo.musicvolume.generic.type = MTYPE_SLIDER;
+	soundOptionsInfo.musicvolume.generic.m_Type = EMenuItemType::Slider;
 	soundOptionsInfo.musicvolume.generic.x = x + MENU_BUTTON_MED_WIDTH + 35;
 	soundOptionsInfo.musicvolume.generic.y = y;
 	soundOptionsInfo.musicvolume.generic.flags = QMF_SMALLFONT;
@@ -379,7 +376,7 @@ void SoundMenu_Init(void)
 	soundOptionsInfo.musicvolume.thumbColor = CT_DKBLUE1;
 	soundOptionsInfo.musicvolume.thumbColor2 = CT_LTBLUE1;
 
-	soundOptionsInfo.quality.generic.type = MTYPE_SPINCONTROL;
+	soundOptionsInfo.quality.generic.m_Type = EMenuItemType::SpinControl;
 	soundOptionsInfo.quality.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	soundOptionsInfo.quality.generic.x = 120;
 	soundOptionsInfo.quality.generic.y = 322;
@@ -394,7 +391,7 @@ void SoundMenu_Init(void)
 	soundOptionsInfo.quality.textY = 2;
 	soundOptionsInfo.quality.listnames = s_sndquality_Names;
 
-	soundOptionsInfo.a3d.generic.type = MTYPE_SPINCONTROL;
+	soundOptionsInfo.a3d.generic.m_Type = EMenuItemType::SpinControl;
 	soundOptionsInfo.a3d.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	soundOptionsInfo.a3d.generic.x = 416;
 	soundOptionsInfo.a3d.generic.y = 322;
@@ -423,7 +420,7 @@ void SoundMenu_Init(void)
 	soundOptionsInfo.holdSoundQuality = soundOptionsInfo.quality.curvalue;
 	soundOptionsInfo.a3d.curvalue = (int32_t)trap_Cvar_VariableValue("s_usingA3D");
 
-	soundOptionsInfo.menu.initialized = qtrue;
+	soundOptionsInfo.menu.m_Initialized = qtrue;
 
 
 	rate = trap_Cvar_VariableValue("rate");

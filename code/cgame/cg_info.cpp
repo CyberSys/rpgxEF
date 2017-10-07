@@ -191,10 +191,10 @@ void CG_DrawInformation( void ) {
 	// screen to write into
 	if ( cg.infoScreenText[0] ) {
 		UI_DrawProportionalString( 320, 442, va("%s ... %s", ingame_text[IGT_LOADING], cg.infoScreenText),
-			UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_LTGOLD1]);
+		                           UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_LTGOLD1]);
 	} else {
 		UI_DrawProportionalString( 320, 442, va("%s...", ingame_text[IGT_SNAPSHOT]),
-			UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_LTGOLD1]  );
+		                           UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_LTGOLD1]  );
 	}
 
 	// draw info string information
@@ -214,7 +214,7 @@ void CG_DrawInformation( void ) {
 		s = Info_ValueForKey( sysInfo, "sv_pure" );
 		if ( s[0] == '1' ) {
 			UI_DrawProportionalString( x, y, ingame_text[IGT_PURESERVER],
-				UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
+			                           UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
 			y += PROP_HEIGHT;
 		}
 
@@ -222,7 +222,7 @@ void CG_DrawInformation( void ) {
 		s = CG_ConfigString( CS_MOTD );
 		if ( s[0] ) {
 			UI_DrawProportionalString(320, y, s,
-				UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
+			                          UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
 			y += PROP_HEIGHT;
 		}
 
@@ -234,7 +234,7 @@ void CG_DrawInformation( void ) {
 	s = CG_ConfigString( CS_MESSAGE );
 	if ( s[0] ) {
 		UI_DrawProportionalString( x, y, s,
-			UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
+		                           UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
 		y += PROP_HEIGHT;
 	}
 
@@ -242,7 +242,7 @@ void CG_DrawInformation( void ) {
 	s = Info_ValueForKey( sysInfo, "sv_cheats" );
 	if ( s[0] == '1' ) {
 		UI_DrawProportionalString( x, y, ingame_text[IGT_CHEATSAREENABLED],
-			UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
+		                           UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
 		y += PROP_HEIGHT;
 	}
 
@@ -252,11 +252,11 @@ void CG_DrawInformation( void ) {
 	s = Info_ValueForKey( info, "rpg_respectPrivacy" );
 	if ( atoi( s ) != 0 ) {
 		UI_DrawProportionalString( x, y, "PRIVACY MODE ^5ON",
-			UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
+		                           UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
 		y += PROP_HEIGHT;
 	} else {
 		UI_DrawProportionalString( x, y, "PRIVACY MODE ^1OFF",
-			UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
+		                           UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
 		y += PROP_HEIGHT;
 	}
 
@@ -297,7 +297,7 @@ void CG_LoadBar(void)
 	{
 		trap_R_SetColor( colorTable[CT_VLTGOLD1]);
 		CG_DrawPic( x + 222 - 20,y + 14, 16,  16,cgs.media.circle2);
-		UI_DrawProportionalString( x + 222, y + 14, ingame_text[IGT_REPLICATION_MATRIX],UI_SMALLFONT, colorTable[CT_VLTGOLD1]);
+		UI_DrawProportionalString( x + 222, y + 14, ingame_text[IGT_REPLICATION_MATRIX], UI_SMALLFONT, colorTable[CT_VLTGOLD1]);
 		trap_R_SetColor( colorTable[CT_LTBROWN1]); //VLTPURPLE3]);
 	}
 	CG_DrawPic( x + 18,   y +102, 128,  64,cgs.media.loading1);
@@ -324,7 +324,7 @@ void CG_LoadBar(void)
 	{
 		trap_R_SetColor( colorTable[CT_VLTGOLD1]);
 		CG_DrawPic( x + 222 - 20,y + 14+pad, 16,  16,cgs.media.circle2);
-		UI_DrawProportionalString( x + 222, y + 14 + pad, ingame_text[IGT_HOLOGRAPHIC_PROJECTORS],UI_SMALLFONT, colorTable[CT_VLTGOLD1]);
+		UI_DrawProportionalString( x + 222, y + 14 + pad, ingame_text[IGT_HOLOGRAPHIC_PROJECTORS], UI_SMALLFONT, colorTable[CT_VLTGOLD1]);
 		trap_R_SetColor( colorTable[CT_LTGOLD1]); //LTPURPLE1]);
 	}
 	CG_DrawPic( x + 17,        y, 128,  64,cgs.media.loading3);
@@ -351,7 +351,7 @@ void CG_LoadBar(void)
 	{
 		trap_R_SetColor( colorTable[CT_VLTGOLD1]);
 		CG_DrawPic( x + 222 - 20,y + 14+pad+pad, 16,  16,cgs.media.circle2);
-		UI_DrawProportionalString( x + 222, y + 14 + pad + pad, ingame_text[IGT_SIMULATION_DATA_BASE],UI_SMALLFONT, colorTable[CT_VLTGOLD1]);
+		UI_DrawProportionalString( x + 222, y + 14 + pad + pad, ingame_text[IGT_SIMULATION_DATA_BASE], UI_SMALLFONT, colorTable[CT_VLTGOLD1]);
 		trap_R_SetColor( colorTable[CT_LTBROWN1]); //VLTBLUE2]);
 	}
 	CG_DrawPic( x +137,   y + 81,  64,  64,cgs.media.loading5);
@@ -378,7 +378,7 @@ void CG_LoadBar(void)
 	{
 		trap_R_SetColor( colorTable[CT_VLTGOLD1]);
 		CG_DrawPic( x + 222 - 20,y + 14+pad+pad+pad, 16,  16,cgs.media.circle2);
-		UI_DrawProportionalString( x + 222, y + 14 + pad + pad + pad, ingame_text[IGT_SAFETY_LOCKS],UI_SMALLFONT, colorTable[CT_VLTGOLD1]);
+		UI_DrawProportionalString( x + 222, y + 14 + pad + pad + pad, ingame_text[IGT_SAFETY_LOCKS], UI_SMALLFONT, colorTable[CT_VLTGOLD1]);
 		trap_R_SetColor( colorTable[CT_DKRED1]); //LTBLUE2]);
 	}
 	CG_DrawPic( x + 38,   y + 24,  64, 128,cgs.media.loading7);
@@ -445,19 +445,19 @@ void CG_LoadBar(void)
 		break;
 	} 
 
-	UI_DrawProportionalString( x +  21, y + 150, "0987",UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString( x +   3, y +  90,   "18",UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString( x +  24, y +  20,    "7",UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString( x +  93, y +   5,   "51",UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString( x + 103, y +   5,   "35",UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString( x + 165, y +  83,   "21",UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString( x + 101, y + 149,   "67",UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString( x + 123, y +  36,   "8",UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString( x +  21, y + 150, "0987", UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString( x +   3, y +  90,   "18", UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString( x +  24, y +  20,    "7", UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString( x +  93, y +   5,   "51", UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString( x + 103, y +   5,   "35", UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString( x + 165, y +  83,   "21", UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString( x + 101, y + 149,   "67", UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString( x + 123, y +  36,   "8", UI_TINYFONT, colorTable[CT_BLACK]);
 
-	UI_DrawProportionalString( x +  90, y +  65, "1",UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString( x + 105, y +  65, "2",UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString( x + 105, y +  87, "3",UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString( x +  91, y +  87, "4",UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString( x +  90, y +  65, "1", UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString( x + 105, y +  65, "2", UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString( x + 105, y +  87, "3", UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString( x +  91, y +  87, "4", UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
 
 	trap_R_SetColor( colorTable[CT_DKGOLD1]); //DKBROWN1]);
 	y +=10;
@@ -761,7 +761,7 @@ static void Objectives_Draw( centity_t *cent )
 		(missionInfoScreenY - OBJ_SCREEN_YMARGIN + textYCnt + (2 * OBJ_SCREEN_YMARGIN))-5,   
 		32, 32, cgs.media.corner_ll_8_30);	// Bottom corner
 
-	UI_DrawProportionalString( OBJ_HORIZONTAL_BORDER_X + 30, missionInfoScreenY - (OBJ_SCREEN_YMARGIN + OBJ_SCREEN_YBORDERTOP) + 2, ingame_text[IGT_OBJECTIVES],UI_SMALLFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString(OBJ_HORIZONTAL_BORDER_X + 30, missionInfoScreenY - (OBJ_SCREEN_YMARGIN + OBJ_SCREEN_YBORDERTOP) + 2, ingame_text[IGT_OBJECTIVES], UI_SMALLFONT, colorTable[CT_BLACK]);
 
 
 	// Print the background

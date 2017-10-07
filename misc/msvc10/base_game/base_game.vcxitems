@@ -20,6 +20,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\bg_oums.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\bg_pmove.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\bg_slidemove.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\Color.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\q_math.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\q_shared.cpp" />
   </ItemGroup>
@@ -30,6 +31,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\bg_misc.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\bg_oums.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\bg_public.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\Color.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\q_math.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\q_shared.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\base_game\surfaceflags.h" />

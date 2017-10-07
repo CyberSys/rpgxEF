@@ -191,23 +191,19 @@ static void UI_NetworkOptionsMenu_Init(void)
 
 	UI_NetworkOptionsMenu_Cache();
 
-	networkOptionsInfo.menu.nitems = 0;
-	networkOptionsInfo.menu.wrapAround = qtrue;
-	networkOptionsInfo.menu.draw = Network_MenuDraw;
-	networkOptionsInfo.menu.fullscreen = qtrue;
-	networkOptionsInfo.menu.descX = MENU_DESC_X;
-	networkOptionsInfo.menu.descY = MENU_DESC_Y;
-	networkOptionsInfo.menu.listX = 230;
-	networkOptionsInfo.menu.listY = 188;
-	networkOptionsInfo.menu.titleX = MENU_TITLE_X;
-	networkOptionsInfo.menu.titleY = MENU_TITLE_Y;
-	networkOptionsInfo.menu.titleI = MNT_CONTROLSMENU_TITLE;
-	networkOptionsInfo.menu.footNoteEnum = MNT_NETWORKSETUP;
+	networkOptionsInfo.menu.m_ItemCount = 0;
+	networkOptionsInfo.menu.m_WrapAround = true;
+	networkOptionsInfo.menu.OnDraw = Network_MenuDraw;
+	networkOptionsInfo.menu.m_Fullscreen = qtrue;
+	networkOptionsInfo.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	networkOptionsInfo.menu.m_ListPosition = { 230, 188 };
+	networkOptionsInfo.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	networkOptionsInfo.menu.m_FootNote = MNT_NETWORKSETUP;
 
 
 	SetupMenu_TopButtons(&networkOptionsInfo.menu, MENU_NETWORK, NULL);
 
-	networkOptionsInfo.rate.generic.type = MTYPE_SPINCONTROL;
+	networkOptionsInfo.rate.generic.m_Type = EMenuItemType::SpinControl;
 	networkOptionsInfo.rate.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	networkOptionsInfo.rate.generic.x = 212;
 	networkOptionsInfo.rate.generic.y = 262;

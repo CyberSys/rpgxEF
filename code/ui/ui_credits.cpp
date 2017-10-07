@@ -356,7 +356,7 @@ void UI_drawCreditNames( int32_t creditsIndex )
 
 	{
 		if (uis.realtime >= s_credits.startTime + timeDeviation ) { //After .2 seconds, the title will appear
-			UI_DrawProportionalString(  512,  184, creditsInfo[creditsIndex].mainTitle,UI_CENTER|UI_BIGFONT, colorTable[CT_LTGOLD1]);
+			UI_DrawProportionalString(  512,  184, creditsInfo[creditsIndex].mainTitle, UI_CENTER|UI_BIGFONT, colorTable[CT_LTGOLD1]);
 
 			/*if(uis.realtime > s_credits.startTime + timeDeviation && uis.realtime < s_credits.startTime + timeDeviation + 20){
 				trap_S_StartLocalSound(s_credits.pingSound, CHAN_LOCAL ); //play the sound
@@ -380,11 +380,11 @@ void UI_drawCreditNames( int32_t creditsIndex )
 				//For entries that have positions (ie, not beta testers )
 				if ( i <= 9 && creditsInfo[creditsIndex].devInfo[i].position[0] ) {	
 					if(creditsIndex == 1 || creditsIndex == 6) { // make all programmers|additional people fit in
-						UI_DrawProportionalString(  420,  169 + yDeviation, creditsInfo[creditsIndex].devInfo[i].name,UI_LEFT|UI_SMALLFONT, colorTable[CT_DKPURPLE2]);
-						UI_DrawProportionalString(  420,  187 + yDeviation, creditsInfo[creditsIndex].devInfo[i].position,UI_LEFT|UI_TINYFONT, colorTable[CT_DKPURPLE2]); //18 varaition
+						UI_DrawProportionalString(  420,  169 + yDeviation, creditsInfo[creditsIndex].devInfo[i].name, UI_LEFT|UI_SMALLFONT, colorTable[CT_DKPURPLE2]);
+						UI_DrawProportionalString(  420,  187 + yDeviation, creditsInfo[creditsIndex].devInfo[i].position, UI_LEFT|UI_TINYFONT, colorTable[CT_DKPURPLE2]); //18 varaition
 					} else {
-						UI_DrawProportionalString(  420,  180 + yDeviation, creditsInfo[creditsIndex].devInfo[i].name,UI_LEFT|UI_SMALLFONT, colorTable[CT_DKPURPLE2]);
-						UI_DrawProportionalString(  420,  198 + yDeviation, creditsInfo[creditsIndex].devInfo[i].position,UI_LEFT|UI_TINYFONT, colorTable[CT_DKPURPLE2]); //18 varaition
+						UI_DrawProportionalString(  420,  180 + yDeviation, creditsInfo[creditsIndex].devInfo[i].name, UI_LEFT|UI_SMALLFONT, colorTable[CT_DKPURPLE2]);
+						UI_DrawProportionalString(  420,  198 + yDeviation, creditsInfo[creditsIndex].devInfo[i].position, UI_LEFT|UI_TINYFONT, colorTable[CT_DKPURPLE2]); //18 varaition
 					}
 					//Play a beep effect
 					if ( i == s_credits.beepTime-1 ) {
@@ -394,7 +394,7 @@ void UI_drawCreditNames( int32_t creditsIndex )
 				}
 				else //Beta Testers
 				{
-					UI_DrawProportionalString(  420,  180 + yDeviation, creditsInfo[creditsIndex].devInfo[i].name,UI_LEFT|UI_SMALLFONT, colorTable[CT_DKPURPLE2]);
+					UI_DrawProportionalString(  420,  180 + yDeviation, creditsInfo[creditsIndex].devInfo[i].name, UI_LEFT|UI_SMALLFONT, colorTable[CT_DKPURPLE2]);
 					//UI_DrawProportionalString(  512,  180 + yDeviation, creditsInfo[creditsIndex].devInfo[i+1].name,UI_LEFT|UI_SMALLFONT, colorTable[CT_DKPURPLE2]);
 					//i++;
 
@@ -407,8 +407,8 @@ void UI_drawCreditNames( int32_t creditsIndex )
 
 				if ( i >= 3) { //So it appears below lead d00d
 					if ( creditsInfo[creditsIndex].devInfo[i+8].name[0] && creditsInfo[creditsIndex].devInfo[i+8].position[0] ) {	/*( arrayLen > 11 ) && ( ( i + 10 ) <= arrayLen )*/ 
-						UI_DrawProportionalString(  524,  180 + yDeviation, creditsInfo[creditsIndex].devInfo[i+8].name,UI_LEFT|UI_SMALLFONT, colorTable[CT_DKPURPLE2]);
-						UI_DrawProportionalString(  524,  198 + yDeviation, creditsInfo[creditsIndex].devInfo[i+8].position,UI_LEFT|UI_TINYFONT, colorTable[CT_DKPURPLE2]); //18 varaition
+						UI_DrawProportionalString(  524,  180 + yDeviation, creditsInfo[creditsIndex].devInfo[i+8].name, UI_LEFT|UI_SMALLFONT, colorTable[CT_DKPURPLE2]);
+						UI_DrawProportionalString(  524,  198 + yDeviation, creditsInfo[creditsIndex].devInfo[i+8].position, UI_LEFT|UI_TINYFONT, colorTable[CT_DKPURPLE2]); //18 varaition
 					}
 				}
 			}
@@ -477,18 +477,18 @@ void CreditsMenu_Graphics (void)
 	// Draw the basic screen layout
 	UI_MenuFrame(&s_credits.menu);
 
-	UI_DrawProportionalString(  74,  66, "69",UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString(  74,  84, "604369",UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString(  74,  188, "71",UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString(  74,  206, "6154",UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString(  74,  395, "2004",UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString(  74,  66, "69", UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString(  74,  84, "604369", UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString(  74,  188, "71", UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString(  74,  206, "6154", UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString(  74,  395, "2004", UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
 
 	trap_R_SetColor( colorTable[CT_LTBROWN1]);
 	UI_DrawHandlePic(30,203,  47, 123, uis.whiteShader);	// Top left column square on bottom 3rd 
 	UI_DrawHandlePic(30,328,  47, 61, uis.whiteShader);	// Bottom left column square on bottom 3rd
 
-	UI_DrawProportionalString(  74,  206, "38",UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
-	UI_DrawProportionalString(  74,  332, "28",UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString(  74,  206, "38", UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString(  74,  332, "28", UI_RIGHT|UI_TINYFONT, colorTable[CT_BLACK]);
 
 	/*
 	Courtesy of EF SP's Credits :P
@@ -687,20 +687,17 @@ static void UI_Credits_MenuInit( void )
 	s_credits.beepTime		= 0;
 
 	// Menu Data
-	s_credits.menu.wrapAround					= qtrue;
-	s_credits.menu.fullscreen					= qtrue;
-	s_credits.menu.draw							= CreditsMenu_Draw;
-	s_credits.menu.descX						= MENU_DESC_X;
-	s_credits.menu.descY						= MENU_DESC_Y;	
-	s_credits.menu.titleX						= MENU_TITLE_X;
-	s_credits.menu.titleY						= MENU_TITLE_Y;
-	s_credits.menu.titleI						= MNT_CREDITS_TITLE;
-	s_credits.menu.footNoteEnum					= MNT_CREDITS;
+	s_credits.menu.m_WrapAround					= true;
+	s_credits.menu.m_Fullscreen					= qtrue;
+	s_credits.menu.OnDraw							= CreditsMenu_Draw;
+	s_credits.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_credits.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CREDITS_TITLE };
+	s_credits.menu.m_FootNote					= MNT_CREDITS;
 
 	UI_CreditsMenu_Cache();
 
 	// Button Data
-	s_credits.mainmenu.generic.type				= MTYPE_BITMAP;      
+	s_credits.mainmenu.generic.m_Type				= EMenuItemType::Bitmap;      
 	s_credits.mainmenu.generic.flags			= QMF_HIGHLIGHT_IF_FOCUS;
 	s_credits.mainmenu.generic.x				= 482;
 	s_credits.mainmenu.generic.y				= 136;
@@ -717,7 +714,7 @@ static void UI_Credits_MenuInit( void )
 	s_credits.mainmenu.textcolor				= CT_BLACK;
 	s_credits.mainmenu.textcolor2				= CT_WHITE;
 
-	s_credits.leads.generic.type				= MTYPE_BITMAP;      
+	s_credits.leads.generic.m_Type				= EMenuItemType::Bitmap;      
 	s_credits.leads.generic.flags				= QMF_HIGHLIGHT_IF_FOCUS;
 	s_credits.leads.generic.x					= cm_buttons[0][0];
 	s_credits.leads.generic.y					= cm_buttons[0][1];
@@ -734,7 +731,7 @@ static void UI_Credits_MenuInit( void )
 	s_credits.leads.textcolor					= CT_BLACK;
 	s_credits.leads.textcolor2					= CT_WHITE;
 
-	s_credits.coders.generic.type				= MTYPE_BITMAP;      
+	s_credits.coders.generic.m_Type				= EMenuItemType::Bitmap;      
 	s_credits.coders.generic.flags				= QMF_HIGHLIGHT_IF_FOCUS;
 	s_credits.coders.generic.x					= cm_buttons[1][0];
 	s_credits.coders.generic.y					= cm_buttons[1][1];
@@ -751,7 +748,7 @@ static void UI_Credits_MenuInit( void )
 	s_credits.coders.textcolor					= CT_BLACK;
 	s_credits.coders.textcolor2					= CT_WHITE;
 
-	s_credits.twodee.generic.type				= MTYPE_BITMAP;      
+	s_credits.twodee.generic.m_Type				= EMenuItemType::Bitmap;      
 	s_credits.twodee.generic.flags				= QMF_HIGHLIGHT_IF_FOCUS;
 	s_credits.twodee.generic.x					= cm_buttons[2][0];
 	s_credits.twodee.generic.y					= cm_buttons[2][1];
@@ -768,7 +765,7 @@ static void UI_Credits_MenuInit( void )
 	s_credits.twodee.textcolor					= CT_BLACK;
 	s_credits.twodee.textcolor2					= CT_WHITE;
 
-	s_credits.threedee.generic.type				= MTYPE_BITMAP;      
+	s_credits.threedee.generic.m_Type				= EMenuItemType::Bitmap;      
 	s_credits.threedee.generic.flags			= QMF_HIGHLIGHT_IF_FOCUS;
 	s_credits.threedee.generic.x				= cm_buttons[3][0];
 	s_credits.threedee.generic.y				= cm_buttons[3][1];
@@ -785,7 +782,7 @@ static void UI_Credits_MenuInit( void )
 	s_credits.threedee.textcolor				= CT_BLACK;
 	s_credits.threedee.textcolor2				= CT_WHITE;
 
-	s_credits.mapping.generic.type				= MTYPE_BITMAP;      
+	s_credits.mapping.generic.m_Type				= EMenuItemType::Bitmap;      
 	s_credits.mapping.generic.flags				= QMF_HIGHLIGHT_IF_FOCUS;
 	s_credits.mapping.generic.x					= cm_buttons[4][0];
 	s_credits.mapping.generic.y					= cm_buttons[4][1];
@@ -802,7 +799,7 @@ static void UI_Credits_MenuInit( void )
 	s_credits.mapping.textcolor					= CT_BLACK;
 	s_credits.mapping.textcolor2				= CT_WHITE;
 
-	s_credits.sounds.generic.type				= MTYPE_BITMAP;      
+	s_credits.sounds.generic.m_Type				= EMenuItemType::Bitmap;      
 	s_credits.sounds.generic.flags				= QMF_HIGHLIGHT_IF_FOCUS;
 	s_credits.sounds.generic.x					= cm_buttons[5][0];
 	s_credits.sounds.generic.y					= cm_buttons[5][1];
@@ -819,7 +816,7 @@ static void UI_Credits_MenuInit( void )
 	s_credits.sounds.textcolor					= CT_BLACK;
 	s_credits.sounds.textcolor2					= CT_WHITE;
 
-	s_credits.extras.generic.type				= MTYPE_BITMAP;      
+	s_credits.extras.generic.m_Type				= EMenuItemType::Bitmap;      
 	s_credits.extras.generic.flags				= QMF_HIGHLIGHT_IF_FOCUS;
 	s_credits.extras.generic.x					= cm_buttons[6][0];
 	s_credits.extras.generic.y					= cm_buttons[6][1];
@@ -836,7 +833,7 @@ static void UI_Credits_MenuInit( void )
 	s_credits.extras.textcolor					= CT_BLACK;
 	s_credits.extras.textcolor2					= CT_WHITE;
 
-	s_credits.betas.generic.type				= MTYPE_BITMAP;      
+	s_credits.betas.generic.m_Type				= EMenuItemType::Bitmap;      
 	s_credits.betas.generic.flags				= QMF_HIGHLIGHT_IF_FOCUS;
 	s_credits.betas.generic.x					= cm_buttons[7][0];
 	s_credits.betas.generic.y					= cm_buttons[7][1];
@@ -853,7 +850,7 @@ static void UI_Credits_MenuInit( void )
 	s_credits.betas.textcolor					= CT_BLACK;
 	s_credits.betas.textcolor2					= CT_WHITE;
 
-	s_credits.thanks.generic.type				= MTYPE_BITMAP;      
+	s_credits.thanks.generic.m_Type				= EMenuItemType::Bitmap;      
 	s_credits.thanks.generic.flags				= QMF_HIGHLIGHT_IF_FOCUS;
 	s_credits.thanks.generic.x					= cm_buttons[8][0];
 	s_credits.thanks.generic.y					= cm_buttons[8][1];

@@ -223,20 +223,17 @@ static void UI_Mods_MenuInit(void)
 	UI_LogFuncBegin();
 	// Menu Data
 	memset(&s_mods, 0, sizeof(mods_t));
-	s_mods.menu.wrapAround = qtrue;
-	s_mods.menu.fullscreen = qtrue;
-	s_mods.menu.draw = ModsMenu_Draw;
-	s_mods.menu.descX = MENU_DESC_X;
-	s_mods.menu.descY = MENU_DESC_Y;
-	s_mods.menu.titleX = MENU_TITLE_X;
-	s_mods.menu.titleY = MENU_TITLE_Y;
-	s_mods.menu.titleI = MNT_MODS_TITLE;
-	s_mods.menu.footNoteEnum = MNT_MODS;
+	s_mods.menu.m_WrapAround = true;
+	s_mods.menu.m_Fullscreen = qtrue;
+	s_mods.menu.OnDraw = ModsMenu_Draw;
+	s_mods.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_mods.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_MODS_TITLE };
+	s_mods.menu.m_FootNote = MNT_MODS;
 
 	UI_ModsMenu_Cache();
 
 	// Button Data
-	s_mods.mainmenu.generic.type = MTYPE_BITMAP;
+	s_mods.mainmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_mods.mainmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_mods.mainmenu.generic.x = 482;
 	s_mods.mainmenu.generic.y = 136;
@@ -253,7 +250,7 @@ static void UI_Mods_MenuInit(void)
 	s_mods.mainmenu.textcolor = CT_BLACK;
 	s_mods.mainmenu.textcolor2 = CT_WHITE;
 
-	s_mods.go.generic.type = MTYPE_BITMAP;
+	s_mods.go.generic.m_Type = EMenuItemType::Bitmap;
 	s_mods.go.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_mods.go.generic.x = 285;
 	s_mods.go.generic.y = 414;
@@ -271,7 +268,7 @@ static void UI_Mods_MenuInit(void)
 	s_mods.go.textcolor2 = CT_WHITE;
 
 	// scan for mods
-	s_mods.list.generic.type = MTYPE_SCROLLLIST;
+	s_mods.list.generic.m_Type = EMenuItemType::ScrollList;
 	s_mods.list.generic.flags = QMF_PULSEIFFOCUS;
 	s_mods.list.generic.callback = Mods_MenuEvent;
 	s_mods.list.generic.id = ID_LIST;

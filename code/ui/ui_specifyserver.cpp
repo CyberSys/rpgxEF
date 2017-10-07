@@ -160,17 +160,14 @@ void SpecifyServer_MenuInit(void)
 
 	SpecifyServer_Cache();
 
-	s_specifyserver.menu.wrapAround = qtrue;
-	s_specifyserver.menu.fullscreen = qtrue;
-	s_specifyserver.menu.draw = SpecifyServer_MenuDraw;
-	s_specifyserver.menu.descX = MENU_DESC_X;
-	s_specifyserver.menu.descY = MENU_DESC_Y;
-	s_specifyserver.menu.titleX = MENU_TITLE_X;
-	s_specifyserver.menu.titleY = MENU_TITLE_Y;
-	s_specifyserver.menu.titleI = MNT_MULTIPLAYER_TITLE;
-	s_specifyserver.menu.footNoteEnum = MNT_SPECIFYSERVER;
+	s_specifyserver.menu.m_WrapAround = true;
+	s_specifyserver.menu.m_Fullscreen = qtrue;
+	s_specifyserver.menu.OnDraw = SpecifyServer_MenuDraw;
+	s_specifyserver.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_specifyserver.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_MULTIPLAYER_TITLE };
+	s_specifyserver.menu.m_FootNote = MNT_SPECIFYSERVER;
 
-	s_specifyserver.mainmenu.generic.type = MTYPE_BITMAP;
+	s_specifyserver.mainmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_specifyserver.mainmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_specifyserver.mainmenu.generic.x = 110;
 	s_specifyserver.mainmenu.generic.y = 391;
@@ -187,7 +184,7 @@ void SpecifyServer_MenuInit(void)
 	s_specifyserver.mainmenu.textcolor = CT_BLACK;
 	s_specifyserver.mainmenu.textcolor2 = CT_WHITE;
 
-	s_specifyserver.back.generic.type = MTYPE_BITMAP;
+	s_specifyserver.back.generic.m_Type = EMenuItemType::Bitmap;
 	s_specifyserver.back.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_specifyserver.back.generic.x = 110;
 	s_specifyserver.back.generic.y = 415;
@@ -204,7 +201,7 @@ void SpecifyServer_MenuInit(void)
 	s_specifyserver.back.textcolor = CT_BLACK;
 	s_specifyserver.back.textcolor2 = CT_WHITE;
 
-	s_specifyserver.domain.generic.type = MTYPE_FIELD;
+	s_specifyserver.domain.generic.m_Type = EMenuItemType::Field;
 	s_specifyserver.domain.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_specifyserver.domain.generic.x = 255;
 	s_specifyserver.domain.generic.y = 168;
@@ -216,7 +213,7 @@ void SpecifyServer_MenuInit(void)
 	s_specifyserver.domain.field.textcolor2 = CT_LTGOLD1;
 	s_specifyserver.domain.field.titlecolor = CT_LTGOLD1;
 
-	s_specifyserver.port.generic.type = MTYPE_FIELD;
+	s_specifyserver.port.generic.m_Type = EMenuItemType::Field;
 	s_specifyserver.port.generic.flags = QMF_PULSEIFFOCUS | QMF_SMALLFONT | QMF_NUMBERSONLY;
 	s_specifyserver.port.generic.x = 255;
 	s_specifyserver.port.generic.y = 216;
@@ -228,7 +225,7 @@ void SpecifyServer_MenuInit(void)
 	s_specifyserver.port.field.textcolor2 = CT_LTGOLD1;
 	s_specifyserver.port.field.titlecolor = CT_LTGOLD1;
 
-	s_specifyserver.go.generic.type = MTYPE_BITMAP;
+	s_specifyserver.go.generic.m_Type = EMenuItemType::Bitmap;
 	s_specifyserver.go.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_specifyserver.go.generic.x = 462;
 	s_specifyserver.go.generic.y = 391;

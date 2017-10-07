@@ -11,9 +11,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cg_logger.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="cg_drawtools.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -39,9 +36,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cg_localents.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cg_logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cg_main.cpp">
@@ -113,6 +107,9 @@
     <ClCompile Include="fx_transporter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cg_logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cg_anims.h">
@@ -134,6 +131,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tr_types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cg_logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -988,12 +988,12 @@ static void MapName_Draw(void *self)
 	if (!Q_stricmp(s_startserver.mapname.string, menu_normal_text[MNT_NOMAPSFOUND]))
 	{
 		UI_DrawProportionalString(s_startserver.mapname.generic.x, s_startserver.mapname.generic.y,
-			s_startserver.mapname.string, s_startserver.mapname.style, s_startserver.mapname.color);
+		                          s_startserver.mapname.string, s_startserver.mapname.style, s_startserver.mapname.color);
 	}
 	else
 	{
 		UI_DrawProportionalString(s_startserver.mapname.generic.x, s_startserver.mapname.generic.y,
-			s_startserver.maplongname[s_startserver.currentmap], s_startserver.mapname.style, s_startserver.mapname.color);
+		                          s_startserver.maplongname[s_startserver.currentmap], s_startserver.mapname.style, s_startserver.mapname.color);
 	}
 	UI_LogFuncEnd();
 }
@@ -1032,25 +1032,23 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 
 	StartServer_Cache();
 
-	s_startserver.menu.wrapAround = qtrue;
-	s_startserver.menu.fullscreen = qtrue;
-	s_startserver.menu.draw = StartServer_MenuDraw;
-	s_startserver.menu.descX = MENU_DESC_X;
-	s_startserver.menu.descY = MENU_DESC_Y;
-	s_startserver.menu.titleX = MENU_TITLE_X;
-	s_startserver.menu.titleY = MENU_TITLE_Y;
+	s_startserver.menu.m_WrapAround = true;
+	s_startserver.menu.m_Fullscreen = qtrue;
+	s_startserver.menu.OnDraw = StartServer_MenuDraw;
+	s_startserver.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_startserver.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y } };
 
 	if (s_startserver.multiplayer)
 	{
-		s_startserver.menu.titleI = MNT_MULTIPLAYER_TITLE;
+		s_startserver.menu.m_Title.m_StringID = MNT_MULTIPLAYER_TITLE;
 	}
 	else
 	{
-		s_startserver.menu.titleI = MNT_SINGLEPLAYER_TITLE;
+		s_startserver.menu.m_Title.m_StringID = MNT_SINGLEPLAYER_TITLE;
 	}
-	s_startserver.menu.footNoteEnum = MNT_CREATESERVER;
+	s_startserver.menu.m_FootNote = MNT_CREATESERVER;
 
-	s_startserver.mainmenu.generic.type = MTYPE_BITMAP;
+	s_startserver.mainmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_startserver.mainmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_startserver.mainmenu.generic.x = 110;
 	s_startserver.mainmenu.generic.y = 391;
@@ -1067,7 +1065,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 	s_startserver.mainmenu.textcolor = CT_BLACK;
 	s_startserver.mainmenu.textcolor2 = CT_WHITE;
 
-	s_startserver.back.generic.type = MTYPE_BITMAP;
+	s_startserver.back.generic.m_Type = EMenuItemType::Bitmap;
 	s_startserver.back.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_startserver.back.generic.x = 110;
 	s_startserver.back.generic.y = 415;
@@ -1084,7 +1082,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 	s_startserver.back.textcolor = CT_BLACK;
 	s_startserver.back.textcolor2 = CT_WHITE;
 
-	s_startserver.gametype.generic.type = MTYPE_SPINCONTROL;
+	s_startserver.gametype.generic.m_Type = EMenuItemType::SpinControl;
 	s_startserver.gametype.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_startserver.gametype.generic.callback = StartServer_GametypeEvent;
 	s_startserver.gametype.generic.id = ID_GAMETYPE;
@@ -1103,7 +1101,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 	x = 475;
 	y = 90;
 	pad = 30;
-	s_startserver.assimilation.generic.type = MTYPE_SPINCONTROL;
+	s_startserver.assimilation.generic.m_Type = EMenuItemType::SpinControl;
 	s_startserver.assimilation.generic.name = "menu/common/bar1.tga";
 	s_startserver.assimilation.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_startserver.assimilation.generic.callback = StartServer_MenuEvent;
@@ -1121,7 +1119,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 	s_startserver.assimilation.listnames = s_OffOnNone_Names;
 
 	y += pad;
-	s_startserver.specialties.generic.type = MTYPE_SPINCONTROL;
+	s_startserver.specialties.generic.m_Type = EMenuItemType::SpinControl;
 	s_startserver.specialties.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_startserver.specialties.generic.x = x;
 	s_startserver.specialties.generic.y = y;
@@ -1139,7 +1137,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 	s_startserver.specialties.width = 80;
 
 	y += pad;
-	s_startserver.disintegration.generic.type = MTYPE_SPINCONTROL;
+	s_startserver.disintegration.generic.m_Type = EMenuItemType::SpinControl;
 	s_startserver.disintegration.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_startserver.disintegration.generic.x = x;
 	s_startserver.disintegration.generic.y = y;
@@ -1157,7 +1155,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 	s_startserver.disintegration.width = 80;
 
 	y += pad;
-	s_startserver.elimination.generic.type = MTYPE_SPINCONTROL;
+	s_startserver.elimination.generic.m_Type = EMenuItemType::SpinControl;
 	s_startserver.elimination.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_startserver.elimination.generic.x = x;
 	s_startserver.elimination.generic.y = y;
@@ -1175,7 +1173,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 	s_startserver.elimination.width = 80;
 
 	y += pad;
-	s_startserver.actionhero.generic.type = MTYPE_SPINCONTROL;
+	s_startserver.actionhero.generic.m_Type = EMenuItemType::SpinControl;
 	s_startserver.actionhero.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_startserver.actionhero.generic.x = x;
 	s_startserver.actionhero.generic.y = y;
@@ -1199,7 +1197,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 	x = START_X_POS + 5;
 	for (i = 0; i < MAX_MAPSPERPAGE; i++)
 	{
-		s_startserver.mappics[i].generic.type = MTYPE_BITMAP;
+		s_startserver.mappics[i].generic.m_Type = EMenuItemType::Bitmap;
 		s_startserver.mappics[i].generic.flags = QMF_LEFT_JUSTIFY | QMF_INACTIVE;
 		s_startserver.mappics[i].generic.x = x;
 		s_startserver.mappics[i].generic.y = y;
@@ -1210,7 +1208,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 		s_startserver.mappics[i].errorpic = (char*)GAMESERVER_UNKNOWNMAP;
 		s_startserver.mappics[i].generic.ownerdraw = StartServer_LevelshotDraw;
 
-		s_startserver.mapbuttons[i].generic.type = MTYPE_BITMAP;
+		s_startserver.mapbuttons[i].generic.m_Type = EMenuItemType::Bitmap;
 		s_startserver.mapbuttons[i].generic.flags = QMF_LEFT_JUSTIFY | QMF_PULSEIFFOCUS | QMF_NODEFAULTINIT;
 		s_startserver.mapbuttons[i].generic.id = ID_PICTURES + i;
 		s_startserver.mapbuttons[i].generic.callback = StartServer_MapEvent;
@@ -1233,7 +1231,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 		}
 	}
 
-	s_startserver.prevpage.generic.type = MTYPE_BITMAP;
+	s_startserver.prevpage.generic.m_Type = EMenuItemType::Bitmap;
 	s_startserver.prevpage.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_startserver.prevpage.generic.callback = StartServer_MenuEvent;
 	s_startserver.prevpage.generic.name = "menu/common/arrow_left_16.tga";
@@ -1250,7 +1248,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 	s_startserver.prevpage.textcolor = CT_BLACK;
 	s_startserver.prevpage.textcolor2 = CT_WHITE;
 
-	s_startserver.nextpage.generic.type = MTYPE_BITMAP;
+	s_startserver.nextpage.generic.m_Type = EMenuItemType::Bitmap;
 	s_startserver.nextpage.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_startserver.nextpage.generic.callback = StartServer_MenuEvent;
 	s_startserver.nextpage.generic.name = "menu/common/arrow_right_16.tga";
@@ -1267,7 +1265,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 	s_startserver.nextpage.textcolor = CT_BLACK;
 	s_startserver.nextpage.textcolor2 = CT_WHITE;
 
-	s_startserver.mapname.generic.type = MTYPE_PTEXT;
+	s_startserver.mapname.generic.m_Type = EMenuItemType::PText;
 	s_startserver.mapname.generic.flags = QMF_INACTIVE;
 	s_startserver.mapname.generic.x = START_X_POS + 205;
 	s_startserver.mapname.generic.y = 347;
@@ -1276,7 +1274,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 	s_startserver.mapname.color = colorTable[CT_WHITE];
 	s_startserver.mapname.generic.ownerdraw = MapName_Draw;
 
-	s_startserver.next.generic.type = MTYPE_BITMAP;
+	s_startserver.next.generic.m_Type = EMenuItemType::Bitmap;
 	s_startserver.next.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_startserver.next.generic.callback = StartServer_MenuEvent;
 	s_startserver.next.generic.name = "menu/common/square.tga";
@@ -1293,7 +1291,7 @@ static void StartServer_MenuInit(int32_t multiplayer) {
 	s_startserver.next.textcolor = CT_BLACK;
 	s_startserver.next.textcolor2 = CT_WHITE;
 
-	s_startserver.item_null.generic.type = MTYPE_BITMAP;
+	s_startserver.item_null.generic.m_Type = EMenuItemType::Bitmap;
 	s_startserver.item_null.generic.flags = QMF_LEFT_JUSTIFY | QMF_MOUSEONLY | QMF_SILENT;
 	s_startserver.item_null.generic.x = 0;
 	s_startserver.item_null.generic.y = 0;
@@ -2219,7 +2217,7 @@ static void PlayerName_Draw(void *item)
 	y = s->generic.y;
 
 	style = UI_SMALLFONT;
-	focus = static_cast<qboolean>(s->generic.parent->cursor == s->generic.menuPosition);
+	focus = static_cast<qboolean>(s->generic.parent->m_Cursor == s->generic.menuPosition);
 
 	if (s->generic.flags & QMF_GRAYED)
 	{
@@ -2391,20 +2389,16 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 
 	ServerOptions_Cache();
 
-	s_serveroptions.menu.wrapAround = qtrue;
-	s_serveroptions.menu.fullscreen = qtrue;
-	s_serveroptions.menu.wrapAround = qtrue;
-	s_serveroptions.menu.draw = ServerOptions_MenuDraw;
-	s_serveroptions.menu.descX = MENU_DESC_X;
-	s_serveroptions.menu.descY = MENU_DESC_Y;
-	s_serveroptions.menu.listX = 230;
-	s_serveroptions.menu.listY = 188;
-	s_serveroptions.menu.titleX = MENU_TITLE_X;
-	s_serveroptions.menu.titleY = MENU_TITLE_Y;
-	s_serveroptions.menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_serveroptions.menu.footNoteEnum = MNT_SERVEROPTIONS;
+	s_serveroptions.menu.m_WrapAround = true;
+	s_serveroptions.menu.m_Fullscreen = qtrue;
+	s_serveroptions.menu.m_WrapAround = true;
+	s_serveroptions.menu.OnDraw = ServerOptions_MenuDraw;
+	s_serveroptions.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_serveroptions.menu.m_ListPosition = { 230, 188 };
+	s_serveroptions.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_serveroptions.menu.m_FootNote = MNT_SERVEROPTIONS;
 
-	s_serveroptions.mappic.generic.type = MTYPE_BITMAP;
+	s_serveroptions.mappic.generic.m_Type = EMenuItemType::Bitmap;
 	s_serveroptions.mappic.generic.flags = QMF_LEFT_JUSTIFY | QMF_INACTIVE;
 	s_serveroptions.mappic.generic.x = 420;
 	s_serveroptions.mappic.generic.y = 100;
@@ -2417,7 +2411,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 	yInc = BIGCHAR_HEIGHT + 8; //4 //6
 	if (s_serveroptions.gametype != GT_CTF)
 	{	// Frag limit (Point limit)
-		s_serveroptions.fraglimit.generic.type = MTYPE_FIELD;
+		s_serveroptions.fraglimit.generic.m_Type = EMenuItemType::Field;
 		s_serveroptions.fraglimit.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 		s_serveroptions.fraglimit.generic.x = OPTIONS_X;
 		s_serveroptions.fraglimit.generic.y = y;
@@ -2433,7 +2427,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 	else
 	{
 		// Capture Limit
-		s_serveroptions.flaglimit.generic.type = MTYPE_FIELD;
+		s_serveroptions.flaglimit.generic.m_Type = EMenuItemType::Field;
 		s_serveroptions.flaglimit.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 		s_serveroptions.flaglimit.generic.x = OPTIONS_X + 12;
 		s_serveroptions.flaglimit.generic.y = y;
@@ -2449,7 +2443,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 
 	//y += yInc;
 	// Time Limit
-	s_serveroptions.timelimit.generic.type = MTYPE_FIELD;
+	s_serveroptions.timelimit.generic.m_Type = EMenuItemType::Field;
 	s_serveroptions.timelimit.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 	s_serveroptions.timelimit.generic.x = OPTIONS_X;
 	s_serveroptions.timelimit.generic.y = y;
@@ -2466,7 +2460,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 	{
 		y += BIGCHAR_HEIGHT + 2;
 		// Friendly Fire
-		s_serveroptions.friendlyfire.generic.type = MTYPE_SPINCONTROL;
+		s_serveroptions.friendlyfire.generic.m_Type = EMenuItemType::SpinControl;
 		s_serveroptions.friendlyfire.generic.flags = QMF_HIGHLIGHT_IF_FOCUS | QMF_SMALLFONT;
 		s_serveroptions.friendlyfire.generic.x = OPTIONS_X - 96;
 		s_serveroptions.friendlyfire.generic.y = y;
@@ -2482,7 +2476,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 
 	y += yInc;
 	// Pure Server
-	s_serveroptions.pure.generic.type = MTYPE_SPINCONTROL;
+	s_serveroptions.pure.generic.m_Type = EMenuItemType::SpinControl;
 	s_serveroptions.pure.generic.flags = QMF_HIGHLIGHT_IF_FOCUS | QMF_SMALLFONT;
 	s_serveroptions.pure.generic.x = OPTIONS_X - 96;
 	s_serveroptions.pure.generic.y = y;
@@ -2499,7 +2493,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 	if (s_serveroptions.multiplayer)
 	{
 		y += yInc;
-		s_serveroptions.dedicated.generic.type = MTYPE_SPINCONTROL;
+		s_serveroptions.dedicated.generic.m_Type = EMenuItemType::SpinControl;
 		s_serveroptions.dedicated.generic.id = ID_DEDICATED;
 		s_serveroptions.dedicated.generic.flags = QMF_SMALLFONT;
 		s_serveroptions.dedicated.generic.callback = ServerOptions_Event;
@@ -2517,7 +2511,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 	}
 
 	y += yInc;
-	s_serveroptions.botSkill.generic.type = MTYPE_SPINCONTROL;
+	s_serveroptions.botSkill.generic.m_Type = EMenuItemType::SpinControl;
 	s_serveroptions.botSkill.generic.flags = QMF_PULSEIFFOCUS | QMF_SMALLFONT;
 	s_serveroptions.botSkill.textEnum = MBT_HCSKILL;
 	s_serveroptions.botSkill.generic.x = OPTIONS_X - 96;
@@ -2534,7 +2528,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 
 	if (s_serveroptions.multiplayer)
 	{
-		s_serveroptions.hostname.generic.type = MTYPE_FIELD;
+		s_serveroptions.hostname.generic.m_Type = EMenuItemType::Field;
 		s_serveroptions.hostname.generic.flags = QMF_SMALLFONT;
 		s_serveroptions.hostname.generic.x = 180;
 		s_serveroptions.hostname.generic.y = 63;
@@ -2546,7 +2540,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 		s_serveroptions.hostname.field.textcolor = CT_DKGOLD1;
 		s_serveroptions.hostname.field.textcolor2 = CT_LTGOLD1;
 
-		s_serveroptions.hostnamebackground1.generic.type = MTYPE_BITMAP;
+		s_serveroptions.hostnamebackground1.generic.m_Type = EMenuItemType::Bitmap;
 		s_serveroptions.hostnamebackground1.generic.flags = QMF_INACTIVE;
 		s_serveroptions.hostnamebackground1.generic.x = 80;
 		s_serveroptions.hostnamebackground1.generic.y = 60;
@@ -2556,7 +2550,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 		s_serveroptions.hostnamebackground1.color = CT_DKPURPLE1;
 		s_serveroptions.hostnamebackground1.textEnum = MBT_NONE;
 
-		s_serveroptions.hostnamebackground2.generic.type = MTYPE_BITMAP;
+		s_serveroptions.hostnamebackground2.generic.m_Type = EMenuItemType::Bitmap;
 		s_serveroptions.hostnamebackground2.generic.flags = QMF_INACTIVE;
 		s_serveroptions.hostnamebackground2.generic.x = 180;
 		s_serveroptions.hostnamebackground2.generic.y = 63;
@@ -2570,7 +2564,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 
 	y = 123;
 	x = 90;
-	s_serveroptions.player0.generic.type = MTYPE_TEXT;
+	s_serveroptions.player0.generic.m_Type = EMenuItemType::Text;
 	s_serveroptions.player0.generic.flags = QMF_SMALLFONT | QMF_INACTIVE;
 	s_serveroptions.player0.generic.x = 90;
 	s_serveroptions.player0.generic.y = y;
@@ -2580,7 +2574,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 	y = 123;
 	for (n = 0; n < PLAYER_SLOTS; n++)
 	{
-		s_serveroptions.playerType[n].generic.type = MTYPE_SPINCONTROL;
+		s_serveroptions.playerType[n].generic.m_Type = EMenuItemType::SpinControl;
 		s_serveroptions.playerType[n].generic.flags = QMF_SMALLFONT;
 		s_serveroptions.playerType[n].generic.id = ID_PLAYER_TYPE;
 		s_serveroptions.playerType[n].generic.callback = ServerOptions_Event;
@@ -2597,7 +2591,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 		s_serveroptions.playerType[n].textcolor = CT_BLACK;
 		s_serveroptions.playerType[n].textcolor2 = CT_WHITE;
 
-		s_serveroptions.playerName[n].generic.type = MTYPE_TEXT;
+		s_serveroptions.playerName[n].generic.m_Type = EMenuItemType::Text;
 		s_serveroptions.playerName[n].generic.flags = QMF_SMALLFONT;
 		s_serveroptions.playerName[n].generic.x = x + 46;
 		s_serveroptions.playerName[n].generic.y = y;
@@ -2612,7 +2606,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 		s_serveroptions.playerName[n].focusHeight = SMALLCHAR_HEIGHT;
 		s_serveroptions.playerName[n].focusWidth = 14 * SMALLCHAR_WIDTH;
 
-		s_serveroptions.playerTeam[n].generic.type = MTYPE_SPINCONTROL;
+		s_serveroptions.playerTeam[n].generic.m_Type = EMenuItemType::SpinControl;
 		s_serveroptions.playerTeam[n].generic.callback = ServerOptions_Event;
 		s_serveroptions.playerTeam[n].generic.id = ID_PLAYER_TEAM;
 		s_serveroptions.playerTeam[n].generic.x = 296;
@@ -2626,7 +2620,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 		s_serveroptions.playerTeam[n].width = 20;
 		s_serveroptions.playerTeam[n].height = 18;
 
-		s_serveroptions.playerClass[n].generic.type = MTYPE_SPINCONTROL;
+		s_serveroptions.playerClass[n].generic.m_Type = EMenuItemType::SpinControl;
 		s_serveroptions.playerClass[n].generic.callback = ServerOptions_Event;
 		s_serveroptions.playerClass[n].generic.id = ID_PLAYER_CLASS;
 		s_serveroptions.playerClass[n].generic.x = 322;
@@ -2643,7 +2637,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 		y += (SMALLCHAR_HEIGHT + 4);
 	}
 
-	s_serveroptions.mainmenu.generic.type = MTYPE_BITMAP;
+	s_serveroptions.mainmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_serveroptions.mainmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_serveroptions.mainmenu.generic.x = 110;
 	s_serveroptions.mainmenu.generic.y = 391;
@@ -2660,7 +2654,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 	s_serveroptions.mainmenu.textcolor = CT_BLACK;
 	s_serveroptions.mainmenu.textcolor2 = CT_WHITE;
 
-	s_serveroptions.back.generic.type = MTYPE_BITMAP;
+	s_serveroptions.back.generic.m_Type = EMenuItemType::Bitmap;
 	s_serveroptions.back.generic.name = BUTTON_GRAPHIC_LONGRIGHT;
 	s_serveroptions.back.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_serveroptions.back.generic.callback = ServerOptions_Event;
@@ -2677,7 +2671,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 	s_serveroptions.back.textcolor = CT_BLACK;
 	s_serveroptions.back.textcolor2 = CT_WHITE;
 
-	s_serveroptions.advanced.generic.type = MTYPE_BITMAP;
+	s_serveroptions.advanced.generic.m_Type = EMenuItemType::Bitmap;
 	s_serveroptions.advanced.generic.name = BUTTON_GRAPHIC_LONGRIGHT;
 	s_serveroptions.advanced.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_serveroptions.advanced.generic.callback = ServerOptions_Event;
@@ -2694,7 +2688,7 @@ static void ServerOptions_MenuInit(qboolean multiplayer)
 	s_serveroptions.advanced.textcolor = CT_BLACK;
 	s_serveroptions.advanced.textcolor2 = CT_WHITE;
 
-	s_serveroptions.go.generic.type = MTYPE_BITMAP;
+	s_serveroptions.go.generic.m_Type = EMenuItemType::Bitmap;
 	s_serveroptions.go.generic.name = GRAPHIC_SQUARE;
 	s_serveroptions.go.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_serveroptions.go.generic.callback = ServerOptions_Event;
@@ -3276,19 +3270,15 @@ static void UI_BotSelectMenu_Init(char *bot)
 	UI_LogFuncBegin();
 
 	memset(&botSelectInfo, 0, sizeof(botSelectInfo));
-	botSelectInfo.menu.nitems = 0;
-	botSelectInfo.menu.wrapAround = qtrue;
-	botSelectInfo.menu.fullscreen = qtrue;
-	botSelectInfo.menu.draw = BotSelect_MenuDraw;
-	botSelectInfo.menu.fullscreen = qtrue;
-	botSelectInfo.menu.descX = MENU_DESC_X;
-	botSelectInfo.menu.descY = MENU_DESC_Y;
-	botSelectInfo.menu.listX = 230;
-	botSelectInfo.menu.listY = 188;
-	botSelectInfo.menu.titleX = MENU_TITLE_X;
-	botSelectInfo.menu.titleY = MENU_TITLE_Y;
-	botSelectInfo.menu.titleI = MNT_CONTROLSMENU_TITLE;
-	botSelectInfo.menu.footNoteEnum = MNT_HCSELECT;
+	botSelectInfo.menu.m_ItemCount = 0;
+	botSelectInfo.menu.m_WrapAround = true;
+	botSelectInfo.menu.m_Fullscreen = qtrue;
+	botSelectInfo.menu.OnDraw = BotSelect_MenuDraw;
+	botSelectInfo.menu.m_Fullscreen = qtrue;
+	botSelectInfo.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	botSelectInfo.menu.m_ListPosition = { 230, 188 };
+	botSelectInfo.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	botSelectInfo.menu.m_FootNote = MNT_HCSELECT;
 
 	UI_BotSelectMenu_Cache();
 
@@ -3298,7 +3288,7 @@ static void UI_BotSelectMenu_Init(char *bot)
 		x = 180;
 		for (j = 0; j < PLAYERGRID_COLS; j++, k++)
 		{
-			botSelectInfo.pics[k].generic.type = MTYPE_BITMAP;
+			botSelectInfo.pics[k].generic.m_Type = EMenuItemType::Bitmap;
 			botSelectInfo.pics[k].generic.flags = QMF_LEFT_JUSTIFY | QMF_INACTIVE;
 			botSelectInfo.pics[k].generic.x = x;
 			botSelectInfo.pics[k].generic.y = y;
@@ -3308,7 +3298,7 @@ static void UI_BotSelectMenu_Init(char *bot)
 			botSelectInfo.pics[k].focuspic = BOTSELECT_SELECTED;
 			botSelectInfo.pics[k].focuscolor = colorTable[CT_WHITE];
 
-			botSelectInfo.picbuttons[k].generic.type = MTYPE_BITMAP;
+			botSelectInfo.picbuttons[k].generic.m_Type = EMenuItemType::Bitmap;
 			botSelectInfo.picbuttons[k].generic.flags = QMF_LEFT_JUSTIFY | QMF_NODEFAULTINIT | QMF_PULSEIFFOCUS;
 			botSelectInfo.picbuttons[k].generic.callback = UI_BotSelectMenu_BotEvent;
 			botSelectInfo.picbuttons[k].generic.id = k;
@@ -3323,7 +3313,7 @@ static void UI_BotSelectMenu_Init(char *bot)
 			botSelectInfo.picbuttons[k].focuspic = BOTSELECT_SELECT;
 			botSelectInfo.picbuttons[k].focuscolor = colorTable[CT_WHITE];
 
-			botSelectInfo.picnames[k].generic.type = MTYPE_TEXT;
+			botSelectInfo.picnames[k].generic.m_Type = EMenuItemType::Text;
 			botSelectInfo.picnames[k].generic.flags = QMF_SMALLFONT;
 			botSelectInfo.picnames[k].generic.x = x + 32;
 			botSelectInfo.picnames[k].generic.y = y + 64;
@@ -3347,7 +3337,7 @@ static void UI_BotSelectMenu_Init(char *bot)
 		y += (64 + SMALLCHAR_HEIGHT + 6);
 	}
 
-	botSelectInfo.left.generic.type = MTYPE_BITMAP;
+	botSelectInfo.left.generic.m_Type = EMenuItemType::Bitmap;
 	botSelectInfo.left.generic.name = "menu/common/arrow_left_16.tga";
 	botSelectInfo.left.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	botSelectInfo.left.generic.callback = UI_BotSelectMenu_LeftEvent;
@@ -3363,7 +3353,7 @@ static void UI_BotSelectMenu_Init(char *bot)
 	botSelectInfo.left.textcolor = CT_BLACK;
 	botSelectInfo.left.textcolor2 = CT_WHITE;
 
-	botSelectInfo.right.generic.type = MTYPE_BITMAP;
+	botSelectInfo.right.generic.m_Type = EMenuItemType::Bitmap;
 	botSelectInfo.right.generic.name = "menu/common/arrow_right_16.tga";
 	botSelectInfo.right.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	botSelectInfo.right.generic.callback = UI_BotSelectMenu_RightEvent;
@@ -3379,7 +3369,7 @@ static void UI_BotSelectMenu_Init(char *bot)
 	botSelectInfo.right.textcolor = CT_BLACK;
 	botSelectInfo.right.textcolor2 = CT_WHITE;
 
-	botSelectInfo.mainmenu.generic.type = MTYPE_BITMAP;
+	botSelectInfo.mainmenu.generic.m_Type = EMenuItemType::Bitmap;
 	botSelectInfo.mainmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	botSelectInfo.mainmenu.generic.x = 110;
 	botSelectInfo.mainmenu.generic.y = 391;
@@ -3396,7 +3386,7 @@ static void UI_BotSelectMenu_Init(char *bot)
 	botSelectInfo.mainmenu.textcolor = CT_BLACK;
 	botSelectInfo.mainmenu.textcolor2 = CT_WHITE;
 
-	botSelectInfo.back.generic.type = MTYPE_BITMAP;
+	botSelectInfo.back.generic.m_Type = EMenuItemType::Bitmap;
 	botSelectInfo.back.generic.name = BUTTON_GRAPHIC_LONGRIGHT;
 	botSelectInfo.back.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	botSelectInfo.back.generic.callback = UI_BotSelectMenu_BackEvent;
@@ -3413,7 +3403,7 @@ static void UI_BotSelectMenu_Init(char *bot)
 	botSelectInfo.back.textcolor2 = CT_WHITE;
 
 
-	botSelectInfo.go.generic.type = MTYPE_BITMAP;
+	botSelectInfo.go.generic.m_Type = EMenuItemType::Bitmap;
 	botSelectInfo.go.generic.name = "menu/common/square.tga";
 	botSelectInfo.go.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	botSelectInfo.go.generic.callback = UI_BotSelectMenu_SelectEvent;
@@ -3429,7 +3419,7 @@ static void UI_BotSelectMenu_Init(char *bot)
 	botSelectInfo.go.textcolor = CT_BLACK;
 	botSelectInfo.go.textcolor2 = CT_WHITE;
 
-	botSelectInfo.chosenname.generic.type = MTYPE_PTEXT;
+	botSelectInfo.chosenname.generic.m_Type = EMenuItemType::PText;
 	botSelectInfo.chosenname.generic.flags = QMF_INACTIVE;
 	botSelectInfo.chosenname.generic.x = 212;
 	botSelectInfo.chosenname.generic.y = 351;
@@ -3976,19 +3966,16 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 
 	memset(&s_advancedserver, 0, sizeof(s_advancedserver));
 
-	s_advancedserver.menu.nitems = 0;
-	s_advancedserver.menu.wrapAround = qtrue;
-	s_advancedserver.menu.fullscreen = qtrue;
-	s_advancedserver.menu.draw = AdvanceServer_MenuDraw;
-	s_advancedserver.menu.fullscreen = qtrue;
-	s_advancedserver.menu.descX = MENU_DESC_X;
-	s_advancedserver.menu.descY = MENU_DESC_Y;
-	s_advancedserver.menu.titleX = MENU_TITLE_X;
-	s_advancedserver.menu.titleY = MENU_TITLE_Y;
-	s_advancedserver.menu.titleI = MNT_ANVANCEDMENU_TITLE;
-	s_advancedserver.menu.footNoteEnum = MNT_ADVANCEDSERVER;
+	s_advancedserver.menu.m_ItemCount = 0;
+	s_advancedserver.menu.m_WrapAround = true;
+	s_advancedserver.menu.m_Fullscreen = qtrue;
+	s_advancedserver.menu.OnDraw = AdvanceServer_MenuDraw;
+	s_advancedserver.menu.m_Fullscreen = qtrue;
+	s_advancedserver.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_advancedserver.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_ANVANCEDMENU_TITLE };
+	s_advancedserver.menu.m_FootNote = MNT_ADVANCEDSERVER;
 
-	s_advancedserver.mainmenu.generic.type = MTYPE_BITMAP;
+	s_advancedserver.mainmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_advancedserver.mainmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.mainmenu.generic.x = 110;
 	s_advancedserver.mainmenu.generic.y = 391;
@@ -4005,7 +3992,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.mainmenu.textcolor = CT_BLACK;
 	s_advancedserver.mainmenu.textcolor2 = CT_WHITE;
 
-	s_advancedserver.back.generic.type = MTYPE_BITMAP;
+	s_advancedserver.back.generic.m_Type = EMenuItemType::Bitmap;
 	s_advancedserver.back.generic.name = BUTTON_GRAPHIC_LONGRIGHT;
 	s_advancedserver.back.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.back.generic.callback = AdvancedServer_Event;
@@ -4025,7 +4012,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	pad = 22;
 	x = 100;
 	y = 80;
-	s_advancedserver.autojoin.generic.type = MTYPE_SPINCONTROL;
+	s_advancedserver.autojoin.generic.m_Type = EMenuItemType::SpinControl;
 	s_advancedserver.autojoin.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.autojoin.generic.x = x;
 	s_advancedserver.autojoin.generic.y = y;
@@ -4042,7 +4029,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.autojoin.listnames = s_OffOnNone_Names;
 
 	y += pad;
-	s_advancedserver.autobalance.generic.type = MTYPE_SPINCONTROL;
+	s_advancedserver.autobalance.generic.m_Type = EMenuItemType::SpinControl;
 	s_advancedserver.autobalance.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.autobalance.generic.x = x;
 	s_advancedserver.autobalance.generic.y = y;
@@ -4060,7 +4047,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 
 	y += pad;
 	/*
-	s_advancedserver.friendlyfire.generic.type				= MTYPE_SPINCONTROL;
+	s_advancedserver.friendlyfire.generic.type				= EMenuItemType::SpinControl;
 	s_advancedserver.friendlyfire.generic.flags				= QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.friendlyfire.generic.x					= x;
 	s_advancedserver.friendlyfire.generic.y					= y;
@@ -4077,7 +4064,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.friendlyfire.listnames					= s_OffOnNone_Names;
 	*/
 	y += pad;
-	s_advancedserver.fallingdamage.generic.type = MTYPE_SPINCONTROL;
+	s_advancedserver.fallingdamage.generic.m_Type = EMenuItemType::SpinControl;
 	s_advancedserver.fallingdamage.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.fallingdamage.generic.x = x;
 	s_advancedserver.fallingdamage.generic.y = y;
@@ -4096,7 +4083,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 
 	y += pad;
 	x += 160;
-	s_advancedserver.repawntime.generic.type = MTYPE_FIELD;
+	s_advancedserver.repawntime.generic.m_Type = EMenuItemType::Field;
 	s_advancedserver.repawntime.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 	s_advancedserver.repawntime.generic.x = x;
 	s_advancedserver.repawntime.generic.y = y;
@@ -4112,7 +4099,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.repawntime.field.textcolor2 = CT_LTGOLD1;
 
 	y += pad;
-	s_advancedserver.maxclients.generic.type = MTYPE_FIELD;
+	s_advancedserver.maxclients.generic.m_Type = EMenuItemType::Field;
 	s_advancedserver.maxclients.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 	s_advancedserver.maxclients.generic.x = x;
 	s_advancedserver.maxclients.generic.y = y;
@@ -4128,7 +4115,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.maxclients.field.textcolor2 = CT_LTGOLD1;
 
 	y += pad;
-	s_advancedserver.runspeed.generic.type = MTYPE_FIELD;
+	s_advancedserver.runspeed.generic.m_Type = EMenuItemType::Field;
 	s_advancedserver.runspeed.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 	s_advancedserver.runspeed.generic.x = x;
 	s_advancedserver.runspeed.generic.y = y;
@@ -4144,7 +4131,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.runspeed.field.textcolor2 = CT_LTGOLD1;
 
 	y += pad;
-	s_advancedserver.gravity.generic.type = MTYPE_FIELD;
+	s_advancedserver.gravity.generic.m_Type = EMenuItemType::Field;
 	s_advancedserver.gravity.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 	s_advancedserver.gravity.generic.x = x;
 	s_advancedserver.gravity.generic.y = y;
@@ -4160,7 +4147,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.gravity.field.textcolor2 = CT_LTGOLD1;
 
 	y += pad;
-	s_advancedserver.knockback.generic.type = MTYPE_FIELD;
+	s_advancedserver.knockback.generic.m_Type = EMenuItemType::Field;
 	s_advancedserver.knockback.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 	s_advancedserver.knockback.generic.x = x;
 	s_advancedserver.knockback.generic.y = y;
@@ -4176,7 +4163,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.knockback.field.textcolor2 = CT_LTGOLD1;
 
 	y += pad;
-	s_advancedserver.dmgmult.generic.type = MTYPE_FIELD;
+	s_advancedserver.dmgmult.generic.m_Type = EMenuItemType::Field;
 	s_advancedserver.dmgmult.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 	s_advancedserver.dmgmult.generic.x = x;
 	s_advancedserver.dmgmult.generic.y = y;
@@ -4192,7 +4179,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.dmgmult.field.textcolor2 = CT_LTGOLD1;
 
 	y += pad;
-	s_advancedserver.bot_minplayers.generic.type = MTYPE_FIELD;
+	s_advancedserver.bot_minplayers.generic.m_Type = EMenuItemType::Field;
 	s_advancedserver.bot_minplayers.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 	s_advancedserver.bot_minplayers.generic.x = x;
 	s_advancedserver.bot_minplayers.generic.y = y;
@@ -4208,7 +4195,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.bot_minplayers.field.textcolor2 = CT_LTGOLD1;
 
 	y += pad;
-	s_advancedserver.classchangetimeout.generic.type = MTYPE_FIELD;
+	s_advancedserver.classchangetimeout.generic.m_Type = EMenuItemType::Field;
 	s_advancedserver.classchangetimeout.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 	s_advancedserver.classchangetimeout.generic.x = x;
 	s_advancedserver.classchangetimeout.generic.y = y;
@@ -4226,7 +4213,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	// Second column
 	x = 370;
 	y = 80;
-	s_advancedserver.adaptitemrespawn.generic.type = MTYPE_SPINCONTROL;
+	s_advancedserver.adaptitemrespawn.generic.m_Type = EMenuItemType::SpinControl;
 	s_advancedserver.adaptitemrespawn.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.adaptitemrespawn.generic.x = x;
 	s_advancedserver.adaptitemrespawn.generic.y = y;
@@ -4243,7 +4230,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.adaptitemrespawn.listnames = s_OffOnNone_Names;
 
 	y += pad;
-	s_advancedserver.holodeckintro.generic.type = MTYPE_SPINCONTROL;
+	s_advancedserver.holodeckintro.generic.m_Type = EMenuItemType::SpinControl;
 	s_advancedserver.holodeckintro.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.holodeckintro.generic.x = x;
 	s_advancedserver.holodeckintro.generic.y = y;
@@ -4261,7 +4248,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 
 	y += pad;
 	x += 160;
-	s_advancedserver.forceplayerrespawn.generic.type = MTYPE_FIELD;
+	s_advancedserver.forceplayerrespawn.generic.m_Type = EMenuItemType::Field;
 	s_advancedserver.forceplayerrespawn.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 	s_advancedserver.forceplayerrespawn.generic.x = x;
 	s_advancedserver.forceplayerrespawn.generic.y = y;
@@ -4277,7 +4264,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.forceplayerrespawn.field.textcolor2 = CT_LTGOLD1;
 
 	y += pad;
-	s_advancedserver.respawninvulnerability.generic.type = MTYPE_FIELD;
+	s_advancedserver.respawninvulnerability.generic.m_Type = EMenuItemType::Field;
 	s_advancedserver.respawninvulnerability.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 	s_advancedserver.respawninvulnerability.generic.x = x;
 	s_advancedserver.respawninvulnerability.generic.y = y;
@@ -4293,7 +4280,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.respawninvulnerability.field.textcolor2 = CT_LTGOLD1;
 
 	y += pad;
-	s_advancedserver.dowarmup.generic.type = MTYPE_FIELD;
+	s_advancedserver.dowarmup.generic.m_Type = EMenuItemType::Field;
 	s_advancedserver.dowarmup.generic.flags = QMF_NUMBERSONLY | QMF_SMALLFONT;
 	s_advancedserver.dowarmup.generic.x = x;
 	s_advancedserver.dowarmup.generic.y = y;
@@ -4311,7 +4298,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 
 	y += pad;
 	x = 370;
-	s_advancedserver.blueteam.generic.type = MTYPE_SPINCONTROL;
+	s_advancedserver.blueteam.generic.m_Type = EMenuItemType::SpinControl;
 	s_advancedserver.blueteam.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.blueteam.generic.x = x;
 	s_advancedserver.blueteam.generic.y = y;
@@ -4328,7 +4315,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.blueteam.itemnames = s_skinsForRace;
 
 	y += pad;
-	s_advancedserver.redteam.generic.type = MTYPE_SPINCONTROL;
+	s_advancedserver.redteam.generic.m_Type = EMenuItemType::SpinControl;
 	s_advancedserver.redteam.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.redteam.generic.x = x;
 	s_advancedserver.redteam.generic.y = y;
@@ -4345,7 +4332,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.redteam.itemnames = s_skinsForRace;
 
 	y += 33;
-	s_advancedserver.assimilation.generic.type = MTYPE_SPINCONTROL;
+	s_advancedserver.assimilation.generic.m_Type = EMenuItemType::SpinControl;
 	s_advancedserver.assimilation.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.assimilation.generic.x = x;
 	s_advancedserver.assimilation.generic.y = y;
@@ -4362,7 +4349,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.assimilation.listnames = s_OffOnNone_Names;
 
 	y += pad;
-	s_advancedserver.specialties.generic.type = MTYPE_SPINCONTROL;
+	s_advancedserver.specialties.generic.m_Type = EMenuItemType::SpinControl;
 	s_advancedserver.specialties.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.specialties.generic.x = x;
 	s_advancedserver.specialties.generic.y = y;
@@ -4379,7 +4366,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.specialties.listnames = s_OffOnNone_Names;
 
 	y += pad;
-	s_advancedserver.disintegration.generic.type = MTYPE_SPINCONTROL;
+	s_advancedserver.disintegration.generic.m_Type = EMenuItemType::SpinControl;
 	s_advancedserver.disintegration.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.disintegration.generic.x = x;
 	s_advancedserver.disintegration.generic.y = y;
@@ -4396,7 +4383,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.disintegration.listnames = s_OffOnNone_Names;
 
 	y += pad;
-	s_advancedserver.elimination.generic.type = MTYPE_SPINCONTROL;
+	s_advancedserver.elimination.generic.m_Type = EMenuItemType::SpinControl;
 	s_advancedserver.elimination.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.elimination.generic.x = x;
 	s_advancedserver.elimination.generic.y = y;
@@ -4413,7 +4400,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 	s_advancedserver.elimination.listnames = s_OffOnNone_Names;
 
 	y += pad;
-	s_advancedserver.actionhero.generic.type = MTYPE_SPINCONTROL;
+	s_advancedserver.actionhero.generic.m_Type = EMenuItemType::SpinControl;
 	s_advancedserver.actionhero.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_advancedserver.actionhero.generic.x = x;
 	s_advancedserver.actionhero.generic.y = y;
@@ -4466,7 +4453,7 @@ static void UI_AdvancedServerMenu_Init(int32_t fromMenu)
 
 	}
 
-	s_advancedserver.errorText.generic.type = MTYPE_TEXT;
+	s_advancedserver.errorText.generic.m_Type = EMenuItemType::Text;
 	s_advancedserver.errorText.generic.flags = QMF_HIDDEN | QMF_INACTIVE;
 	s_advancedserver.errorText.generic.x = 400;
 	s_advancedserver.errorText.generic.y = 380;

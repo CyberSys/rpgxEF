@@ -159,23 +159,23 @@ namespace Common
           return MIXED;
         }
       default:
-        return _T("");
+        return "";
       }
     }
 
-    char_t* RAW_UPPER = _T("UPPER");
-    char_t* RAW_LOWER = _T("lower");
-    char_t* RAW_MIXED = _T("MiXeD");
+    char_t* RAW_UPPER = "UPPER";
+    char_t* RAW_LOWER = "lower";
+    char_t* RAW_MIXED = "MiXeD";
 
-    static constexpr const char_t* UPPER = _T("UPPER");
-    static constexpr const char_t* LOWER = _T("lower");
-    static constexpr const char_t* MIXED = _T("MiXeD");
-    static constexpr const char_t* TO_UPPER_EXPECTED_UPPER = _T("UPPER");
-    static constexpr const char_t* TO_UPPER_EXPECTED_LOWER = _T("LOWER");
-    static constexpr const char_t* TO_UPPER_EXPECTED_MIXED = _T("MIXED");
-    static constexpr const char_t* TO_LOWER_EXPECTED_UPPER = _T("upper");
-    static constexpr const char_t* TO_LOWER_EXPECTED_LOWER = _T("lower");
-    static constexpr const char_t* TO_LOWER_EXPECTED_MIXED = _T("mixed");
+    static constexpr const char_t* UPPER = "UPPER";
+    static constexpr const char_t* LOWER = "lower";
+    static constexpr const char_t* MIXED = "MiXeD";
+    static constexpr const char_t* TO_UPPER_EXPECTED_UPPER = "UPPER";
+    static constexpr const char_t* TO_UPPER_EXPECTED_LOWER = "LOWER";
+    static constexpr const char_t* TO_UPPER_EXPECTED_MIXED = "MIXED";
+    static constexpr const char_t* TO_LOWER_EXPECTED_UPPER = "upper";
+    static constexpr const char_t* TO_LOWER_EXPECTED_LOWER = "lower";
+    static constexpr const char_t* TO_LOWER_EXPECTED_MIXED = "mixed";
   };
 
 
@@ -197,9 +197,9 @@ namespace Common
     REQUIRE(ToUpper(RAW_LOWER) == TO_UPPER_EXPECTED_LOWER);
     REQUIRE(ToUpper(RAW_MIXED) == TO_UPPER_EXPECTED_MIXED);
 
-    REQUIRE(ToUpper(_T("UPPER")) == TO_UPPER_EXPECTED_UPPER);
-    REQUIRE(ToUpper(_T("lower")) == TO_UPPER_EXPECTED_LOWER);
-    REQUIRE(ToUpper(_T("MiXeD")) == TO_UPPER_EXPECTED_MIXED);
+    REQUIRE(ToUpper("UPPER") == TO_UPPER_EXPECTED_UPPER);
+    REQUIRE(ToUpper("lower") == TO_UPPER_EXPECTED_LOWER);
+    REQUIRE(ToUpper("MiXeD") == TO_UPPER_EXPECTED_MIXED);
   }
 
   TEST_CASE_FIXTURE(ToUpperToLowerFixture, "String ToLower")
@@ -220,86 +220,86 @@ namespace Common
     REQUIRE(ToLower(RAW_LOWER) == TO_LOWER_EXPECTED_LOWER);
     REQUIRE(ToLower(RAW_MIXED) == TO_LOWER_EXPECTED_MIXED);
 
-    REQUIRE(ToLower(_T("UPPER")) == TO_LOWER_EXPECTED_UPPER);
-    REQUIRE(ToLower(_T("lower")) == TO_LOWER_EXPECTED_LOWER);
-    REQUIRE(ToLower(_T("MiXeD")) == TO_LOWER_EXPECTED_MIXED);
+    REQUIRE(ToLower("UPPER") == TO_LOWER_EXPECTED_UPPER);
+    REQUIRE(ToLower("lower") == TO_LOWER_EXPECTED_LOWER);
+    REQUIRE(ToLower("MiXeD") == TO_LOWER_EXPECTED_MIXED);
   }
 
   TEST_CASE("String TrimLeft")
   {
-    String Str1 = _T("NoWS");
-    String Str2 = _T(" WS");
-    String Str3 = _T("\tWS");
-    String Str4 = _T("   \t  \tWS ");
+    String Str1 = "NoWS";
+    String Str2 = " WS";
+    String Str3 = "\tWS";
+    String Str4 = "   \t  \tWS ";
 
-    REQUIRE(TrimLeft(Str1) == _T("NoWS"));
-    REQUIRE(TrimLeft(Str2) == _T("WS"));
-    REQUIRE(TrimLeft(Str3) == _T("WS"));
-    REQUIRE(TrimLeft(Str4) == _T("WS "));
+    REQUIRE(TrimLeft(Str1) == "NoWS");
+    REQUIRE(TrimLeft(Str2) == "WS");
+    REQUIRE(TrimLeft(Str3) == "WS");
+    REQUIRE(TrimLeft(Str4) == "WS ");
 
-    const String Str5 = _T("NoWS");
-    const String Str6 = _T(" WS");
-    const String Str7 = _T("\tWS");
-    const String Str8 = _T("   \t  \tWS ");
+    const String Str5 = "NoWS";
+    const String Str6 = " WS";
+    const String Str7 = "\tWS";
+    const String Str8 = "   \t  \tWS ";
 
-    REQUIRE(TrimLeft(Str5) == _T("NoWS"));
-    REQUIRE(TrimLeft(Str6) == _T("WS"));
-    REQUIRE(TrimLeft(Str7) == _T("WS"));
-    REQUIRE(TrimLeft(Str8) == _T("WS "));
+    REQUIRE(TrimLeft(Str5) == "NoWS");
+    REQUIRE(TrimLeft(Str6) == "WS");
+    REQUIRE(TrimLeft(Str7) == "WS");
+    REQUIRE(TrimLeft(Str8) == "WS ");
   }
 
   TEST_CASE("String TrimRight")
   {
-    String Str1 = _T("NoWS");
-    String Str2 = _T(" WS ");
-    String Str3 = _T("\tWS\t");
-    String Str4 = _T("   \t  \tWS \t  ");
+    String Str1 = "NoWS";
+    String Str2 = " WS ";
+    String Str3 = "\tWS\t";
+    String Str4 = "   \t  \tWS \t  ";
 
-    REQUIRE(TrimRight(Str1) == _T("NoWS"));
-    REQUIRE(TrimRight(Str2) == _T(" WS"));
-    REQUIRE(TrimRight(Str3) == _T("\tWS"));
-    REQUIRE(TrimRight(Str4) == _T("   \t  \tWS"));
+    REQUIRE(TrimRight(Str1) == "NoWS");
+    REQUIRE(TrimRight(Str2) == " WS");
+    REQUIRE(TrimRight(Str3) == "\tWS");
+    REQUIRE(TrimRight(Str4) == "   \t  \tWS");
 
-    const String Str5 = _T("NoWS");
-    const String Str6 = _T(" WS ");
-    const String Str7 = _T("\tWS\t");
-    const String Str8 = _T("   \t  \tWS \t  ");
+    const String Str5 = "NoWS";
+    const String Str6 = " WS ";
+    const String Str7 = "\tWS\t";
+    const String Str8 = "   \t  \tWS \t  ";
 
-    REQUIRE(TrimRight(Str5) == _T("NoWS"));
-    REQUIRE(TrimRight(Str6) == _T(" WS"));
-    REQUIRE(TrimRight(Str7) == _T("\tWS"));
-    REQUIRE(TrimRight(Str8) == _T("   \t  \tWS"));
+    REQUIRE(TrimRight(Str5) == "NoWS");
+    REQUIRE(TrimRight(Str6) == " WS");
+    REQUIRE(TrimRight(Str7) == "\tWS");
+    REQUIRE(TrimRight(Str8) == "   \t  \tWS");
   }
 
   TEST_CASE("String Trim")
   {
-    String Str1 = _T("NoWS");
-    String Str2 = _T(" WS ");
-    String Str3 = _T("\tWS\t");
-    String Str4 = _T("   \t  \tWS \t  ");
+    String Str1 = "NoWS";
+    String Str2 = " WS ";
+    String Str3 = "\tWS\t";
+    String Str4 = "   \t  \tWS \t  ";
 
-    REQUIRE(Trim(Str1) == _T("NoWS"));
-    REQUIRE(Trim(Str2) == _T("WS"));
-    REQUIRE(Trim(Str3) == _T("WS"));
-    REQUIRE(Trim(Str4) == _T("WS"));
+    REQUIRE(Trim(Str1) == "NoWS");
+    REQUIRE(Trim(Str2) == "WS");
+    REQUIRE(Trim(Str3) == "WS");
+    REQUIRE(Trim(Str4) == "WS");
 
-    const String Str5 = _T("NoWS");
-    const String Str6 = _T(" WS ");
-    const String Str7 = _T("\tWS\t");
-    const String Str8 = _T("   \t  \tWS \t  ");
+    const String Str5 = "NoWS";
+    const String Str6 = " WS ";
+    const String Str7 = "\tWS\t";
+    const String Str8 = "   \t  \tWS \t  ";
 
-    REQUIRE(Trim(Str5) == _T("NoWS"));
-    REQUIRE(Trim(Str6) == _T("WS"));
-    REQUIRE(Trim(Str7) == _T("WS"));
-    REQUIRE(Trim(Str8) == _T("WS"));
+    REQUIRE(Trim(Str5) == "NoWS");
+    REQUIRE(Trim(Str6) == "WS");
+    REQUIRE(Trim(Str7) == "WS");
+    REQUIRE(Trim(Str8) == "WS");
   }
 
   TEST_CASE("String EqualNoCase")
   {
-    const String Str1 = _T("Str");
-    const String Str2 = _T("Str");
-    const String Str3 = _T("str");
-    const String Str4 = _T("StR");
+    const String Str1 = "Str";
+    const String Str2 = "Str";
+    const String Str3 = "str";
+    const String Str4 = "StR";
 
     REQUIRE(EqualNoCase(Str1, Str1));
     REQUIRE(EqualNoCase(Str2, Str2));
@@ -322,7 +322,7 @@ namespace Common
     REQUIRE(EqualNoCase(Str4, Str2));
     REQUIRE(EqualNoCase(Str4, Str3));
 
-    const String Str5 = _T("Ha");
+    const String Str5 = "Ha";
 
     REQUIRE(!EqualNoCase(Str1, Str5));
     REQUIRE(!EqualNoCase(Str2, Str5));
@@ -332,10 +332,10 @@ namespace Common
 
   TEST_CASE("String CompareNoCase")
   {
-    const String Str1 = _T("Str");
-    const String Str2 = _T("Str");
-    const String Str3 = _T("str");
-    const String Str4 = _T("StR");
+    const String Str1 = "Str";
+    const String Str2 = "Str";
+    const String Str3 = "str";
+    const String Str4 = "StR";
 
     REQUIRE(CompareNoCase(Str1, Str1) == 0);
     REQUIRE(CompareNoCase(Str2, Str2) == 0);
@@ -358,7 +358,7 @@ namespace Common
     REQUIRE(CompareNoCase(Str4, Str2) == 0);
     REQUIRE(CompareNoCase(Str4, Str3) == 0);
 
-    const String Str5 = _T("Ha");
+    const String Str5 = "Ha";
 
     REQUIRE(CompareNoCase(Str1, Str5) == 1);
     REQUIRE(CompareNoCase(Str2, Str5) == 1);
@@ -374,31 +374,31 @@ namespace Common
     WARNINGS_OFF(4127);
 
     if(sizeof(void*) == 4)
-      REQUIRE(ToString(Test) == _T("00000000"));
+      REQUIRE(ToString(Test) == "00000000");
     else
       // ReSharper disable once CppUnreachableCode
-      REQUIRE(ToString(Test) == _T("0000000000000000"));
+      REQUIRE(ToString(Test) == "0000000000000000");
 
     WARNINGS_ON;
   }
 
   TEST_CASE("String ToString String")
   {
-    const String Test = _T("Test");
+    const String Test = "Test";
 
     REQUIRE(ToString(Test) == Test);
   }
 
   TEST_CASE("String ToString Bool")
   {
-    REQUIRE(ToString(true) == _T("1"));
-    REQUIRE(ToString(false) == _T("0"));
-    REQUIRE(ToString(true, true) == _T("true"));
-    REQUIRE(ToString(false, true) == _T("false"));
-    REQUIRE(ToString(1 == 1) == _T("1"));
-    REQUIRE(ToString(1 == 42) == _T("0"));
-    REQUIRE(ToString(1 == 1, true) == _T("true"));
-    REQUIRE(ToString(1 == 42, true) == _T("false"));
+    REQUIRE(ToString(true) == "1");
+    REQUIRE(ToString(false) == "0");
+    REQUIRE(ToString(true, true) == "true");
+    REQUIRE(ToString(false, true) == "false");
+    REQUIRE(ToString(1 == 1) == "1");
+    REQUIRE(ToString(1 == 42) == "0");
+    REQUIRE(ToString(1 == 1, true) == "true");
+    REQUIRE(ToString(1 == 42, true) == "false");
   }
 
   TEST_CASE("String ToString Floating Point")
@@ -407,9 +407,9 @@ namespace Common
 
     ToString(4.02, 5);
 
-    REQUIRE(ToString(f, 5, true) == _T("42.00000"));
-    REQUIRE(ToString(2.04, 5) == _T("2.04"));
-    REQUIRE(ToString(2.04, 1) == _T("2"));
+    REQUIRE(ToString(f, 5, true) == "42.00000");
+    REQUIRE(ToString(2.04, 5) == "2.04");
+    REQUIRE(ToString(2.04, 1) == "2");
 
     auto Temp = ToString(f, 10, true, true, 20);
     REQUIRE(Temp.length() == 20);
@@ -421,31 +421,31 @@ namespace Common
     uint32_t I2 = 42;
     int16_t I3 = -42;
 
-    REQUIRE(ToString(I1) == _T("42"));
-    REQUIRE(ToString(I2) == _T("42"));
-    REQUIRE(ToString(I3) == _T("-42"));
+    REQUIRE(ToString(I1) == "42");
+    REQUIRE(ToString(I2) == "42");
+    REQUIRE(ToString(I3) == "-42");
 
-    REQUIRE(ToString(I1, EIntegralFormat::Hexadecimal) == _T("2a"));
-    REQUIRE(ToString(I2, EIntegralFormat::Hexadecimal) == _T("2a"));
-    REQUIRE(ToString(I3, EIntegralFormat::Hexadecimal) == _T("ffd6"));
+    REQUIRE(ToString(I1, EIntegralFormat::Hexadecimal) == "2a");
+    REQUIRE(ToString(I2, EIntegralFormat::Hexadecimal) == "2a");
+    REQUIRE(ToString(I3, EIntegralFormat::Hexadecimal) == "ffd6");
 
-    REQUIRE(ToString(I1, EIntegralFormat::Octal) == _T("52"));
-    REQUIRE(ToString(I2, EIntegralFormat::Octal) == _T("52"));
-    REQUIRE(ToString(I3, EIntegralFormat::Octal) == _T("177726"));
+    REQUIRE(ToString(I1, EIntegralFormat::Octal) == "52");
+    REQUIRE(ToString(I2, EIntegralFormat::Octal) == "52");
+    REQUIRE(ToString(I3, EIntegralFormat::Octal) == "177726");
 
     REQUIRE(ToString(I1, EIntegralFormat::Decimal, 5).length() == 5);
     REQUIRE(ToString(I2, EIntegralFormat::Decimal, 5).length() == 5);
     REQUIRE(ToString(I3, EIntegralFormat::Decimal, 5).length() == 5);
 
-    REQUIRE(ToString(I1, EIntegralFormat::Decimal, 5, _T('.')) == _T("...42"));
-    REQUIRE(ToString(I2, EIntegralFormat::Decimal, 5, _T('.')) == _T("...42"));
-    REQUIRE(ToString(I3, EIntegralFormat::Decimal, 5, _T('.')) == _T("..-42"));
+    REQUIRE(ToString(I1, EIntegralFormat::Decimal, 5, '.') == "...42");
+    REQUIRE(ToString(I2, EIntegralFormat::Decimal, 5, '.') == "...42");
+    REQUIRE(ToString(I3, EIntegralFormat::Decimal, 5, '.') == "..-42");
   }
 
   TEST_CASE("String Format")
   {
-    REQUIRE(Format(_T("%0 %1 %2"), 42, _T("test"), true) == _T("42 test 1"));
-    REQUIRE(Format(_T("%1%0%1"), 1, 0) == _T("010"));
+    REQUIRE(Format("%0 %1 %2", 42, "test", true) == "42 test 1");
+    REQUIRE(Format("%1%0%1", 1, 0) == "010");
   }
 }
 

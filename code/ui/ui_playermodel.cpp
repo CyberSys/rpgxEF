@@ -1105,7 +1105,7 @@ static sfxHandle_t PlayerModel_MenuKey(int32_t key)
 	case K_MOUSE1:
 		if (Menu_ItemAtCursor(&s_playermodel.menu) == &s_playermodel.scrollBar)
 		{
-			uis.activemenu->noNewSelecting = qtrue;
+			uis.activemenu->m_NoNewSelecting = qtrue;
 			s_playermodel.scrollData.mouseDown = qtrue;
 			s_playermodel.scrollData.yStart = uis.cursory;
 		}
@@ -1510,7 +1510,7 @@ static void PlayerModel_DrawScrollBar(void *self)
 	if (!trap_Key_IsDown(K_MOUSE1))
 	{
 		s_playermodel.scrollData.mouseDown = qfalse;
-		uis.activemenu->noNewSelecting = qfalse;
+		uis.activemenu->m_NoNewSelecting = qfalse;
 		UI_LogFuncEnd();
 		return;
 	}
@@ -1755,18 +1755,15 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 		}
 	}
 
-	s_playermodel.menu.key = PlayerModel_MenuKey;
-	s_playermodel.menu.wrapAround = qtrue;
-	s_playermodel.menu.fullscreen = qtrue;
-	s_playermodel.menu.draw = PlayerModel_MenuDraw;
-	s_playermodel.menu.descX = MENU_DESC_X;
-	s_playermodel.menu.descY = MENU_DESC_Y;
-	s_playermodel.menu.titleX = MENU_TITLE_X;
-	s_playermodel.menu.titleY = MENU_TITLE_Y;
-	s_playermodel.menu.titleI = MNT_CHANGEPLAYER_TITLE;
-	s_playermodel.menu.footNoteEnum = MNT_CHANGEPLAYER;
+	s_playermodel.menu.OnKey = PlayerModel_MenuKey;
+	s_playermodel.menu.m_WrapAround = true;
+	s_playermodel.menu.m_Fullscreen = qtrue;
+	s_playermodel.menu.OnDraw = PlayerModel_MenuDraw;
+	s_playermodel.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_playermodel.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CHANGEPLAYER_TITLE };
+	s_playermodel.menu.m_FootNote = MNT_CHANGEPLAYER;
 
-	s_playermodel.mainmenu.generic.type = MTYPE_BITMAP;
+	s_playermodel.mainmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_playermodel.mainmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playermodel.mainmenu.generic.x = 110;
 	s_playermodel.mainmenu.generic.y = 391;
@@ -1793,7 +1790,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.mainmenu.textcolor = CT_BLACK;
 	s_playermodel.mainmenu.textcolor2 = CT_WHITE;
 
-	s_playermodel.back.generic.type = MTYPE_BITMAP;
+	s_playermodel.back.generic.m_Type = EMenuItemType::Bitmap;
 	s_playermodel.back.generic.name = BUTTON_GRAPHIC_LONGRIGHT;
 	s_playermodel.back.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playermodel.back.generic.callback = PlayerModel_MenuEvent;
@@ -1811,7 +1808,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.back.textcolor = CT_BLACK;
 	s_playermodel.back.textcolor2 = CT_WHITE;
 
-	s_playermodel.data.generic.type = MTYPE_BITMAP;
+	s_playermodel.data.generic.m_Type = EMenuItemType::Bitmap;
 	s_playermodel.data.generic.name = BUTTON_GRAPHIC_LONGRIGHT;
 	s_playermodel.data.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playermodel.data.generic.id = ID_SETTINGS;
@@ -1828,7 +1825,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.data.textcolor = CT_BLACK;
 	s_playermodel.data.textcolor2 = CT_WHITE;
 
-	s_playermodel.model.generic.type = MTYPE_BITMAP;
+	s_playermodel.model.generic.m_Type = EMenuItemType::Bitmap;
 	s_playermodel.model.generic.name = BUTTON_GRAPHIC_LONGRIGHT;
 	s_playermodel.model.generic.flags = QMF_GRAYED;
 	s_playermodel.model.generic.x = 482;
@@ -1848,7 +1845,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	y = 85;
 
 	for (i = 0; i < MAX_MENULISTITEMS; i++) {
-		s_playermodel.charMenu[i].generic.type = MTYPE_BITMAP;
+		s_playermodel.charMenu[i].generic.m_Type = EMenuItemType::Bitmap;
 		s_playermodel.charMenu[i].generic.flags = QMF_INACTIVE | QMF_HIDDEN;
 		s_playermodel.charMenu[i].generic.x = x;
 		s_playermodel.charMenu[i].generic.y = y;
@@ -1868,7 +1865,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 		y += 24;
 	}
 
-	s_playermodel.playername.generic.type = MTYPE_PTEXT;
+	s_playermodel.playername.generic.m_Type = EMenuItemType::PText;
 	s_playermodel.playername.generic.flags = QMF_INACTIVE;
 	s_playermodel.playername.generic.x = 444;
 	s_playermodel.playername.generic.y = 63;
@@ -1876,7 +1873,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.playername.style = UI_SMALLFONT;
 	s_playermodel.playername.color = colorTable[CT_BLACK];
 
-	/*s_playermodel.modelname.generic.type			= MTYPE_PTEXT;
+	/*s_playermodel.modelname.generic.type			= EMenuItemType::PText;
 	s_playermodel.modelname.generic.flags			= QMF_INACTIVE;
 	s_playermodel.modelname.generic.x				= 121;
 	s_playermodel.modelname.generic.y				= 338;
@@ -1884,7 +1881,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.modelname.style					= UI_LEFT;
 	s_playermodel.modelname.color					= colorTable[CT_LTBLUE1];*/
 
-	/*s_playermodel.skinname.generic.type				= MTYPE_PTEXT;
+	/*s_playermodel.skinname.generic.type				= EMenuItemType::PText;
 	s_playermodel.skinname.generic.flags			= QMF_INACTIVE;
 	s_playermodel.skinname.generic.x				= 323;
 	s_playermodel.skinname.generic.y				= 338;
@@ -1892,7 +1889,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.skinname.style					= UI_RIGHT;
 	s_playermodel.skinname.color					= colorTable[CT_LTBLUE1];*/
 
-	s_playermodel.player.generic.type = MTYPE_BITMAP;
+	s_playermodel.player.generic.m_Type = EMenuItemType::Bitmap;
 	s_playermodel.player.generic.flags = QMF_SILENT;
 	s_playermodel.player.generic.ownerdraw = PlayerModel_DrawPlayer;
 	s_playermodel.player.generic.callback = PlayerModel_SpinPlayer;
@@ -1901,7 +1898,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.player.width = 151; //32*7.3
 	s_playermodel.player.height = 291; //56*7.3
 
-	s_playermodel.upArrow.generic.type = MTYPE_BITMAP;
+	s_playermodel.upArrow.generic.m_Type = EMenuItemType::Bitmap;
 	s_playermodel.upArrow.generic.name = PIC_ARROW_UP;
 	s_playermodel.upArrow.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_playermodel.upArrow.generic.callback = PlayerModel_MenuEvent;
@@ -1918,7 +1915,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.upArrow.textcolor = CT_BLACK;
 	s_playermodel.upArrow.textcolor2 = CT_WHITE;
 
-	s_playermodel.dnArrow.generic.type = MTYPE_BITMAP;
+	s_playermodel.dnArrow.generic.m_Type = EMenuItemType::Bitmap;
 	s_playermodel.dnArrow.generic.name = PIC_ARROW_DOWN;
 	s_playermodel.dnArrow.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_playermodel.dnArrow.generic.callback = PlayerModel_MenuEvent;
@@ -1935,7 +1932,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.dnArrow.textcolor = CT_BLACK;
 	s_playermodel.dnArrow.textcolor2 = CT_WHITE;
 
-	s_playermodel.charModel.generic.type = MTYPE_SPINCONTROL;
+	s_playermodel.charModel.generic.m_Type = EMenuItemType::SpinControl;
 	s_playermodel.charModel.generic.flags = QMF_INACTIVE | QMF_GRAYED; //QMF_HIGHLIGHT_IF_FOCUS
 	s_playermodel.charModel.generic.id = ID_MODELSET;
 	s_playermodel.charModel.generic.callback = PlayerModel_MenuEvent;
@@ -1957,7 +1954,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.charModel.focusHeight = 40;
 	s_playermodel.charModel.itemnames = (const char **)s_playermodel.modelList;
 
-	s_playermodel.charSkin.generic.type = MTYPE_SPINCONTROL;
+	s_playermodel.charSkin.generic.m_Type = EMenuItemType::SpinControl;
 	s_playermodel.charSkin.generic.flags = QMF_INACTIVE | QMF_GRAYED;
 	s_playermodel.charSkin.generic.id = ID_SKINSET;
 	s_playermodel.charSkin.generic.callback = PlayerModel_MenuEvent;
@@ -1979,7 +1976,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.charSkin.focusHeight = 40;
 	s_playermodel.charSkin.itemnames = (const char**)s_playermodel.skinList;
 
-	s_playermodel.raceFilter.generic.type = MTYPE_SPINCONTROL;
+	s_playermodel.raceFilter.generic.m_Type = EMenuItemType::SpinControl;
 	if (!races) {
 		s_playermodel.raceFilter.generic.flags = QMF_INACTIVE | QMF_GRAYED;
 	}
@@ -2000,7 +1997,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.raceFilter.width = 65;
 	s_playermodel.raceFilter.itemnames = (const char**)s_playermodel.raceNames;
 
-	s_playermodel.genderFilter.generic.type = MTYPE_SPINCONTROL;
+	s_playermodel.genderFilter.generic.m_Type = EMenuItemType::SpinControl;
 	if (!genders) {
 		s_playermodel.genderFilter.generic.flags = QMF_INACTIVE | QMF_GRAYED;
 	}
@@ -2021,7 +2018,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.genderFilter.width = 65;
 	s_playermodel.genderFilter.itemnames = (const char**)s_playermodel.genderNames;
 
-	s_playermodel.apply.generic.type = MTYPE_BITMAP;
+	s_playermodel.apply.generic.m_Type = EMenuItemType::Bitmap;
 	s_playermodel.apply.generic.name = GRAPHIC_SQUARE;
 	s_playermodel.apply.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_playermodel.apply.generic.callback = PlayerModel_MenuEvent;
@@ -2038,7 +2035,7 @@ static void PlayerModel_MenuInit(int32_t menuFrom)
 	s_playermodel.apply.textcolor = CT_BLACK;
 	s_playermodel.apply.textcolor2 = CT_WHITE;
 
-	s_playermodel.scrollBar.generic.type = MTYPE_ACTION;
+	s_playermodel.scrollBar.generic.m_Type = EMenuItemType::Action;
 	s_playermodel.scrollBar.generic.flags = QMF_INACTIVE | QMF_HIDDEN;
 	s_playermodel.scrollBar.generic.x = 242;
 	s_playermodel.scrollBar.generic.y = 108;

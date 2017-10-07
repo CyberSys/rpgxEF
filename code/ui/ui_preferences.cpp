@@ -314,17 +314,14 @@ static void GameOptions_MenuInit(void)
 
 	UI_GameOptionsMenu_Cache();
 
-	s_gameoptions.menu.nitems = 0;
-	s_gameoptions.menu.wrapAround = qtrue;
-	s_gameoptions.menu.draw = GameOptions_MenuDraw;
-	s_gameoptions.menu.key = GameOptions_MenuKey;
-	s_gameoptions.menu.fullscreen = qtrue;
-	s_gameoptions.menu.descX = MENU_DESC_X;
-	s_gameoptions.menu.descY = MENU_DESC_Y;
-	s_gameoptions.menu.titleX = MENU_TITLE_X;
-	s_gameoptions.menu.titleY = MENU_TITLE_Y;
-	s_gameoptions.menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_gameoptions.menu.footNoteEnum = MNT_GAMEOPTION_LABEL;
+	s_gameoptions.menu.m_ItemCount = 0;
+	s_gameoptions.menu.m_WrapAround = true;
+	s_gameoptions.menu.OnDraw = GameOptions_MenuDraw;
+	s_gameoptions.menu.OnKey = GameOptions_MenuKey;
+	s_gameoptions.menu.m_Fullscreen = qtrue;
+	s_gameoptions.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_gameoptions.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_gameoptions.menu.m_FootNote = MNT_GAMEOPTION_LABEL;
 
 	SetupMenu_TopButtons(&s_gameoptions.menu, MENU_GAME, NULL);
 
@@ -333,7 +330,7 @@ static void GameOptions_MenuInit(void)
 	y = 170;
 	width = 160; //170
 
-	s_preferences.flares.generic.type = MTYPE_SPINCONTROL;
+	s_preferences.flares.generic.m_Type = EMenuItemType::SpinControl;
 	s_preferences.flares.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_preferences.flares.generic.x = x;
 	s_preferences.flares.generic.y = y;
@@ -350,7 +347,7 @@ static void GameOptions_MenuInit(void)
 	s_preferences.flares.width = width;
 
 	y += inc;
-	s_preferences.wallmarks.generic.type = MTYPE_SPINCONTROL;
+	s_preferences.wallmarks.generic.m_Type = EMenuItemType::SpinControl;
 	s_preferences.wallmarks.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_preferences.wallmarks.generic.x = x;
 	s_preferences.wallmarks.generic.y = y;
@@ -367,7 +364,7 @@ static void GameOptions_MenuInit(void)
 	s_preferences.wallmarks.width = width;
 
 	y += inc;
-	s_preferences.dynamiclights.generic.type = MTYPE_SPINCONTROL;
+	s_preferences.dynamiclights.generic.m_Type = EMenuItemType::SpinControl;
 	s_preferences.dynamiclights.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_preferences.dynamiclights.generic.x = x;
 	s_preferences.dynamiclights.generic.y = y;
@@ -384,7 +381,7 @@ static void GameOptions_MenuInit(void)
 	s_preferences.dynamiclights.width = width;
 
 	y += inc;
-	s_preferences.identifytarget.generic.type = MTYPE_SPINCONTROL;
+	s_preferences.identifytarget.generic.m_Type = EMenuItemType::SpinControl;
 	s_preferences.identifytarget.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_preferences.identifytarget.generic.x = x;
 	s_preferences.identifytarget.generic.y = y;
@@ -401,7 +398,7 @@ static void GameOptions_MenuInit(void)
 	s_preferences.identifytarget.width = width;
 
 	y += inc;
-	s_preferences.synceveryframe.generic.type = MTYPE_SPINCONTROL;
+	s_preferences.synceveryframe.generic.m_Type = EMenuItemType::SpinControl;
 	s_preferences.synceveryframe.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_preferences.synceveryframe.generic.x = x;
 	s_preferences.synceveryframe.generic.y = y;
@@ -418,7 +415,7 @@ static void GameOptions_MenuInit(void)
 	s_preferences.synceveryframe.width = width;
 
 	y += inc;
-	s_preferences.forcemodel.generic.type = MTYPE_SPINCONTROL;
+	s_preferences.forcemodel.generic.m_Type = EMenuItemType::SpinControl;
 	s_preferences.forcemodel.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_preferences.forcemodel.generic.x = x;
 	s_preferences.forcemodel.generic.y = y;
@@ -436,7 +433,7 @@ static void GameOptions_MenuInit(void)
 
 	//TiM - Replace overlay with crosshairs 
 	y += inc;
-	s_preferences.crosshair.generic.type = MTYPE_SPINCONTROL;
+	s_preferences.crosshair.generic.m_Type = EMenuItemType::SpinControl;
 	s_preferences.crosshair.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_preferences.crosshair.generic.x = x;
 	s_preferences.crosshair.generic.y = y;
@@ -455,7 +452,7 @@ static void GameOptions_MenuInit(void)
 	s_preferences.crosshair.listnames = s_OffOnNone_Names;;
 
 	y += inc;
-	s_preferences.allowdownload.generic.type = MTYPE_SPINCONTROL;
+	s_preferences.allowdownload.generic.m_Type = EMenuItemType::SpinControl;
 	s_preferences.allowdownload.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_preferences.allowdownload.generic.x = x;
 	s_preferences.allowdownload.generic.y = y;
@@ -472,7 +469,7 @@ static void GameOptions_MenuInit(void)
 	s_preferences.allowdownload.width = width;
 
 	y += inc;
-	s_preferences.simpleitems.generic.type = MTYPE_SPINCONTROL;
+	s_preferences.simpleitems.generic.m_Type = EMenuItemType::SpinControl;
 	s_preferences.simpleitems.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_preferences.simpleitems.generic.x = x;
 	s_preferences.simpleitems.generic.y = y;
@@ -489,7 +486,7 @@ static void GameOptions_MenuInit(void)
 	s_preferences.simpleitems.width = width;
 
 	y += inc;
-	s_preferences.textlanguage.generic.type = MTYPE_SPINCONTROL;
+	s_preferences.textlanguage.generic.m_Type = EMenuItemType::SpinControl;
 	s_preferences.textlanguage.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_preferences.textlanguage.generic.x = x;
 	s_preferences.textlanguage.generic.y = y;
@@ -507,7 +504,7 @@ static void GameOptions_MenuInit(void)
 	s_preferences.textlanguage.width = width;
 
 	y += inc;
-	s_preferences.voicelanguage.generic.type = MTYPE_SPINCONTROL;
+	s_preferences.voicelanguage.generic.m_Type = EMenuItemType::SpinControl;
 	s_preferences.voicelanguage.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_preferences.voicelanguage.generic.x = x;
 	s_preferences.voicelanguage.generic.y = y;
@@ -536,7 +533,7 @@ static void GameOptions_MenuInit(void)
 	Menu_AddItem(&s_gameoptions.menu, &s_preferences.voicelanguage);
 	Menu_AddItem(&s_gameoptions.menu, &s_preferences.crosshair);
 
-	s_gameoptions.menu.initialized = qtrue;		// Show we've been here
+	s_gameoptions.menu.m_Initialized = qtrue;		// Show we've been here
 
 	Preferences_SetMenuItems();
 	UI_LogFuncEnd();

@@ -473,7 +473,7 @@ void MenuField_Draw( menufield_s *f )
 		if (menu_button_text[f->field.titleEnum][1])
 		{
 			menu = f->generic.parent;
-			UI_DrawProportionalString( menu->descX, menu->descY, menu_button_text[f->field.titleEnum][1], UI_LEFT|UI_TINYFONT, colorTable[CT_BLACK]);
+			UI_DrawProportionalString( menu->m_DescriptionPosition.X(), menu->m_DescriptionPosition.Y(), menu_button_text[f->field.titleEnum][1], UI_LEFT|UI_TINYFONT, colorTable[CT_BLACK]);
 		}
 	}
 
@@ -492,7 +492,7 @@ void MenuField_Draw( menufield_s *f )
 		if ( f->generic.flags & QMF_GRAYED )
 			titleColor = CT_DKGREY;
 
-		UI_DrawProportionalString(  x - 5, y, menu_button_text[f->field.titleEnum][0],UI_RIGHT | UI_SMALLFONT, colorTable[titleColor]);	
+		UI_DrawProportionalString(  x - 5, y, menu_button_text[f->field.titleEnum][0], UI_RIGHT | UI_SMALLFONT, colorTable[titleColor]);	
 	}// TiM 5 = 10 previously
 
 	MField_Draw( &f->field, x, y+offset, style, colorTable[color],focus );
@@ -539,9 +539,11 @@ sfxHandle_t MenuField_Key( menufield_s* m, int32_t* key )
 					keycode -= 'a' - 'A';
 				else if ((m->generic.flags & QMF_LOWERCASE) && Q_isupper( keycode ))
 					keycode -= 'A' - 'a';
-				else if ((m->generic.flags & QMF_NUMBERSONLY) && Q_isalpha( keycode ))
-					UI_LogFuncEnd();
-					return (menu_buzz_sound);
+        else if((m->generic.flags & QMF_NUMBERSONLY) && Q_isalpha(keycode))
+        {
+          UI_LogFuncEnd();
+          return (menu_buzz_sound);
+        }
 
 				MField_CharEvent( &m->field, keycode);
 			}

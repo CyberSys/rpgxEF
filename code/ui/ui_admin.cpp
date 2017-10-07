@@ -401,7 +401,7 @@ AdminMenu_InitButtons
 static void AdminMenu_InitButtons(menuframework_s *menu) {
 	UI_LogFuncBegin();
 
-	s_admin.mainMenu.generic.type = MTYPE_BITMAP;
+	s_admin.mainMenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_admin.mainMenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.mainMenu.generic.x = 464;
 	s_admin.mainMenu.generic.y = 100;
@@ -421,7 +421,7 @@ static void AdminMenu_InitButtons(menuframework_s *menu) {
 	s_admin.mainMenu.textcolor = CT_BLACK;
 	s_admin.mainMenu.textcolor2 = CT_WHITE;
 
-	s_admin.adminMain.generic.type = MTYPE_BITMAP;
+	s_admin.adminMain.generic.m_Type = EMenuItemType::Bitmap;
 	s_admin.adminMain.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.adminMain.generic.x = 125;
 	s_admin.adminMain.generic.y = 66;
@@ -438,7 +438,7 @@ static void AdminMenu_InitButtons(menuframework_s *menu) {
 	s_admin.adminMain.textcolor = CT_BLACK;
 	s_admin.adminMain.textcolor2 = CT_WHITE;
 
-	s_admin.adminClients.generic.type = MTYPE_BITMAP;
+	s_admin.adminClients.generic.m_Type = EMenuItemType::Bitmap;
 	s_admin.adminClients.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.adminClients.generic.x = 298;
 	s_admin.adminClients.generic.y = 66;
@@ -455,7 +455,7 @@ static void AdminMenu_InitButtons(menuframework_s *menu) {
 	s_admin.adminClients.textcolor = CT_BLACK;
 	s_admin.adminClients.textcolor2 = CT_WHITE;
 
-	s_admin.adminAudio.generic.type = MTYPE_BITMAP;
+	s_admin.adminAudio.generic.m_Type = EMenuItemType::Bitmap;
 	s_admin.adminAudio.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.adminAudio.generic.x = 470;
 	s_admin.adminAudio.generic.y = 66;
@@ -629,7 +629,7 @@ static void AdminMenu_Event(void* ptr, int32_t event) {
 	case ID_BIND_USEENT:
 	case ID_BIND_KICK:
 		s_admin.keyBindActive = ((menucommon_s *)ptr)->id - ID_BIND_SPAWN;
-		s_admin.menu.noNewSelecting = qtrue;
+		s_admin.menu.m_NoNewSelecting = qtrue;
 		break;
 
 	case ID_MAINMENU:
@@ -719,7 +719,7 @@ static sfxHandle_t AdminMenu_KeyEvent(int32_t key) {
 		switch (key) {
 		case K_ESCAPE:
 			s_admin.keyBindActive = -1;
-			s_admin.menu.noNewSelecting = qfalse;
+			s_admin.menu.m_NoNewSelecting = qfalse;
 
 			return (menu_out_sound);
 		case '`':
@@ -741,7 +741,7 @@ static sfxHandle_t AdminMenu_KeyEvent(int32_t key) {
 		s_admin.binds[s_admin.keyBindActive] = key;
 
 		s_admin.keyBindActive = -1;
-		s_admin.menu.noNewSelecting = qfalse;
+		s_admin.menu.m_NoNewSelecting = qfalse;
 
 		/* reget key binds for all the buttons */
 		for (i = 0; i < 3; i++) {
@@ -845,7 +845,7 @@ static void AdminMenu_DrawButton(void *self) {
 	/* draw the menu caption */
 	if (menu_button_text[action->textEnum][1] && focus)
 	{
-		UI_DrawProportionalString(action->generic.parent->descX, action->generic.parent->descY, menu_button_text[action->textEnum][1], UI_LEFT | UI_TINYFONT, colorTable[CT_BLACK]);
+		UI_DrawProportionalString(action->generic.parent->m_DescriptionPosition.X(), action->generic.parent->m_DescriptionPosition.Y(), menu_button_text[action->textEnum][1], UI_LEFT | UI_TINYFONT, colorTable[CT_BLACK]);
 	}
 
 	/* draw the button elements */
@@ -906,7 +906,7 @@ static void AdminMenu_DrawBinding(void *self) {
 
 	if (focus) {
 		if (menu_button_text[action->textEnum][1]) {
-			UI_DrawProportionalString(action->generic.parent->descX, action->generic.parent->descY, menu_button_text[action->textEnum][1], UI_LEFT | UI_TINYFONT, colorTable[CT_BLACK]);
+			UI_DrawProportionalString(action->generic.parent->m_DescriptionPosition.X(), action->generic.parent->m_DescriptionPosition.Y(), menu_button_text[action->textEnum][1], UI_LEFT | UI_TINYFONT, colorTable[CT_BLACK]);
 		}
 	}
 
@@ -981,18 +981,15 @@ static void AdminMenu_Init(void) {
 
 	/******************************************************************/
 
-	s_admin.menu.wrapAround = qtrue;
-	s_admin.menu.fullscreen = qtrue;
-	s_admin.menu.draw = AdminMenu_Draw;
-	s_admin.menu.descX = MENU_DESC_X;
-	s_admin.menu.descY = MENU_DESC_Y;
-	s_admin.menu.titleX = MENU_TITLE_X;
-	s_admin.menu.titleY = MENU_TITLE_Y;
-	s_admin.menu.footNoteEnum = MNT_ADMIN;
-	s_admin.menu.titleI = MNT_ADMIN_MENU;
-	s_admin.menu.key = AdminMenu_KeyEvent;
+	s_admin.menu.m_WrapAround = true;
+	s_admin.menu.m_Fullscreen = qtrue;
+	s_admin.menu.OnDraw = AdminMenu_Draw;
+  s_admin.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+  s_admin.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_ADMIN_MENU };
+	s_admin.menu.m_FootNote = MNT_ADMIN;
+	s_admin.menu.OnKey = AdminMenu_KeyEvent;
 
-	s_admin.god.generic.type = MTYPE_ACTION;
+	s_admin.god.generic.m_Type = EMenuItemType::Action;
 	s_admin.god.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.god.generic.callback = AdminMenu_Event;
 	s_admin.god.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1009,7 +1006,7 @@ static void AdminMenu_Init(void) {
 	s_admin.god.width = 81;
 	s_admin.god.height = 18;
 
-	s_admin.noclip.generic.type = MTYPE_ACTION;
+	s_admin.noclip.generic.m_Type = EMenuItemType::Action;
 	s_admin.noclip.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.noclip.generic.callback = AdminMenu_Event;
 	s_admin.noclip.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1026,7 +1023,7 @@ static void AdminMenu_Init(void) {
 	s_admin.noclip.width = 81;
 	s_admin.noclip.height = 18;
 
-	s_admin.cloak.generic.type = MTYPE_ACTION;
+	s_admin.cloak.generic.m_Type = EMenuItemType::Action;
 	s_admin.cloak.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.cloak.generic.callback = AdminMenu_Event;
 	s_admin.cloak.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1043,7 +1040,7 @@ static void AdminMenu_Init(void) {
 	s_admin.cloak.width = 81;
 	s_admin.cloak.height = 18;
 
-	s_admin.flight.generic.type = MTYPE_ACTION;
+	s_admin.flight.generic.m_Type = EMenuItemType::Action;
 	s_admin.flight.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.flight.generic.callback = AdminMenu_Event;
 	s_admin.flight.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1060,7 +1057,7 @@ static void AdminMenu_Init(void) {
 	s_admin.flight.width = 81;
 	s_admin.flight.height = 18;
 
-	s_admin.giveList.generic.type = MTYPE_SPINCONTROL;
+	s_admin.giveList.generic.m_Type = EMenuItemType::SpinControl;
 	s_admin.giveList.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.giveList.generic.x = 298;
 	s_admin.giveList.generic.y = 143;
@@ -1077,7 +1074,7 @@ static void AdminMenu_Init(void) {
 	s_admin.giveList.textEnum = MBT_ADMIN_ITEM;
 	/*s_admin.giveList.ignoreList		= qtrue;*/ /*Sad bug in the engine cropping up, so I have to disable this :(*/
 
-	s_admin.give.generic.type = MTYPE_ACTION;
+	s_admin.give.generic.m_Type = EMenuItemType::Action;
 	s_admin.give.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.give.generic.callback = AdminMenu_Event;
 	s_admin.give.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1094,7 +1091,7 @@ static void AdminMenu_Init(void) {
 	s_admin.give.width = 70;
 	s_admin.give.height = 18;
 
-	s_admin.reviveList.generic.type = MTYPE_SPINCONTROL;
+	s_admin.reviveList.generic.m_Type = EMenuItemType::SpinControl;
 	s_admin.reviveList.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.reviveList.generic.x = 474;
 	s_admin.reviveList.generic.y = 143;
@@ -1109,7 +1106,7 @@ static void AdminMenu_Init(void) {
 	s_admin.reviveList.textY = 1;
 	s_admin.reviveList.textEnum = MBT_ADMIN_REVIVE;
 
-	s_admin.revive.generic.type = MTYPE_ACTION;
+	s_admin.revive.generic.m_Type = EMenuItemType::Action;
 	s_admin.revive.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.revive.generic.callback = AdminMenu_Event;
 	s_admin.revive.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1126,7 +1123,7 @@ static void AdminMenu_Init(void) {
 	s_admin.revive.width = 72;
 	s_admin.revive.height = 18;
 
-	s_admin.msgArg.generic.type = MTYPE_FIELD;
+	s_admin.msgArg.generic.m_Type = EMenuItemType::Field;
 	s_admin.msgArg.field.widthInChars = 30;
 	s_admin.msgArg.field.maxchars = MAX_TOKEN_CHARS; /* Freeking hell this is long... who coded this admin thing? O_O */
 	s_admin.msgArg.generic.x = 90 + 5 +
@@ -1139,7 +1136,7 @@ static void AdminMenu_Init(void) {
 	s_admin.msgArg.field.textcolor = CT_DKGOLD1;
 	s_admin.msgArg.field.textcolor2 = CT_LTGOLD1;
 
-	s_admin.msg.generic.type = MTYPE_ACTION;
+	s_admin.msg.generic.m_Type = EMenuItemType::Action;
 	s_admin.msg.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.msg.generic.callback = AdminMenu_Event;
 	s_admin.msg.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1156,7 +1153,7 @@ static void AdminMenu_Init(void) {
 	s_admin.msg.width = 100;
 	s_admin.msg.height = 18;
 
-	s_admin.useEntField.generic.type = MTYPE_FIELD;
+	s_admin.useEntField.generic.m_Type = EMenuItemType::Field;
 	s_admin.useEntField.field.widthInChars = 11;
 	s_admin.useEntField.field.maxchars = 32;
 	s_admin.useEntField.generic.x = 434 + 5 + UI_ProportionalStringWidth(menu_button_text[MBT_ADMIN_ENTITY][0], UI_SMALLFONT); /* 159; */
@@ -1167,7 +1164,7 @@ static void AdminMenu_Init(void) {
 	s_admin.useEntField.field.textcolor = CT_DKGOLD1;
 	s_admin.useEntField.field.textcolor2 = CT_LTGOLD1;
 
-	s_admin.useEnt.generic.type = MTYPE_ACTION;
+	s_admin.useEnt.generic.m_Type = EMenuItemType::Action;
 	s_admin.useEnt.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.useEnt.generic.callback = AdminMenu_Event;
 	s_admin.useEnt.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1184,7 +1181,7 @@ static void AdminMenu_Init(void) {
 	s_admin.useEnt.width = 100;
 	s_admin.useEnt.height = 18;
 
-	s_admin.beamLocList.generic.type = MTYPE_SPINCONTROL;
+	s_admin.beamLocList.generic.m_Type = EMenuItemType::SpinControl;
 	s_admin.beamLocList.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.beamLocList.generic.x = 90;
 	s_admin.beamLocList.generic.y = 290;
@@ -1200,7 +1197,7 @@ static void AdminMenu_Init(void) {
 	s_admin.beamLocList.maxChars = 20;
 	s_admin.beamLocList.textEnum = MBT_ADMIN_BEAMLOC;
 
-	s_admin.beamToLoc.generic.type = MTYPE_ACTION;
+	s_admin.beamToLoc.generic.m_Type = EMenuItemType::Action;
 	s_admin.beamToLoc.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.beamToLoc.generic.callback = AdminMenu_Event;
 	s_admin.beamToLoc.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1222,7 +1219,7 @@ static void AdminMenu_Init(void) {
 		s_admin.beamToLoc.generic.flags |= QMF_GRAYED | QMF_INACTIVE;
 	}
 
-	s_admin.beamPlayerList.generic.type = MTYPE_SPINCONTROL;
+	s_admin.beamPlayerList.generic.m_Type = EMenuItemType::SpinControl;
 	s_admin.beamPlayerList.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.beamPlayerList.generic.x = 90;
 	s_admin.beamPlayerList.generic.y = 312;
@@ -1238,7 +1235,7 @@ static void AdminMenu_Init(void) {
 	s_admin.beamPlayerList.textEnum = MBT_ADMIN_BEAMPLAYER;
 	s_admin.beamPlayerList.maxChars = 20;
 
-	s_admin.beamToPlayerExecute.generic.type = MTYPE_ACTION;
+	s_admin.beamToPlayerExecute.generic.m_Type = EMenuItemType::Action;
 	s_admin.beamToPlayerExecute.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.beamToPlayerExecute.generic.callback = AdminMenu_Event;
 	s_admin.beamToPlayerExecute.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1260,7 +1257,7 @@ static void AdminMenu_Init(void) {
 		s_admin.beamToPlayerExecute.generic.flags |= QMF_GRAYED | QMF_INACTIVE;
 	}
 
-	s_admin.fxGunList.generic.type = MTYPE_SPINCONTROL;
+	s_admin.fxGunList.generic.m_Type = EMenuItemType::SpinControl;
 	s_admin.fxGunList.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.fxGunList.generic.callback = AdminMenu_Event;
 	s_admin.fxGunList.generic.id = ID_FXGUNLIST;
@@ -1277,7 +1274,7 @@ static void AdminMenu_Init(void) {
 	s_admin.fxGunList.textY = 1;
 	s_admin.fxGunList.textEnum = MBT_ADMIN_FX;
 
-	s_admin.fxArg1.generic.type = MTYPE_FIELD;
+	s_admin.fxArg1.generic.m_Type = EMenuItemType::Field;
 	s_admin.fxArg1.generic.flags = QMF_INACTIVE | QMF_GRAYED;
 	s_admin.fxArg1.field.widthInChars = 3;
 	s_admin.fxArg1.field.maxchars = 8;
@@ -1290,7 +1287,7 @@ static void AdminMenu_Init(void) {
 	s_admin.fxArg1.field.textcolor = CT_DKGOLD1;
 	s_admin.fxArg1.field.textcolor2 = CT_LTGOLD1;
 
-	s_admin.fxArg2.generic.type = MTYPE_FIELD;
+	s_admin.fxArg2.generic.m_Type = EMenuItemType::Field;
 	s_admin.fxArg2.generic.flags = QMF_INACTIVE | QMF_GRAYED;
 	s_admin.fxArg2.field.widthInChars = 3;
 	s_admin.fxArg2.field.maxchars = 8;
@@ -1303,7 +1300,7 @@ static void AdminMenu_Init(void) {
 	s_admin.fxArg2.field.textcolor = CT_DKGOLD1;
 	s_admin.fxArg2.field.textcolor2 = CT_LTGOLD1;
 
-	s_admin.fxArg3.generic.type = MTYPE_FIELD;
+	s_admin.fxArg3.generic.m_Type = EMenuItemType::Field;
 	s_admin.fxArg3.generic.flags = QMF_INACTIVE | QMF_GRAYED;
 	s_admin.fxArg3.field.widthInChars = 3;
 	s_admin.fxArg3.field.maxchars = 8;
@@ -1316,7 +1313,7 @@ static void AdminMenu_Init(void) {
 	s_admin.fxArg3.field.textcolor = CT_DKGOLD1;
 	s_admin.fxArg3.field.textcolor2 = CT_LTGOLD1;
 
-	s_admin.fxGun.generic.type = MTYPE_ACTION;
+	s_admin.fxGun.generic.m_Type = EMenuItemType::Action;
 	s_admin.fxGun.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.fxGun.generic.callback = AdminMenu_Event;
 	s_admin.fxGun.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1333,7 +1330,7 @@ static void AdminMenu_Init(void) {
 	s_admin.fxGun.width = 70;
 	s_admin.fxGun.height = 18;
 
-	s_admin.spawnChar.generic.type = MTYPE_ACTION;
+	s_admin.spawnChar.generic.m_Type = EMenuItemType::Action;
 	s_admin.spawnChar.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.spawnChar.generic.callback = AdminMenu_Event;
 	s_admin.spawnChar.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1350,7 +1347,7 @@ static void AdminMenu_Init(void) {
 	s_admin.spawnChar.width = 102;
 	s_admin.spawnChar.height = 18;
 
-	s_admin.flushList.generic.type = MTYPE_SPINCONTROL;
+	s_admin.flushList.generic.m_Type = EMenuItemType::SpinControl;
 	s_admin.flushList.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.flushList.generic.callback = AdminMenu_Event;
 	s_admin.flushList.generic.x = 203;
@@ -1366,7 +1363,7 @@ static void AdminMenu_Init(void) {
 	s_admin.flushList.textY = 1;
 	s_admin.flushList.textEnum = MBT_ADMIN_REMOVE;
 
-	s_admin.flushChars.generic.type = MTYPE_ACTION;
+	s_admin.flushChars.generic.m_Type = EMenuItemType::Action;
 	s_admin.flushChars.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.flushChars.generic.callback = AdminMenu_Event;
 	s_admin.flushChars.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1383,7 +1380,7 @@ static void AdminMenu_Init(void) {
 	s_admin.flushChars.width = 70;
 	s_admin.flushChars.height = 18;
 
-	s_admin.spawnCharBind.generic.type = MTYPE_ACTION;
+	s_admin.spawnCharBind.generic.m_Type = EMenuItemType::Action;
 	s_admin.spawnCharBind.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.spawnCharBind.generic.callback = AdminMenu_Event;
 	s_admin.spawnCharBind.generic.ownerdraw = AdminMenu_DrawBinding;
@@ -1400,7 +1397,7 @@ static void AdminMenu_Init(void) {
 	s_admin.spawnCharBind.width = 112;
 	s_admin.spawnCharBind.height = 19;
 
-	s_admin.useEntBind.generic.type = MTYPE_ACTION;
+	s_admin.useEntBind.generic.m_Type = EMenuItemType::Action;
 	s_admin.useEntBind.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.useEntBind.generic.callback = AdminMenu_Event;
 	s_admin.useEntBind.generic.ownerdraw = AdminMenu_DrawBinding;
@@ -1417,7 +1414,7 @@ static void AdminMenu_Init(void) {
 	s_admin.useEntBind.width = 112;
 	s_admin.useEntBind.height = 19;
 
-	s_admin.kickTargetBind.generic.type = MTYPE_ACTION;
+	s_admin.kickTargetBind.generic.m_Type = EMenuItemType::Action;
 	s_admin.kickTargetBind.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_admin.kickTargetBind.generic.callback = AdminMenu_Event;
 	s_admin.kickTargetBind.generic.ownerdraw = AdminMenu_DrawBinding;
@@ -1435,7 +1432,7 @@ static void AdminMenu_Init(void) {
 	s_admin.kickTargetBind.height = 19;
 	s_admin.keyBindActive = -1;	/* Represents a held-down bind */
 
-	/*s_admin.upArrow.generic.type			= MTYPE_BITMAP;
+	/*s_admin.upArrow.generic.type			= EMenuItemType::Bitmap;
 	s_admin.upArrow.generic.flags			= QMF_HIDDEN | QMF_INACTIVE | QMF_GRAYED;
 	s_admin.upArrow.generic.x				= 242;
 	s_admin.upArrow.generic.y				= 185;
@@ -1451,7 +1448,7 @@ static void AdminMenu_Init(void) {
 	s_admin.upArrow.textcolor				= CT_BLACK;
 	s_admin.upArrow.textcolor2				= CT_WHITE;
 
-	s_admin.dnArrow.generic.type			= MTYPE_BITMAP;
+	s_admin.dnArrow.generic.type			= EMenuItemType::Bitmap;
 	s_admin.dnArrow.generic.flags			= QMF_HIDDEN | QMF_INACTIVE | QMF_GRAYED;
 	s_admin.dnArrow.generic.x				= 242;
 	s_admin.dnArrow.generic.y				= 407;
@@ -1765,17 +1762,14 @@ static void ClientAdmin_Init(void) {
 
 	AdminGeneric_InitLists();
 
-	s_clientAdmin.menu.wrapAround = qtrue;
-	s_clientAdmin.menu.fullscreen = qtrue;
-	s_clientAdmin.menu.draw = ClientAdmin_Draw;
-	s_clientAdmin.menu.descX = MENU_DESC_X;
-	s_clientAdmin.menu.descY = MENU_DESC_Y;
-	s_clientAdmin.menu.titleX = MENU_TITLE_X;
-	s_clientAdmin.menu.titleY = MENU_TITLE_Y;
-	s_clientAdmin.menu.footNoteEnum = MNT_ADMIN;
-	s_clientAdmin.menu.titleI = MNT_CLIENT_MENU;
+	s_clientAdmin.menu.m_WrapAround = true;
+	s_clientAdmin.menu.m_Fullscreen = qtrue;
+	s_clientAdmin.menu.OnDraw = ClientAdmin_Draw;
+	s_clientAdmin.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_clientAdmin.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CLIENT_MENU };
+	s_clientAdmin.menu.m_FootNote = MNT_ADMIN;
 
-	s_clientAdmin.clientList.generic.type = MTYPE_SPINCONTROL;
+	s_clientAdmin.clientList.generic.m_Type = EMenuItemType::SpinControl;
 	s_clientAdmin.clientList.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_clientAdmin.clientList.generic.x = 96;
 	s_clientAdmin.clientList.generic.y = 145;
@@ -1792,7 +1786,7 @@ static void ClientAdmin_Init(void) {
 	s_clientAdmin.clientList.generic.callback = ClientAdmin_Event;
 	s_clientAdmin.clientList.generic.id = ID_CLIENT_SELECT;
 
-	s_clientAdmin.beamToLoc.generic.type = MTYPE_SPINCONTROL;
+	s_clientAdmin.beamToLoc.generic.m_Type = EMenuItemType::SpinControl;
 	s_clientAdmin.beamToLoc.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_clientAdmin.beamToLoc.generic.x = 91;
 	s_clientAdmin.beamToLoc.generic.y = 266;
@@ -1808,7 +1802,7 @@ static void ClientAdmin_Init(void) {
 	s_clientAdmin.beamToLoc.maxChars = 20;
 	s_clientAdmin.beamToLoc.textEnum = MBT_ADMIN_BEAMLOC;
 
-	s_clientAdmin.beamToLocExecute.generic.type = MTYPE_ACTION;
+	s_clientAdmin.beamToLocExecute.generic.m_Type = EMenuItemType::Action;
 	s_clientAdmin.beamToLocExecute.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_clientAdmin.beamToLocExecute.generic.callback = ClientAdmin_Event;
 	s_clientAdmin.beamToLocExecute.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1830,7 +1824,7 @@ static void ClientAdmin_Init(void) {
 		s_clientAdmin.beamToLocExecute.generic.flags |= QMF_GRAYED | QMF_INACTIVE;
 	}
 
-	s_clientAdmin.beamToPlayer.generic.type = MTYPE_SPINCONTROL;
+	s_clientAdmin.beamToPlayer.generic.m_Type = EMenuItemType::SpinControl;
 	s_clientAdmin.beamToPlayer.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_clientAdmin.beamToPlayer.generic.x = 91;
 	s_clientAdmin.beamToPlayer.generic.y = 288;
@@ -1846,7 +1840,7 @@ static void ClientAdmin_Init(void) {
 	s_clientAdmin.beamToPlayer.textEnum = MBT_ADMIN_BEAMPLAYER;
 	s_clientAdmin.beamToPlayer.maxChars = 20;
 
-	s_clientAdmin.beamToPlayerExecute.generic.type = MTYPE_ACTION;
+	s_clientAdmin.beamToPlayerExecute.generic.m_Type = EMenuItemType::Action;
 	s_clientAdmin.beamToPlayerExecute.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_clientAdmin.beamToPlayerExecute.generic.callback = ClientAdmin_Event;
 	s_clientAdmin.beamToPlayerExecute.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1868,7 +1862,7 @@ static void ClientAdmin_Init(void) {
 		s_clientAdmin.beamToPlayerExecute.generic.flags |= QMF_GRAYED | QMF_INACTIVE;
 	}
 
-	s_clientAdmin.giveItem.generic.type = MTYPE_SPINCONTROL;
+	s_clientAdmin.giveItem.generic.m_Type = EMenuItemType::SpinControl;
 	s_clientAdmin.giveItem.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_clientAdmin.giveItem.generic.x = 446;
 	s_clientAdmin.giveItem.generic.y = 266;
@@ -1885,7 +1879,7 @@ static void ClientAdmin_Init(void) {
 	s_clientAdmin.giveItem.textEnum = MBT_ADMIN_ITEM;
 	/*s_clientAdmin.giveItem.ignoreList			= qtrue;*/ /*Sad bug in the engine cropping up, so I have to disable this :(*/
 
-	s_clientAdmin.giveItemExecute.generic.type = MTYPE_ACTION;
+	s_clientAdmin.giveItemExecute.generic.m_Type = EMenuItemType::Action;
 	s_clientAdmin.giveItemExecute.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_clientAdmin.giveItemExecute.generic.callback = ClientAdmin_Event;
 	s_clientAdmin.giveItemExecute.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1902,7 +1896,7 @@ static void ClientAdmin_Init(void) {
 	s_clientAdmin.giveItemExecute.width = 70;
 	s_clientAdmin.giveItemExecute.height = 18;
 
-	s_clientAdmin.kickReason.generic.type = MTYPE_FIELD;
+	s_clientAdmin.kickReason.generic.m_Type = EMenuItemType::Field;
 	s_clientAdmin.kickReason.field.widthInChars = 42;
 	s_clientAdmin.kickReason.field.maxchars = MAX_TOKEN_CHARS; /* Freeking hell this is long... who coded this admin thing? O_O*/
 	s_clientAdmin.kickReason.generic.x = 91 + 5 +
@@ -1914,7 +1908,7 @@ static void ClientAdmin_Init(void) {
 	s_clientAdmin.kickReason.field.textcolor = CT_DKGOLD1;
 	s_clientAdmin.kickReason.field.textcolor2 = CT_LTGOLD1;
 
-	s_clientAdmin.kickExecute.generic.type = MTYPE_ACTION;
+	s_clientAdmin.kickExecute.generic.m_Type = EMenuItemType::Action;
 	s_clientAdmin.kickExecute.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_clientAdmin.kickExecute.generic.callback = ClientAdmin_Event;
 	s_clientAdmin.kickExecute.generic.ownerdraw = AdminMenu_DrawButton;
@@ -1931,7 +1925,7 @@ static void ClientAdmin_Init(void) {
 	s_clientAdmin.kickExecute.width = 91;
 	s_clientAdmin.kickExecute.height = 18;
 
-	s_clientAdmin.forcePlayer.generic.type = MTYPE_SPINCONTROL;
+	s_clientAdmin.forcePlayer.generic.m_Type = EMenuItemType::SpinControl;
 	s_clientAdmin.forcePlayer.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_clientAdmin.forcePlayer.generic.x = 91;
 	s_clientAdmin.forcePlayer.generic.y = 392;
@@ -1947,7 +1941,7 @@ static void ClientAdmin_Init(void) {
 	s_clientAdmin.forcePlayer.maxChars = 20;
 	s_clientAdmin.forcePlayer.textEnum = MBT_CLIENT_FORCE;
 
-	s_clientAdmin.forceParm.generic.type = MTYPE_FIELD;
+	s_clientAdmin.forceParm.generic.m_Type = EMenuItemType::Field;
 	s_clientAdmin.forceParm.field.widthInChars = 15;
 	s_clientAdmin.forceParm.field.maxchars = MAX_TOKEN_CHARS; /* Freeking hell this is long... who coded this admin thing? O_O */
 	s_clientAdmin.forceParm.generic.x = 281 + 5 +
@@ -1959,7 +1953,7 @@ static void ClientAdmin_Init(void) {
 	s_clientAdmin.forceParm.field.textcolor = CT_DKGOLD1;
 	s_clientAdmin.forceParm.field.textcolor2 = CT_LTGOLD1;
 
-	s_clientAdmin.forceExecute.generic.type = MTYPE_ACTION;
+	s_clientAdmin.forceExecute.generic.m_Type = EMenuItemType::Action;
 	s_clientAdmin.forceExecute.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_clientAdmin.forceExecute.generic.callback = ClientAdmin_Event;
 	s_clientAdmin.forceExecute.generic.ownerdraw = AdminMenu_DrawButton;
@@ -2589,21 +2583,18 @@ static void AdminAudio_Init(void)
 
 	AdminAudio_InitFilesList();
 
-	s_adminAudio.menu.wrapAround = qtrue;
-	s_adminAudio.menu.fullscreen = qtrue;
-	s_adminAudio.menu.draw = AdminAudio_Draw;
-	s_adminAudio.menu.descX = MENU_DESC_X;
-	s_adminAudio.menu.descY = MENU_DESC_Y;
-	s_adminAudio.menu.titleX = MENU_TITLE_X;
-	s_adminAudio.menu.titleY = MENU_TITLE_Y;
-	s_adminAudio.menu.footNoteEnum = MNT_ADMIN;
-	s_adminAudio.menu.titleI = MNT_AUDIO_MENU;
+	s_adminAudio.menu.m_WrapAround = true;
+	s_adminAudio.menu.m_Fullscreen = qtrue;
+	s_adminAudio.menu.OnDraw = AdminAudio_Draw;
+	s_adminAudio.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_adminAudio.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_AUDIO_MENU };
+	s_adminAudio.menu.m_FootNote = MNT_ADMIN;
 
 	x = 93;
 	y = 141;
 	for (i = 0; i < MAX_BUTTONS; i++)
 	{
-		s_adminAudio.songButtons[i].generic.type = MTYPE_BITMAP;
+		s_adminAudio.songButtons[i].generic.m_Type = EMenuItemType::Bitmap;
 		s_adminAudio.songButtons[i].generic.flags = QMF_INACTIVE | QMF_HIDDEN;
 		s_adminAudio.songButtons[i].generic.x = x;
 		s_adminAudio.songButtons[i].generic.y = y;
@@ -2623,7 +2614,7 @@ static void AdminAudio_Init(void)
 		y += 18;
 	}
 
-	s_adminAudio.playSong.generic.type = MTYPE_BITMAP;
+	s_adminAudio.playSong.generic.m_Type = EMenuItemType::Bitmap;
 	s_adminAudio.playSong.generic.name = GRAPHIC_SQUARE;
 	s_adminAudio.playSong.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_adminAudio.playSong.generic.callback = AdminAudio_Event;
@@ -2640,7 +2631,7 @@ static void AdminAudio_Init(void)
 	s_adminAudio.playSong.textcolor = CT_BLACK;
 	s_adminAudio.playSong.textcolor2 = CT_WHITE;
 
-	s_adminAudio.stopSong.generic.type = MTYPE_BITMAP;
+	s_adminAudio.stopSong.generic.m_Type = EMenuItemType::Bitmap;
 	s_adminAudio.stopSong.generic.name = GRAPHIC_SQUARE;
 	s_adminAudio.stopSong.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_adminAudio.stopSong.generic.callback = AdminAudio_Event;
@@ -2657,7 +2648,7 @@ static void AdminAudio_Init(void)
 	s_adminAudio.stopSong.textcolor = CT_BLACK;
 	s_adminAudio.stopSong.textcolor2 = CT_WHITE;
 
-	s_adminAudio.songUpArrow.generic.type = MTYPE_BITMAP;
+	s_adminAudio.songUpArrow.generic.m_Type = EMenuItemType::Bitmap;
 	s_adminAudio.songUpArrow.generic.name = PIC_ARROW_UP;
 	s_adminAudio.songUpArrow.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_adminAudio.songUpArrow.generic.callback = AdminAudio_Event;
@@ -2673,7 +2664,7 @@ static void AdminAudio_Init(void)
 	s_adminAudio.songUpArrow.textcolor = CT_BLACK;
 	s_adminAudio.songUpArrow.textcolor2 = CT_WHITE;
 
-	s_adminAudio.songDnArrow.generic.type = MTYPE_BITMAP;
+	s_adminAudio.songDnArrow.generic.m_Type = EMenuItemType::Bitmap;
 	s_adminAudio.songDnArrow.generic.name = PIC_ARROW_DOWN;
 	s_adminAudio.songDnArrow.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_adminAudio.songDnArrow.generic.callback = AdminAudio_Event;
@@ -2698,7 +2689,7 @@ static void AdminAudio_Init(void)
 	y = 299;
 	for (i = 0; i < MAX_BUTTONS; i++)
 	{
-		s_adminAudio.soundButtons[i].generic.type = MTYPE_BITMAP;
+		s_adminAudio.soundButtons[i].generic.m_Type = EMenuItemType::Bitmap;
 		s_adminAudio.soundButtons[i].generic.flags = QMF_INACTIVE | QMF_HIDDEN;
 		s_adminAudio.soundButtons[i].generic.x = x;
 		s_adminAudio.soundButtons[i].generic.y = y;
@@ -2718,7 +2709,7 @@ static void AdminAudio_Init(void)
 		y += 18;
 	}
 
-	s_adminAudio.playSound.generic.type = MTYPE_BITMAP;
+	s_adminAudio.playSound.generic.m_Type = EMenuItemType::Bitmap;
 	s_adminAudio.playSound.generic.name = GRAPHIC_SQUARE;
 	s_adminAudio.playSound.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_adminAudio.playSound.generic.callback = AdminAudio_Event;
@@ -2735,7 +2726,7 @@ static void AdminAudio_Init(void)
 	s_adminAudio.playSound.textcolor = CT_BLACK;
 	s_adminAudio.playSound.textcolor2 = CT_WHITE;
 
-	s_adminAudio.soundUpArrow.generic.type = MTYPE_BITMAP;
+	s_adminAudio.soundUpArrow.generic.m_Type = EMenuItemType::Bitmap;
 	s_adminAudio.soundUpArrow.generic.name = PIC_ARROW_UP;
 	s_adminAudio.soundUpArrow.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_adminAudio.soundUpArrow.generic.callback = AdminAudio_Event;
@@ -2751,7 +2742,7 @@ static void AdminAudio_Init(void)
 	s_adminAudio.soundUpArrow.textcolor = CT_BLACK;
 	s_adminAudio.soundUpArrow.textcolor2 = CT_WHITE;
 
-	s_adminAudio.soundDnArrow.generic.type = MTYPE_BITMAP;
+	s_adminAudio.soundDnArrow.generic.m_Type = EMenuItemType::Bitmap;
 	s_adminAudio.soundDnArrow.generic.name = PIC_ARROW_DOWN;
 	s_adminAudio.soundDnArrow.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_adminAudio.soundDnArrow.generic.callback = AdminAudio_Event;
@@ -2936,34 +2927,28 @@ void LoginMenu_Init(void) {
 	if (s_login.isAdmin || s_login.isSQL > 0){
 		UI_AdminMenu_Cache();
 
-		s_login.menu.wrapAround = qtrue;
-		s_login.menu.fullscreen = qtrue;
-		s_login.menu.draw = LoginMenu_Draw;
-		s_login.menu.descX = MENU_DESC_X;
-		s_login.menu.descY = MENU_DESC_Y;
-		s_login.menu.titleX = MENU_TITLE_X;
-		s_login.menu.titleY = MENU_TITLE_Y;
-		s_login.menu.footNoteEnum = MNT_ADMIN;
-		s_login.menu.titleI = MNT_ADMIN_MENU;
-		s_login.menu.key = LoginMenu_Key;
+		s_login.menu.m_WrapAround = true;
+		s_login.menu.m_Fullscreen = qtrue;
+		s_login.menu.OnDraw = LoginMenu_Draw;
+		s_login.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+		s_login.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_ADMIN_MENU };
+		s_login.menu.m_FootNote = MNT_ADMIN;
+		s_login.menu.OnKey = LoginMenu_Key;
 
 		AdminMenu_InitButtons(&s_login.menu);
 	}
 	else{
 		UI_AdminMenu_Cache();
 
-		s_login.menu.wrapAround = qtrue;
-		s_login.menu.fullscreen = qtrue;
-		s_login.menu.draw = LoginMenu_Draw;
-		s_login.menu.descX = MENU_DESC_X;
-		s_login.menu.descY = MENU_DESC_Y;
-		s_login.menu.titleX = MENU_TITLE_X;
-		s_login.menu.titleY = MENU_TITLE_Y;
-		s_login.menu.footNoteEnum = MNT_ADMIN;
-		s_login.menu.titleI = MNT_ADMIN_MENU;
-		s_login.menu.key = LoginMenu_Key;
+		s_login.menu.m_WrapAround = true;
+		s_login.menu.m_Fullscreen = qtrue;
+		s_login.menu.OnDraw = LoginMenu_Draw;
+		s_login.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+		s_login.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_ADMIN_MENU };
+		s_login.menu.m_FootNote = MNT_ADMIN;
+		s_login.menu.OnKey = LoginMenu_Key;
 
-		s_login.apassword.generic.type = MTYPE_FIELD;
+		s_login.apassword.generic.m_Type = EMenuItemType::Field;
 		s_login.apassword.field.widthInChars = 30;
 		s_login.apassword.field.maxchars = MAX_TOKEN_CHARS; /* Freeking hell this is long... who coded this admin thing? O_O */
 		s_login.apassword.generic.x = 200 + 5 + UI_ProportionalStringWidth(menu_button_text[MBT_ADMIN_MESSAGE][0], UI_SMALLFONT); /* 159; */
@@ -2974,7 +2959,7 @@ void LoginMenu_Init(void) {
 		s_login.apassword.field.textcolor = CT_DKGOLD1;
 		s_login.apassword.field.textcolor2 = CT_LTGOLD1;
 
-		s_login.admin.generic.type = MTYPE_ACTION;
+		s_login.admin.generic.m_Type = EMenuItemType::Action;
 		s_login.admin.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 		s_login.admin.generic.callback = M_Login_Event;
 		s_login.admin.generic.ownerdraw = AdminMenu_DrawButton;
@@ -2991,7 +2976,7 @@ void LoginMenu_Init(void) {
 		s_login.admin.width = 100;
 		s_login.admin.height = 18;
 
-		s_login.username.generic.type = MTYPE_FIELD;
+		s_login.username.generic.m_Type = EMenuItemType::Field;
 		s_login.username.field.widthInChars = 30;
 		s_login.username.field.maxchars = MAX_TOKEN_CHARS; /* Freeking hell this is long... who coded this admin thing? O_O */
 		s_login.username.generic.x = 200 + 5 + UI_ProportionalStringWidth(menu_button_text[MBT_ADMIN_MESSAGE][0], UI_SMALLFONT); /* 159; */
@@ -3002,7 +2987,7 @@ void LoginMenu_Init(void) {
 		s_login.username.field.textcolor = CT_DKGOLD1;
 		s_login.username.field.textcolor2 = CT_LTGOLD1;
 
-		s_login.password.generic.type = MTYPE_FIELD;
+		s_login.password.generic.m_Type = EMenuItemType::Field;
 		s_login.password.field.widthInChars = 30;
 		s_login.password.field.maxchars = MAX_TOKEN_CHARS; /* Freeking hell this is long... who coded this admin thing? O_O */
 		s_login.password.generic.x = 200 + 5 + UI_ProportionalStringWidth(menu_button_text[MBT_ADMIN_MESSAGE][0], UI_SMALLFONT); /* 159; */
@@ -3013,7 +2998,7 @@ void LoginMenu_Init(void) {
 		s_login.password.field.textcolor = CT_DKGOLD1;
 		s_login.password.field.textcolor2 = CT_LTGOLD1;
 
-		s_login.sql.generic.type = MTYPE_ACTION;
+		s_login.sql.generic.m_Type = EMenuItemType::Action;
 		s_login.sql.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 		s_login.sql.generic.callback = M_Login_Event;
 		s_login.sql.generic.ownerdraw = AdminMenu_DrawButton;

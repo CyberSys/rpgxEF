@@ -158,16 +158,14 @@ MotdMenu_Init
 void MotdMenu_Init(void)
 {
 	UI_LogFuncBegin();
-	s_motdstuff.menu.nitems = 0;
-	s_motdstuff.menu.draw = MotdMenu_Draw;
-	s_motdstuff.menu.key = MotdMenu_Key;
-	s_motdstuff.menu.wrapAround = qtrue;
-	s_motdstuff.menu.descX = MENU_DESC_X;
-	s_motdstuff.menu.descY = MENU_DESC_Y;
-	s_motdstuff.menu.titleX = MENU_TITLE_X;
-	s_motdstuff.menu.titleY = MENU_TITLE_Y;
+	s_motdstuff.menu.m_ItemCount = 0;
+	s_motdstuff.menu.OnDraw = MotdMenu_Draw;
+	s_motdstuff.menu.OnKey = MotdMenu_Key;
+	s_motdstuff.menu.m_WrapAround = true;
+	s_motdstuff.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_motdstuff.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y } };
 
-	s_motdstuff.quitmenu.generic.type = MTYPE_BITMAP;
+	s_motdstuff.quitmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_motdstuff.quitmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_motdstuff.quitmenu.generic.x = 500;
 	s_motdstuff.quitmenu.generic.y = 440;
@@ -184,7 +182,7 @@ void MotdMenu_Init(void)
 	s_motdstuff.quitmenu.textcolor = CT_BLACK;
 	s_motdstuff.quitmenu.textcolor2 = CT_WHITE;
 
-	s_motdstuff.disconnect.generic.type = MTYPE_BITMAP;
+	s_motdstuff.disconnect.generic.m_Type = EMenuItemType::Bitmap;
 	s_motdstuff.disconnect.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_motdstuff.disconnect.generic.x = 350;
 	s_motdstuff.disconnect.generic.y = 440;
@@ -201,7 +199,7 @@ void MotdMenu_Init(void)
 	s_motdstuff.disconnect.textcolor = CT_BLACK;
 	s_motdstuff.disconnect.textcolor2 = CT_WHITE;
 
-	s_motdstuff.arrowup.generic.type = MTYPE_BITMAP;
+	s_motdstuff.arrowup.generic.m_Type = EMenuItemType::Bitmap;
 	s_motdstuff.arrowup.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_motdstuff.arrowup.generic.x = 610;
 	s_motdstuff.arrowup.generic.y = 10;
@@ -218,7 +216,7 @@ void MotdMenu_Init(void)
 	s_motdstuff.arrowup.textcolor = CT_BLACK;
 	s_motdstuff.arrowup.textcolor2 = CT_WHITE;
 
-	s_motdstuff.arrowdwn.generic.type = MTYPE_BITMAP;
+	s_motdstuff.arrowdwn.generic.m_Type = EMenuItemType::Bitmap;
 	s_motdstuff.arrowdwn.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_motdstuff.arrowdwn.generic.x = 610;
 	s_motdstuff.arrowdwn.generic.y = 420;

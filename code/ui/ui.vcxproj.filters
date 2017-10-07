@@ -9,6 +9,18 @@
       <UniqueIdentifier>{7e79d4e7-efa1-47e6-9e49-1f7bf071d9a5}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl</Extensions>
     </Filter>
+    <Filter Include="Header Files\Menus">
+      <UniqueIdentifier>{619b5f3a-7b30-49ed-a9d7-72255da7dd6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Menus">
+      <UniqueIdentifier>{80e149dc-9b35-45b8-8f98-b2ef2c6d33a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MenuItems">
+      <UniqueIdentifier>{cb4f2a8f-5357-40c4-acd9-12d25b22396e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MenuItems">
+      <UniqueIdentifier>{8f847375-1753-492d-979b-77046949a22a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ui_admin.cpp">
@@ -125,6 +137,45 @@
     <ClCompile Include="unittest_runner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Menus\CdKeyMenu.cpp">
+      <Filter>Source Files\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Menus\MenuBase.cpp">
+      <Filter>Source Files\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItems\MenuItem.cpp">
+      <Filter>Source Files\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItems\Field.cpp">
+      <Filter>Source Files\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItems\Slider.cpp">
+      <Filter>Source Files\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItems\RadioButton.cpp">
+      <Filter>Source Files\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItems\SpinControl.cpp">
+      <Filter>Source Files\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItems\Action.cpp">
+      <Filter>Source Files\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItems\Bitmap.cpp">
+      <Filter>Source Files\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItems\MenuText.cpp">
+      <Filter>Source Files\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItems\ScrollList.cpp">
+      <Filter>Source Files\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItems\PText.cpp">
+      <Filter>Source Files\MenuItems</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItems\BText.cpp">
+      <Filter>Source Files\MenuItems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="keycodes.h">
@@ -141,6 +192,60 @@
     </ClInclude>
     <ClInclude Include="ui_logger.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menus\MenuBase.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\MenuItem.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="Menus\EventID.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\Field.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\Slider.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\ThumbInfo.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\GraphicsInfo.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\PictureInfo.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\TextInfo.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\RadioButton.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\SpinControl.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\Action.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\Bitmap.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\MenuText.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\ScrollList.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\PText.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItems\BText.h">
+      <Filter>Header Files\MenuItems</Filter>
+    </ClInclude>
+    <ClInclude Include="Menus\CdKeyMenu.h">
+      <Filter>Header Files\Menus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

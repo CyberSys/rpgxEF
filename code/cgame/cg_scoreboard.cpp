@@ -288,7 +288,7 @@ static void CG_DrawClientScore_Big( int32_t y, score_t *score, float *color, flo
 	//Player is connecting
 	if ( score->ping == -1 ) {
 		Com_sprintf(string,sizeof(string),"(%s)%s",ingame_text[IGT_CONNECTING],ci->name);
-		UI_DrawProportionalString( SB_NAME_X_BIG, y , string, UI_TINYFONT, colorTable[CT_WHITE]);
+		UI_DrawProportionalString(SB_NAME_X_BIG, y , string, UI_TINYFONT, colorTable[CT_WHITE]);
 	}
 	else {
 		int32_t clipLength;
@@ -298,7 +298,7 @@ static void CG_DrawClientScore_Big( int32_t y, score_t *score, float *color, flo
 
 		//draw player class name
 		if(rpg_class){
-			UI_DrawProportionalString( SB_RPGCLASS_X_BIG, y , rpg_class, UI_TINYFONT | UI_LEFT, rpg_color); //CT_VLTPURPLE1 CT_WHITE
+			UI_DrawProportionalString(SB_RPGCLASS_X_BIG, y , rpg_class, UI_TINYFONT | UI_LEFT, rpg_color); //CT_VLTPURPLE1 CT_WHITE
 		}
 
 		//if we have locations, change the cliplength of the name field
@@ -314,43 +314,43 @@ static void CG_DrawClientScore_Big( int32_t y, score_t *score, float *color, flo
 		if ( ci->team == TEAM_SPECTATOR ) {
 			Com_sprintf(string,sizeof(string),"(%s)%s",ingame_text[IGT_SPECTABBREV],ci->name);
 			CG_ClipString(string2,string,clipLength,UI_TINYFONT); //RPG-X ADDED: RedTechie - 200 pixels in the name column use to be 184
-			UI_DrawProportionalString( SB_NAME_X_BIG, y , string2, UI_TINYFONT | UI_LEFT, colorTable[CT_WHITE]);
+			UI_DrawProportionalString(SB_NAME_X_BIG, y , string2, UI_TINYFONT | UI_LEFT, colorTable[CT_WHITE]);
 		}
 		//if lagged out, add a lagged out msg
 		else if ( score->ping >= 827 )
 		{
 			Com_sprintf(string,sizeof(string),"(%s)%s",ingame_text[IGT_PINGEDOUT],ci->name);
 			CG_ClipString(string2,string,clipLength,UI_TINYFONT); //RPG-X ADDED: RedTechie - 200 pixels in the name column use to be 184
-			UI_DrawProportionalString( SB_NAME_X_BIG, y , string2, UI_TINYFONT | UI_LEFT, colorTable[CT_WHITE]);			
+			UI_DrawProportionalString(SB_NAME_X_BIG, y , string2, UI_TINYFONT | UI_LEFT, colorTable[CT_WHITE]);			
 		}
 		//else, draw the name normally
 		else 
 		{
 			CG_ClipString(string,ci->name,clipLength,UI_TINYFONT); //RPG-X ADDED: RedTechie - 200 pixels in the name column use to be 184
-			UI_DrawProportionalString( SB_NAME_X_BIG, y , string, UI_TINYFONT | UI_LEFT, colorTable[CT_WHITE]);			
+			UI_DrawProportionalString(SB_NAME_X_BIG, y , string, UI_TINYFONT | UI_LEFT, colorTable[CT_WHITE]);			
 		}
 
 		//Player locations
 		if ( cgs.locations ) {
 			CG_ClipString(string, va("%s", CG_ConfigString( CS_LOCATIONS + ci->location ) ), 495, UI_TINYFONT); //RPG-X ADDED: RedTechie - 200 pixels in the name column use to be 184
-			UI_DrawProportionalString( SB_LOC_X_BIG, y , string, UI_TINYFONT | UI_LEFT, colorTable[CT_WHITE]);
+			UI_DrawProportionalString(SB_LOC_X_BIG, y , string, UI_TINYFONT | UI_LEFT, colorTable[CT_WHITE]);
 		}
 
 		//player client Num
 		//Com_sprintf(string,sizeof(string), "%i", intClamp);				//RPG-X: J2J Switched Scoore to Client No.
 		int32_t intClamp = Com_Clamp( 0, 128, cg_entities[score->client].currentState.clientNum );
-		UI_DrawProportionalString( SB_SCORE_X_BIG, y , va("%i", intClamp), UI_TINYFONT | UI_LEFT, colorTable[CT_WHITE]);
+		UI_DrawProportionalString(SB_SCORE_X_BIG, y , va("%i", intClamp), UI_TINYFONT | UI_LEFT, colorTable[CT_WHITE]);
 
 		//player time
 		//If someone actually hits this limit, they officially have no life.
 		//Com_sprintf(string,sizeof(string),"%i", intClamp);
 		intClamp = Com_Clamp( 0, 99999, score->time );
-		UI_DrawProportionalString( SB_TIME_X_BIG, y ,  va("%i", intClamp), UI_TINYFONT | UI_LEFT, colorTable[CT_WHITE]);
+		UI_DrawProportionalString(SB_TIME_X_BIG, y ,  va("%i", intClamp), UI_TINYFONT | UI_LEFT, colorTable[CT_WHITE]);
 
 		//player ping
 		//Com_sprintf(string,sizeof(string),"%i",score->ping);
 		intClamp = Com_Clamp( 0, 999, score->ping );
-		UI_DrawProportionalString( SB_PING_X_BIG, y, va("%i", intClamp), UI_TINYFONT | UI_LEFT, ping_txtcolor);	
+		UI_DrawProportionalString(SB_PING_X_BIG, y, va("%i", intClamp), UI_TINYFONT | UI_LEFT, ping_txtcolor);	
 
 	}
 
@@ -589,15 +589,15 @@ qboolean CG_DrawScoreboard( void )
 	CG_FillRect( SB_PING_X_BIG - 3,		y+5,	602 - ( SB_PING_X_BIG - 3 ),						15, colorTable[CT_DKBLUE1]); //RPG-X: Ping Bar //35
 
 	//RPG-X: RedTechie (Rank BookMark)
-	UI_DrawProportionalString( SB_RANK_X_BIG,		SB_HEADERTEXT, ingame_text[IGT_SB_RANK],	UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
-	UI_DrawProportionalString( SB_RPGCLASS_X_BIG,	SB_HEADERTEXT, ingame_text[IGT_SB_RPGCLASS],UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
-	UI_DrawProportionalString( SB_NAME_X_BIG,		SB_HEADERTEXT, ingame_text[IGT_SB_NAME],	UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
+	UI_DrawProportionalString(SB_RANK_X_BIG, SB_HEADERTEXT, ingame_text[IGT_SB_RANK], UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
+	UI_DrawProportionalString(SB_RPGCLASS_X_BIG, SB_HEADERTEXT, ingame_text[IGT_SB_RPGCLASS], UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
+	UI_DrawProportionalString(SB_NAME_X_BIG, SB_HEADERTEXT, ingame_text[IGT_SB_NAME], UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
 	if ( cgs.locations ) {
-		UI_DrawProportionalString( SB_LOC_X_BIG,	SB_HEADERTEXT, ingame_text[IGT_SB_LOC],		UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
+		UI_DrawProportionalString(SB_LOC_X_BIG, SB_HEADERTEXT, ingame_text[IGT_SB_LOC], UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
 	}
-	UI_DrawProportionalString( SB_SCORE_X_BIG,		SB_HEADERTEXT, ingame_text[IGT_SB_SCORE],	UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
-	UI_DrawProportionalString( SB_TIME_X_BIG,		SB_HEADERTEXT, ingame_text[IGT_SB_TIME],	UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
-	UI_DrawProportionalString( SB_PING_X_BIG,		SB_HEADERTEXT, ingame_text[IGT_SB_PING],	UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
+	UI_DrawProportionalString(SB_SCORE_X_BIG, SB_HEADERTEXT, ingame_text[IGT_SB_SCORE], UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
+	UI_DrawProportionalString(SB_TIME_X_BIG, SB_HEADERTEXT, ingame_text[IGT_SB_TIME], UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
+	UI_DrawProportionalString(SB_PING_X_BIG, SB_HEADERTEXT, ingame_text[IGT_SB_PING], UI_TINYFONT | UI_LEFT, colorTable[CT_BLACK] );
 
 	y = SB_TOP;
 
@@ -651,7 +651,7 @@ qboolean CG_DrawScoreboard( void )
 
 	//CG_AddGameModNameToGameName( gamename );
 	//RPG-X: RedTechie - Number of Characters in server
-	UI_DrawProportionalString( SCOREBOARD_X+10, SB_RPG_X_FIXHEIGHT+63, gamename, UI_TINYFONT, colorTable[CT_BLACK]);
+	UI_DrawProportionalString(SCOREBOARD_X+10, SB_RPG_X_FIXHEIGHT+63, gamename, UI_TINYFONT, colorTable[CT_BLACK]);
 
 	// load any models that have been deferred
 	if ( inIntermission || (++cg.deferredPlayerLoading > 10) ) 

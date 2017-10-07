@@ -428,17 +428,17 @@ static void UI_DriverInfo_Menu(void)
 
 	DriverInfo_Cache();
 
-	s_driverinfo.menu.fullscreen = qtrue;
-	s_driverinfo.menu.draw = DriverInfo_MenuDraw;
+	s_driverinfo.menu.m_Fullscreen = qtrue;
+	s_driverinfo.menu.OnDraw = DriverInfo_MenuDraw;
 	/*
-		s_driverinfo.banner.generic.type  = MTYPE_BTEXT;
+		s_driverinfo.banner.generic.type  = EMenuItemType::BText;
 		s_driverinfo.banner.generic.x	  = 320;
 		s_driverinfo.banner.generic.y	  = 16;
 		s_driverinfo.banner.string		  = "DRIVER INFO";
 		s_driverinfo.banner.color	      = color_white;
 		s_driverinfo.banner.style	      = UI_CENTER;
 
-		s_driverinfo.framel.generic.type  = MTYPE_BITMAP;
+		s_driverinfo.framel.generic.type  = EMenuItemType::Bitmap;
 		s_driverinfo.framel.generic.name  = DRIVERINFO_FRAMEL;
 		s_driverinfo.framel.generic.flags = QMF_INACTIVE;
 		s_driverinfo.framel.generic.x	  = 0;
@@ -446,7 +446,7 @@ static void UI_DriverInfo_Menu(void)
 		s_driverinfo.framel.width  	      = 256;
 		s_driverinfo.framel.height  	  = 329;
 
-		s_driverinfo.framer.generic.type  = MTYPE_BITMAP;
+		s_driverinfo.framer.generic.type  = EMenuItemType::Bitmap;
 		s_driverinfo.framer.generic.name  = DRIVERINFO_FRAMER;
 		s_driverinfo.framer.generic.flags = QMF_INACTIVE;
 		s_driverinfo.framer.generic.x	  = 376;
@@ -454,7 +454,7 @@ static void UI_DriverInfo_Menu(void)
 		s_driverinfo.framer.width  	      = 256;
 		s_driverinfo.framer.height  	  = 334;
 
-		s_driverinfo.back.generic.type	   = MTYPE_BITMAP;
+		s_driverinfo.back.generic.type	   = EMenuItemType::Bitmap;
 		s_driverinfo.back.generic.name     = DRIVERINFO_BACK0;
 		s_driverinfo.back.generic.flags    = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
 		s_driverinfo.back.generic.callback = DriverInfo_Event;
@@ -1356,24 +1356,20 @@ static void VideoData_MenuInit(void)
 	UI_VideoDataMenu_Cache();
 
 	// Menu Data
-	s_videodata.menu.nitems = 0;
-	s_videodata.menu.wrapAround = qtrue;
-	s_videodata.menu.draw = VideoData_MenuDraw;
-	s_videodata.menu.fullscreen = qtrue;
-	s_videodata.menu.descX = MENU_DESC_X;
-	s_videodata.menu.descY = MENU_DESC_Y;
-	s_videodata.menu.listX = 230;
-	s_videodata.menu.listY = 188;
-	s_videodata.menu.titleX = MENU_TITLE_X;
-	s_videodata.menu.titleY = MENU_TITLE_Y;
-	s_videodata.menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_videodata.menu.footNoteEnum = MNT_VIDEOSETUP;
+	s_videodata.menu.m_ItemCount = 0;
+	s_videodata.menu.m_WrapAround = true;
+	s_videodata.menu.OnDraw = VideoData_MenuDraw;
+	s_videodata.menu.m_Fullscreen = qtrue;
+	s_videodata.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_videodata.menu.m_ListPosition = { 230, 188 };
+	s_videodata.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_videodata.menu.m_FootNote = MNT_VIDEOSETUP;
 
 	x = 170;
 	y = 178;
 	width = 145;
 
-	s_graphicsoptions.list.generic.type = MTYPE_SPINCONTROL;
+	s_graphicsoptions.list.generic.m_Type = EMenuItemType::SpinControl;
 	s_graphicsoptions.list.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_graphicsoptions.list.generic.x = x;
 	s_graphicsoptions.list.generic.y = y;
@@ -1391,7 +1387,7 @@ static void VideoData_MenuInit(void)
 
 	inc = 20;
 	y += inc;
-	s_graphicsoptions.allow_extensions.generic.type = MTYPE_SPINCONTROL;
+	s_graphicsoptions.allow_extensions.generic.m_Type = EMenuItemType::SpinControl;
 	s_graphicsoptions.allow_extensions.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_graphicsoptions.allow_extensions.generic.x = x;
 	s_graphicsoptions.allow_extensions.generic.y = y;
@@ -1406,7 +1402,7 @@ static void VideoData_MenuInit(void)
 	s_graphicsoptions.allow_extensions.width = width;
 
 	y += inc;
-	s_graphicsoptions.aspectRatio.generic.type = MTYPE_SPINCONTROL;
+	s_graphicsoptions.aspectRatio.generic.m_Type = EMenuItemType::SpinControl;
 	s_graphicsoptions.aspectRatio.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_graphicsoptions.aspectRatio.generic.x = x;
 	s_graphicsoptions.aspectRatio.generic.y = y;
@@ -1425,7 +1421,7 @@ static void VideoData_MenuInit(void)
 	// TiM: can now be potentially '-1',
 	// in which case 'r_customeheight' and 'r_customwidth'
 	// will be used
-	s_graphicsoptions.mode.generic.type = MTYPE_SPINCONTROL;
+	s_graphicsoptions.mode.generic.m_Type = EMenuItemType::SpinControl;
 	s_graphicsoptions.mode.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_graphicsoptions.mode.generic.x = x;
 	s_graphicsoptions.mode.generic.y = y;
@@ -1441,7 +1437,7 @@ static void VideoData_MenuInit(void)
 	s_graphicsoptions.mode.width = width;
 
 	y += inc;
-	s_graphicsoptions.colordepth.generic.type = MTYPE_SPINCONTROL;
+	s_graphicsoptions.colordepth.generic.m_Type = EMenuItemType::SpinControl;
 	s_graphicsoptions.colordepth.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_graphicsoptions.colordepth.generic.x = x;
 	s_graphicsoptions.colordepth.generic.y = y;
@@ -1456,7 +1452,7 @@ static void VideoData_MenuInit(void)
 	s_graphicsoptions.colordepth.width = width;
 
 	y += inc;
-	s_graphicsoptions.fs.generic.type = MTYPE_SPINCONTROL;
+	s_graphicsoptions.fs.generic.m_Type = EMenuItemType::SpinControl;
 	s_graphicsoptions.fs.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_graphicsoptions.fs.generic.x = x;
 	s_graphicsoptions.fs.generic.y = y;
@@ -1471,7 +1467,7 @@ static void VideoData_MenuInit(void)
 	s_graphicsoptions.fs.width = width;
 	/*
 		y += inc;
-		s_graphicsoptions.lighting.generic.type				= MTYPE_SPINCONTROL;
+		s_graphicsoptions.lighting.generic.type				= EMenuItemType::SpinControl;
 		s_graphicsoptions.lighting.generic.flags			= QMF_HIGHLIGHT_IF_FOCUS;
 		s_graphicsoptions.lighting.generic.x				= x;
 		s_graphicsoptions.lighting.generic.y				= y;
@@ -1487,7 +1483,7 @@ static void VideoData_MenuInit(void)
 		*/
 	y += inc;
 	// references/modifies "r_lodBias" & "subdivisions"
-	s_graphicsoptions.geometry.generic.type = MTYPE_SPINCONTROL;
+	s_graphicsoptions.geometry.generic.m_Type = EMenuItemType::SpinControl;
 	s_graphicsoptions.geometry.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_graphicsoptions.geometry.generic.x = x;
 	s_graphicsoptions.geometry.generic.y = y;
@@ -1502,7 +1498,7 @@ static void VideoData_MenuInit(void)
 	s_graphicsoptions.geometry.width = width;
 
 	y += inc;
-	s_graphicsoptions.tq.generic.type = MTYPE_SPINCONTROL;
+	s_graphicsoptions.tq.generic.m_Type = EMenuItemType::SpinControl;
 	s_graphicsoptions.tq.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_graphicsoptions.tq.generic.x = x;
 	s_graphicsoptions.tq.generic.y = y;
@@ -1518,7 +1514,7 @@ static void VideoData_MenuInit(void)
 
 	y += inc;
 	// references/modifies "r_textureBits"
-	s_graphicsoptions.texturebits.generic.type = MTYPE_SPINCONTROL;
+	s_graphicsoptions.texturebits.generic.m_Type = EMenuItemType::SpinControl;
 	s_graphicsoptions.texturebits.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_graphicsoptions.texturebits.generic.x = x;
 	s_graphicsoptions.texturebits.generic.y = y;
@@ -1534,7 +1530,7 @@ static void VideoData_MenuInit(void)
 
 	y += inc;
 	// references/modifies "r_textureMode"
-	s_graphicsoptions.filter.generic.type = MTYPE_SPINCONTROL;
+	s_graphicsoptions.filter.generic.m_Type = EMenuItemType::SpinControl;
 	s_graphicsoptions.filter.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_graphicsoptions.filter.generic.x = x;
 	s_graphicsoptions.filter.generic.y = y;
@@ -1550,7 +1546,7 @@ static void VideoData_MenuInit(void)
 
 	y += inc;
 	// references/modifies "r_lowEndVideo"
-	s_graphicsoptions.simpleshaders.generic.type = MTYPE_SPINCONTROL;
+	s_graphicsoptions.simpleshaders.generic.m_Type = EMenuItemType::SpinControl;
 	s_graphicsoptions.simpleshaders.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_graphicsoptions.simpleshaders.generic.x = x;
 	s_graphicsoptions.simpleshaders.generic.y = y;
@@ -1566,7 +1562,7 @@ static void VideoData_MenuInit(void)
 
 	y += inc;
 	// references/modifies "r_ext_compress_textures"
-	s_graphicsoptions.compresstextures.generic.type = MTYPE_SPINCONTROL;
+	s_graphicsoptions.compresstextures.generic.m_Type = EMenuItemType::SpinControl;
 	s_graphicsoptions.compresstextures.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_graphicsoptions.compresstextures.generic.x = x;
 	s_graphicsoptions.compresstextures.generic.y = y;
@@ -1580,7 +1576,7 @@ static void VideoData_MenuInit(void)
 	s_graphicsoptions.compresstextures.listnames = s_OffOnNone_Names;
 	s_graphicsoptions.compresstextures.width = width;
 
-	s_graphicsoptions.apply.generic.type = MTYPE_ACTION;
+	s_graphicsoptions.apply.generic.m_Type = EMenuItemType::Action;
 	s_graphicsoptions.apply.generic.flags = QMF_HIGHLIGHT_IF_FOCUS | QMF_GRAYED;
 	s_graphicsoptions.apply.generic.x = 501;
 	s_graphicsoptions.apply.generic.y = 245;
@@ -1653,7 +1649,7 @@ void Video_SideButtons(menuframework_s *menu, int32_t menuType)
 	UI_LogFuncBegin();
 
 	// Button Data
-	s_video_data.generic.type = MTYPE_BITMAP;
+	s_video_data.generic.m_Type = EMenuItemType::Bitmap;
 	s_video_data.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_video_data.generic.x = video_sidebuttons[0][0];
 	s_video_data.generic.y = video_sidebuttons[0][1];
@@ -1686,7 +1682,7 @@ void Video_SideButtons(menuframework_s *menu, int32_t menuType)
 		s_video_data.textcolor2 = CT_WHITE;
 	}
 
-	s_video_data2.generic.type = MTYPE_BITMAP;
+	s_video_data2.generic.m_Type = EMenuItemType::Bitmap;
 	s_video_data2.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_video_data2.generic.x = video_sidebuttons[1][0];
 	s_video_data2.generic.y = video_sidebuttons[1][1];
@@ -1721,7 +1717,7 @@ void Video_SideButtons(menuframework_s *menu, int32_t menuType)
 		s_video_data2.textcolor2 = CT_WHITE;
 	}
 
-	s_video_drivers.generic.type = MTYPE_BITMAP;
+	s_video_drivers.generic.m_Type = EMenuItemType::Bitmap;
 	s_video_drivers.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_video_drivers.generic.x = video_sidebuttons[2][0];
 	s_video_drivers.generic.y = video_sidebuttons[2][1];
@@ -2042,27 +2038,23 @@ static void VideoDriver_MenuInit(void)
 	UI_LogFuncBegin();
 	UI_VideoDriverMenu_Cache();
 
-	s_videodriver.menu.nitems = 0;
-	s_videodriver.menu.wrapAround = qtrue;
+	s_videodriver.menu.m_ItemCount = 0;
+  s_videodriver.menu.m_WrapAround = true;
 	//	s_videodriver.menu.opening					= NULL;
 	//	s_videodriver.menu.closing					= NULL;
-	s_videodriver.menu.draw = VideoDriver_MenuDraw;
-	s_videodriver.menu.key = VideoDriver_MenuKey;
-	s_videodriver.menu.fullscreen = qtrue;
-	s_videodriver.menu.descX = MENU_DESC_X;
-	s_videodriver.menu.descY = MENU_DESC_Y;
-	s_videodriver.menu.listX = 230;
-	s_videodriver.menu.listY = 188;
-	s_videodriver.menu.titleX = MENU_TITLE_X;
-	s_videodriver.menu.titleY = MENU_TITLE_Y;
-	s_videodriver.menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_videodriver.menu.footNoteEnum = MNT_VIDEODRIVER;
+	s_videodriver.menu.OnDraw = VideoDriver_MenuDraw;
+	s_videodriver.menu.OnKey = VideoDriver_MenuKey;
+	s_videodriver.menu.m_Fullscreen = qtrue;
+	s_videodriver.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_videodriver.menu.m_ListPosition = { 230, 188 };
+	s_videodriver.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_videodriver.menu.m_FootNote = MNT_VIDEODRIVER;
 
 	SetupMenu_TopButtons(&s_videodriver.menu, MENU_VIDEO, NULL);
 
 	Video_SideButtons(&s_videodriver.menu, ID_VIDEODRIVERS);
 
-	s_videodriver.arrowup.generic.type = MTYPE_BITMAP;
+	s_videodriver.arrowup.generic.m_Type = EMenuItemType::Bitmap;
 	s_videodriver.arrowup.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_videodriver.arrowup.generic.x = 572;
 	s_videodriver.arrowup.generic.y = 262;
@@ -2080,7 +2072,7 @@ static void VideoDriver_MenuInit(void)
 	s_videodriver.arrowup.textcolor2 = CT_WHITE;
 	Menu_AddItem(&s_videodriver.menu, (void *)&s_videodriver.arrowup);
 
-	s_videodriver.arrowdwn.generic.type = MTYPE_BITMAP;
+	s_videodriver.arrowdwn.generic.m_Type = EMenuItemType::Bitmap;
 	s_videodriver.arrowdwn.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_videodriver.arrowdwn.generic.x = 572;
 	s_videodriver.arrowdwn.generic.y = 397;
@@ -2107,7 +2099,7 @@ static void VideoDriver_MenuInit(void)
 
 	for (i = 0; i < 24; i++)
 	{
-		((menutext_s *)g_videolines[i])->generic.type = MTYPE_TEXT;
+		((menutext_s *)g_videolines[i])->generic.m_Type = EMenuItemType::Text;
 		((menutext_s *)g_videolines[i])->generic.flags = QMF_LEFT_JUSTIFY | QMF_INACTIVE;
 		((menutext_s *)g_videolines[i])->generic.y = y;
 		if ((i % 2) == 0)
@@ -2142,7 +2134,7 @@ UI_VideoDriverMenu
 void UI_VideoDriverMenu(void)
 {
 	UI_LogFuncBegin();
-	if (!s_videodriver.menu.initialized)
+	if (!s_videodriver.menu.m_Initialized)
 	{
 		VideoDriver_MenuInit();
 	}
@@ -2272,20 +2264,16 @@ static void VideoData2_MenuInit(void)
 	UI_VideoData2Menu_Cache();
 
 	// Menu Data
-	s_videodata2.menu.nitems = 0;
-	s_videodata2.menu.wrapAround = qtrue;
+	s_videodata2.menu.m_ItemCount = 0;
+	s_videodata2.menu.m_WrapAround = true;
 	//	s_videodata2.menu.opening						= NULL;
 	//	s_videodata2.menu.closing						= NULL;
-	s_videodata2.menu.draw = VideoData2_MenuDraw;
-	s_videodata2.menu.fullscreen = qtrue;
-	s_videodata2.menu.descX = MENU_DESC_X;
-	s_videodata2.menu.descY = MENU_DESC_Y;
-	s_videodata2.menu.listX = 230;
-	s_videodata2.menu.listY = 188;
-	s_videodata2.menu.titleX = MENU_TITLE_X;
-	s_videodata2.menu.titleY = MENU_TITLE_Y;
-	s_videodata2.menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_videodata2.menu.footNoteEnum = MNT_VIDEOSETUP;
+	s_videodata2.menu.OnDraw = VideoData2_MenuDraw;
+	s_videodata2.menu.m_Fullscreen = qtrue;
+	s_videodata2.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_videodata2.menu.m_ListPosition = { 230, 188 };
+	s_videodata2.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_videodata2.menu.m_FootNote = MNT_VIDEOSETUP;
 
 	SetupMenu_TopButtons(&s_videodata2.menu, MENU_VIDEO, NULL);
 
@@ -2293,7 +2281,7 @@ static void VideoData2_MenuInit(void)
 
 	x = 180;
 	y = 269;
-	s_videodata2.gamma_slider.generic.type = MTYPE_SLIDER;
+	s_videodata2.gamma_slider.generic.m_Type = EMenuItemType::Slider;
 	s_videodata2.gamma_slider.generic.x = x + 162;
 	s_videodata2.gamma_slider.generic.y = y;
 	s_videodata2.gamma_slider.generic.flags = QMF_SMALLFONT;
@@ -2324,7 +2312,7 @@ static void VideoData2_MenuInit(void)
 	s_videodata2.gamma_slider.thumbColor = CT_DKBLUE1;
 	s_videodata2.gamma_slider.thumbColor2 = CT_LTBLUE1;
 
-	s_videodata2.apply_action2.generic.type = MTYPE_ACTION;
+	s_videodata2.apply_action2.generic.m_Type = EMenuItemType::Action;
 	s_videodata2.apply_action2.generic.flags = QMF_HIGHLIGHT_IF_FOCUS | QMF_GRAYED;
 	s_videodata2.apply_action2.generic.x = 490;
 	s_videodata2.apply_action2.generic.y = 191;
@@ -2342,7 +2330,7 @@ static void VideoData2_MenuInit(void)
 	s_videodata2.apply_action2.height = 70;
 
 	y = 330;
-	s_videodata2.screensize_slider.generic.type = MTYPE_SLIDER;
+	s_videodata2.screensize_slider.generic.m_Type = EMenuItemType::Slider;
 	s_videodata2.screensize_slider.generic.x = x + 162;
 	s_videodata2.screensize_slider.generic.y = y;
 	s_videodata2.screensize_slider.generic.flags = QMF_SMALLFONT;
@@ -2374,7 +2362,7 @@ static void VideoData2_MenuInit(void)
 	s_videodata2.screensize_slider.thumbColor2 = CT_LTBLUE1;
 
 	y += 34;
-	s_videodata2.anisotropicfiltering.generic.type = MTYPE_SPINCONTROL;
+	s_videodata2.anisotropicfiltering.generic.m_Type = EMenuItemType::SpinControl;
 	s_videodata2.anisotropicfiltering.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_videodata2.anisotropicfiltering.generic.x = x;
 	s_videodata2.anisotropicfiltering.generic.y = y;
@@ -2425,7 +2413,7 @@ void UI_VideoData2SettingsMenu(void)
 	UI_LogFuncBegin();
 	UI_VideoData2SettingsGetCvars();
 
-	if (!s_videodata2.menu.initialized)
+	if (!s_videodata2.menu.m_Initialized)
 	{
 		VideoData2_MenuInit();
 	}

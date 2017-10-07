@@ -151,6 +151,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MenuItems\Action.cpp" />
+    <ClCompile Include="MenuItems\Bitmap.cpp" />
+    <ClCompile Include="MenuItems\BText.cpp" />
+    <ClCompile Include="MenuItems\Field.cpp" />
+    <ClCompile Include="MenuItems\MenuItem.cpp" />
+    <ClCompile Include="MenuItems\MenuText.cpp" />
+    <ClCompile Include="MenuItems\PText.cpp" />
+    <ClCompile Include="MenuItems\RadioButton.cpp" />
+    <ClCompile Include="MenuItems\ScrollList.cpp" />
+    <ClCompile Include="MenuItems\Slider.cpp" />
+    <ClCompile Include="MenuItems\SpinControl.cpp" />
+    <ClCompile Include="Menus\CdKeyMenu.cpp" />
+    <ClCompile Include="Menus\MenuBase.cpp" />
     <ClCompile Include="ui_admin.cpp">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
@@ -439,6 +452,24 @@
   <ItemGroup>
     <ClInclude Include="keycodes.h" />
     <ClInclude Include="..\qcommon\stv_version.h" />
+    <ClInclude Include="MenuItems\Action.h" />
+    <ClInclude Include="MenuItems\Bitmap.h" />
+    <ClInclude Include="MenuItems\BText.h" />
+    <ClInclude Include="MenuItems\GraphicsInfo.h" />
+    <ClInclude Include="MenuItems\Field.h" />
+    <ClInclude Include="MenuItems\MenuItem.h" />
+    <ClInclude Include="MenuItems\MenuText.h" />
+    <ClInclude Include="MenuItems\PictureInfo.h" />
+    <ClInclude Include="MenuItems\PText.h" />
+    <ClInclude Include="MenuItems\RadioButton.h" />
+    <ClInclude Include="MenuItems\ScrollList.h" />
+    <ClInclude Include="MenuItems\Slider.h" />
+    <ClInclude Include="MenuItems\SpinControl.h" />
+    <ClInclude Include="MenuItems\TextInfo.h" />
+    <ClInclude Include="MenuItems\ThumbInfo.h" />
+    <ClInclude Include="Menus\CdKeyMenu.h" />
+    <ClInclude Include="Menus\EventID.h" />
+    <ClInclude Include="Menus\MenuBase.h" />
     <ClInclude Include="ui_local.h" />
     <ClInclude Include="ui_public.h" />
     <ClInclude Include="ui_logger.h" />

@@ -1,11 +1,15 @@
 // Copyright (C) 1999-2000 Id Software, Inc.
 //
 
+#pragma once
+
+
 #include "../base_game/q_shared.h"
 #include "tr_types.h"
 #include "../base_game/bg_public.h"
 #include "cg_public.h"
 #include "../base_game/bg_list.h"
+#include "cg_logger.h"
 
 #ifndef CG_LOCAL_H_
 #define CG_LOCAL_H_
@@ -1677,7 +1681,7 @@ void CG_DrawStretchPic(float x, float y, float width, float height, float s1,
 	float t1, float s2, float t2, qhandle_t hShader);
 void CG_DrawString(float x, float y, const char *string,
 	float charWidth, float charHeight, const float *modulate);
-void UI_DrawProportionalString(int32_t x, int32_t y, const char* str, int32_t style, vec4_t color);
+void UI_DrawProportionalString(int32_t x, int32_t y, const char* str, int32_t style, const float* color);
 void CG_LoadFonts(void);
 
 

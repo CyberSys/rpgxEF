@@ -394,7 +394,7 @@ extern	vec3_t	bytedirs[NUMVERTEXNORMALS];
 #define	GIANTCHAR_WIDTH		32
 #define	GIANTCHAR_HEIGHT	48
 
-typedef enum
+enum ct_table_t
 {
 CT_NONE,
 CT_BLACK,
@@ -458,7 +458,7 @@ CT_DKRED1,
 CT_VDKRED1,
 
 CT_MAX
-} ct_table_t;
+};
 
 extern vec4_t colorTable[CT_MAX];
 

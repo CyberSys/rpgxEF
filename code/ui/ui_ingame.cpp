@@ -565,22 +565,19 @@ void InGame_MenuInit(void)
 
 	//	Player_MenuInit();
 
-	s_ingame.menu.wrapAround = qtrue;
-	s_ingame.menu.fullscreen = qtrue;
-	s_ingame.menu.descX = MENU_DESC_X;
-	s_ingame.menu.descY = MENU_DESC_Y;
-	s_ingame.menu.draw = UI_InGameMenu_Draw;
-	s_ingame.menu.titleX = MENU_TITLE_X;
-	s_ingame.menu.titleY = MENU_TITLE_Y;
-	s_ingame.menu.titleI = MNT_INGAMEMAIN_TITLE;
-	s_ingame.menu.footNoteEnum = MNT_INGAME_MENU;
+	s_ingame.menu.m_WrapAround = true;
+	s_ingame.menu.m_Fullscreen = qtrue;
+	s_ingame.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_ingame.menu.OnDraw = UI_InGameMenu_Draw;
+	s_ingame.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_INGAMEMAIN_TITLE };
+	s_ingame.menu.m_FootNote = MNT_INGAME_MENU;
 
 	x = 284; //305
 	y = 62; //196
 
 
 	//	y += INGAME_MENU_VERTICAL_SPACING;
-	s_ingame.addbots.generic.type = MTYPE_BITMAP;
+	s_ingame.addbots.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.addbots.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_ingame.addbots.generic.x = x;
 	s_ingame.addbots.generic.y = y;
@@ -598,7 +595,7 @@ void InGame_MenuInit(void)
 	s_ingame.addbots.textcolor2 = CT_WHITE;
 
 	y += INGAME_MENU_VERTICAL_SPACING;
-	s_ingame.removebots.generic.type = MTYPE_BITMAP;
+	s_ingame.removebots.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.removebots.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_ingame.removebots.generic.x = x;
 	s_ingame.removebots.generic.y = y;
@@ -616,7 +613,7 @@ void InGame_MenuInit(void)
 	s_ingame.removebots.textcolor2 = CT_WHITE;
 
 	y += INGAME_MENU_VERTICAL_SPACING;
-	s_ingame.respawn.generic.type = MTYPE_BITMAP;
+	s_ingame.respawn.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.respawn.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingame.respawn.generic.x = x;
 	s_ingame.respawn.generic.y = y;
@@ -635,7 +632,7 @@ void InGame_MenuInit(void)
 
 	x = 448;
 	y = 62;
-	s_ingame.emotes.generic.type = MTYPE_BITMAP;
+	s_ingame.emotes.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.emotes.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingame.emotes.generic.x = x;
 	s_ingame.emotes.generic.y = y;
@@ -653,7 +650,7 @@ void InGame_MenuInit(void)
 	s_ingame.emotes.textcolor2 = CT_WHITE;
 
 	y += INGAME_MENU_VERTICAL_SPACING;
-	s_ingame.admin.generic.type = MTYPE_BITMAP;
+	s_ingame.admin.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.admin.generic.x = x;
 	s_ingame.admin.generic.y = y;
 	s_ingame.admin.generic.id = ID_ADMIN;
@@ -677,7 +674,7 @@ void InGame_MenuInit(void)
 
 	x = 121;
 	y = 62;
-	s_ingame.setup.generic.type = MTYPE_BITMAP;
+	s_ingame.setup.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.setup.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingame.setup.generic.x = x;
 	s_ingame.setup.generic.y = y;
@@ -695,7 +692,7 @@ void InGame_MenuInit(void)
 	s_ingame.setup.textcolor2 = CT_WHITE;
 
 	y += INGAME_MENU_VERTICAL_SPACING;
-	s_ingame.server.generic.type = MTYPE_BITMAP;
+	s_ingame.server.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.server.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingame.server.generic.x = x;
 	s_ingame.server.generic.y = y;
@@ -714,7 +711,7 @@ void InGame_MenuInit(void)
 
 	// RPG-X | Marcin | 03/01/2009
 	y += INGAME_MENU_VERTICAL_SPACING;
-	s_ingame.motd.generic.type = MTYPE_BITMAP;
+	s_ingame.motd.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.motd.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingame.motd.generic.x = x;
 	s_ingame.motd.generic.y = y;
@@ -734,7 +731,7 @@ void InGame_MenuInit(void)
 	y = 339; //365 //390
 	x = 469;
 
-	s_ingame.resume.generic.type = MTYPE_BITMAP;
+	s_ingame.resume.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.resume.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingame.resume.generic.x = x;
 	s_ingame.resume.generic.y = y; //y
@@ -752,7 +749,7 @@ void InGame_MenuInit(void)
 	s_ingame.resume.textcolor2 = CT_WHITE;
 
 	y += 31;
-	s_ingame.restart.generic.type = MTYPE_BITMAP;
+	s_ingame.restart.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.restart.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingame.restart.generic.x = x; //305
 	s_ingame.restart.generic.y = y; //y
@@ -774,7 +771,7 @@ void InGame_MenuInit(void)
 	}
 
 	y += 31;
-	s_ingame.leave.generic.type = MTYPE_BITMAP;
+	s_ingame.leave.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.leave.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingame.leave.generic.x = x; //126 //306
 	s_ingame.leave.generic.y = y;
@@ -791,7 +788,7 @@ void InGame_MenuInit(void)
 	s_ingame.leave.textcolor = CT_BLACK;
 	s_ingame.leave.textcolor2 = CT_WHITE;
 
-	s_ingame.screenshot.generic.type = MTYPE_BITMAP;
+	s_ingame.screenshot.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.screenshot.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	//s_ingame.screenshot.generic.x					= 477;
 	//s_ingame.screenshot.generic.y					= 82;
@@ -812,7 +809,7 @@ void InGame_MenuInit(void)
 	s_ingame.screenshot.textcolor = CT_BLACK;
 	s_ingame.screenshot.textcolor2 = CT_WHITE;
 
-	s_ingame.psettings.generic.type = MTYPE_BITMAP;
+	s_ingame.psettings.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.psettings.generic.name = GRAPHIC_SQUARE;
 	s_ingame.psettings.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingame.psettings.generic.id = ID_PLAYER_SETTINGS;
@@ -829,7 +826,7 @@ void InGame_MenuInit(void)
 	s_ingame.psettings.textY = 2;
 	s_ingame.psettings.textEnum = MBT_PLAYERDATA;
 
-	s_ingame.pmodel.generic.type = MTYPE_BITMAP;
+	s_ingame.pmodel.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.pmodel.generic.name = GRAPHIC_SQUARE;
 	s_ingame.pmodel.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingame.pmodel.generic.id = ID_PLAYER_MODEL;
@@ -846,7 +843,7 @@ void InGame_MenuInit(void)
 	s_ingame.pmodel.textcolor = CT_BLACK;
 	s_ingame.pmodel.textcolor2 = CT_WHITE;
 
-	s_ingame.join.generic.type = MTYPE_BITMAP;
+	s_ingame.join.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.join.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingame.join.generic.x = 285; //126 //306
 	s_ingame.join.generic.y = 376;
@@ -863,7 +860,7 @@ void InGame_MenuInit(void)
 	s_ingame.join.textcolor = CT_BLACK;
 	s_ingame.join.textcolor2 = CT_WHITE;
 
-	s_ingame.spectate.generic.type = MTYPE_BITMAP;
+	s_ingame.spectate.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.spectate.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingame.spectate.generic.x = 285; //126 //306
 	s_ingame.spectate.generic.y = 342;
@@ -880,7 +877,7 @@ void InGame_MenuInit(void)
 	s_ingame.spectate.textcolor = CT_BLACK;
 	s_ingame.spectate.textcolor2 = CT_WHITE;
 
-	s_ingame.playermdl.generic.type = MTYPE_BITMAP;
+	s_ingame.playermdl.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingame.playermdl.generic.flags = QMF_SILENT;
 	s_ingame.playermdl.generic.callback = Player_ModelEvent;
 	s_ingame.playermdl.generic.ownerdraw = IngamePlayer_DrawPlayer;
@@ -1035,17 +1032,14 @@ void InGameQuitMenu_Init(void)
 
 	InGame_Cache();
 
-	s_ingamequit.menu.wrapAround = qtrue;
-	s_ingamequit.menu.fullscreen = qtrue;
-	s_ingamequit.menu.descX = MENU_DESC_X;
-	s_ingamequit.menu.descY = MENU_DESC_Y;
-	s_ingamequit.menu.draw = UI_InGameQuitMenu_Draw;
-	s_ingamequit.menu.titleX = MENU_TITLE_X;
-	s_ingamequit.menu.titleY = MENU_TITLE_Y;
-	s_ingamequit.menu.titleI = MNT_INGAMEMAIN_TITLE;
-	s_ingamequit.menu.footNoteEnum = MNT_INGAME_MENU;
+	s_ingamequit.menu.m_WrapAround = true;
+	s_ingamequit.menu.m_Fullscreen = qtrue;
+	s_ingamequit.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_ingamequit.menu.OnDraw = UI_InGameQuitMenu_Draw;
+	s_ingamequit.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_INGAMEMAIN_TITLE };
+	s_ingamequit.menu.m_FootNote = MNT_INGAME_MENU;
 
-	s_ingamequit.ingamemenu.generic.type = MTYPE_BITMAP;
+	s_ingamequit.ingamemenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingamequit.ingamemenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingamequit.ingamemenu.generic.x = 482;
 	s_ingamequit.ingamemenu.generic.y = 136;
@@ -1062,7 +1056,7 @@ void InGameQuitMenu_Init(void)
 	s_ingamequit.ingamemenu.textcolor = CT_BLACK;
 	s_ingamequit.ingamemenu.textcolor2 = CT_WHITE;
 
-	s_ingamequit.no.generic.type = MTYPE_BITMAP;
+	s_ingamequit.no.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingamequit.no.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingamequit.no.generic.x = 100;
 	s_ingamequit.no.generic.y = 180;
@@ -1079,7 +1073,7 @@ void InGameQuitMenu_Init(void)
 	s_ingamequit.no.textcolor = CT_BLACK;
 	s_ingamequit.no.textcolor2 = CT_WHITE;
 
-	s_ingamequit.yes.generic.type = MTYPE_BITMAP;
+	s_ingamequit.yes.generic.m_Type = EMenuItemType::Bitmap;
 	s_ingamequit.yes.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_ingamequit.yes.generic.x = 100;
 	s_ingamequit.yes.generic.y = 180;

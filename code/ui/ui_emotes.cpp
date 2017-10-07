@@ -926,7 +926,7 @@ static void PlayerEmotes_DrawBinding(void *self) {
 
 	if (focus) {
 		if (menu_button_text[action->textEnum][1]) {
-			UI_DrawProportionalString(action->generic.parent->descX, action->generic.parent->descY, menu_button_text[action->textEnum][1], UI_LEFT | UI_TINYFONT, colorTable[CT_BLACK]);
+			UI_DrawProportionalString(action->generic.parent->m_DescriptionPosition.X(), action->generic.parent->m_DescriptionPosition.Y(), menu_button_text[action->textEnum][1], UI_LEFT | UI_TINYFONT, colorTable[CT_BLACK]);
 		}
 	}
 
@@ -999,7 +999,7 @@ static void PlayerEmotes_DrawScrollBar(void *self)
 	if (!trap_Key_IsDown(K_MOUSE1))
 	{
 		s_playerEmotes.scrollData.mouseDown = qfalse;
-		uis.activemenu->noNewSelecting = qfalse;
+		uis.activemenu->m_NoNewSelecting = qfalse;
 		return;
 	}
 
@@ -1164,7 +1164,7 @@ static sfxHandle_t PlayerEmotes_KeyEvent(int32_t key) {
 	//TiM - scroll bar
 	if (key == K_MOUSE1 && Menu_ItemAtCursor(&s_playerEmotes.menu) == &s_playerEmotes.scrollBar)
 	{
-		uis.activemenu->noNewSelecting = qtrue;
+		uis.activemenu->m_NoNewSelecting = qtrue;
 		s_playerEmotes.scrollData.mouseDown = qtrue;
 		s_playerEmotes.scrollData.yStart = uis.cursory;
 	}
@@ -1220,20 +1220,17 @@ static void PlayerEmotes_Init(void) {
 
 	PlayerEmotes_InitModel();
 
-	s_playerEmotes.menu.wrapAround = qtrue;
-	s_playerEmotes.menu.fullscreen = qtrue;
-	s_playerEmotes.menu.draw = PlayerEmotes_Draw;
-	s_playerEmotes.menu.descX = MENU_DESC_X;
-	s_playerEmotes.menu.descY = MENU_DESC_Y;
-	s_playerEmotes.menu.titleX = MENU_TITLE_X;
-	s_playerEmotes.menu.titleY = MENU_TITLE_Y;
-	s_playerEmotes.menu.footNoteEnum = MNT_EMOTES;
-	s_playerEmotes.menu.titleI = MNT_EMOTES_MENU;
-	s_playerEmotes.menu.key = PlayerEmotes_KeyEvent;
+	s_playerEmotes.menu.m_WrapAround = true;
+	s_playerEmotes.menu.m_Fullscreen = qtrue;
+	s_playerEmotes.menu.OnDraw = PlayerEmotes_Draw;
+	s_playerEmotes.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_playerEmotes.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_EMOTES_MENU };
+	s_playerEmotes.menu.m_FootNote = MNT_EMOTES;
+	s_playerEmotes.menu.OnKey = PlayerEmotes_KeyEvent;
 
 	x = 119;
 	y = 57;
-	s_playerEmotes.recentFilter.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.recentFilter.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.recentFilter.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playerEmotes.recentFilter.generic.x = x;
 	s_playerEmotes.recentFilter.generic.y = y;
@@ -1251,7 +1248,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.recentFilter.textcolor2 = CT_WHITE;
 
 	y += 25;
-	s_playerEmotes.favoritesFilter.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.favoritesFilter.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.favoritesFilter.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playerEmotes.favoritesFilter.generic.x = x;
 	s_playerEmotes.favoritesFilter.generic.y = y;
@@ -1269,7 +1266,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.favoritesFilter.textcolor2 = CT_WHITE;
 
 	y += 25;
-	s_playerEmotes.viewAllFilter.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.viewAllFilter.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.viewAllFilter.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playerEmotes.viewAllFilter.generic.x = x;
 	s_playerEmotes.viewAllFilter.generic.y = y;
@@ -1288,7 +1285,7 @@ static void PlayerEmotes_Init(void) {
 
 	y = 57;
 	x += 153;
-	s_playerEmotes.sittingFilter.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.sittingFilter.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.sittingFilter.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playerEmotes.sittingFilter.generic.x = x;
 	s_playerEmotes.sittingFilter.generic.y = y;
@@ -1306,7 +1303,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.sittingFilter.textcolor2 = CT_WHITE;
 
 	y += 25;
-	s_playerEmotes.consoleFilter.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.consoleFilter.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.consoleFilter.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playerEmotes.consoleFilter.generic.x = x;
 	s_playerEmotes.consoleFilter.generic.y = y;
@@ -1324,7 +1321,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.consoleFilter.textcolor2 = CT_WHITE;
 
 	y += 25;
-	s_playerEmotes.gestureFilter.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.gestureFilter.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.gestureFilter.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playerEmotes.gestureFilter.generic.x = x;
 	s_playerEmotes.gestureFilter.generic.y = y;
@@ -1343,7 +1340,7 @@ static void PlayerEmotes_Init(void) {
 
 	x += 153;
 	y = 57;
-	s_playerEmotes.fullMotionFilter.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.fullMotionFilter.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.fullMotionFilter.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playerEmotes.fullMotionFilter.generic.x = x;
 	s_playerEmotes.fullMotionFilter.generic.y = y;
@@ -1361,7 +1358,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.fullMotionFilter.textcolor2 = CT_WHITE;
 
 	y += 25;
-	s_playerEmotes.injuredFilter.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.injuredFilter.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.injuredFilter.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playerEmotes.injuredFilter.generic.x = x;
 	s_playerEmotes.injuredFilter.generic.y = y;
@@ -1379,7 +1376,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.injuredFilter.textcolor2 = CT_WHITE;
 
 	y += 25;
-	s_playerEmotes.miscFilter.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.miscFilter.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.miscFilter.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playerEmotes.miscFilter.generic.x = x;
 	s_playerEmotes.miscFilter.generic.y = y;
@@ -1399,7 +1396,7 @@ static void PlayerEmotes_Init(void) {
 	x = 90;
 	y = 179;
 	for (i = 0; i < MAX_MENULISTITEMS; i++) {
-		s_playerEmotes.emotesMenu[i].generic.type = MTYPE_BITMAP;
+		s_playerEmotes.emotesMenu[i].generic.m_Type = EMenuItemType::Bitmap;
 		s_playerEmotes.emotesMenu[i].generic.flags = QMF_INACTIVE | QMF_HIDDEN;
 		s_playerEmotes.emotesMenu[i].generic.x = x;
 		s_playerEmotes.emotesMenu[i].generic.y = y;
@@ -1419,7 +1416,7 @@ static void PlayerEmotes_Init(void) {
 		y += 21;
 	}
 
-	s_playerEmotes.upArrow.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.upArrow.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.upArrow.generic.flags = QMF_INACTIVE | QMF_GRAYED;
 	s_playerEmotes.upArrow.generic.x = 242;
 	s_playerEmotes.upArrow.generic.y = 185;
@@ -1435,7 +1432,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.upArrow.textcolor = CT_BLACK;
 	s_playerEmotes.upArrow.textcolor2 = CT_WHITE;
 
-	s_playerEmotes.dnArrow.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.dnArrow.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.dnArrow.generic.flags = QMF_INACTIVE | QMF_GRAYED;
 	s_playerEmotes.dnArrow.generic.x = 242;
 	s_playerEmotes.dnArrow.generic.y = 407;
@@ -1451,7 +1448,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.dnArrow.textcolor = CT_BLACK;
 	s_playerEmotes.dnArrow.textcolor2 = CT_WHITE;
 
-	s_playerEmotes.mainMenu.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.mainMenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.mainMenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playerEmotes.mainMenu.generic.x = 482;
 	s_playerEmotes.mainMenu.generic.y = 136;
@@ -1471,7 +1468,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.mainMenu.textcolor = CT_BLACK;
 	s_playerEmotes.mainMenu.textcolor2 = CT_WHITE;
 
-	s_playerEmotes.modelOffset.generic.type = MTYPE_FIELD;
+	s_playerEmotes.modelOffset.generic.m_Type = EMenuItemType::Field;
 	s_playerEmotes.modelOffset.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playerEmotes.modelOffset.generic.x = 351;
 	s_playerEmotes.modelOffset.generic.y = 225;
@@ -1483,7 +1480,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.modelOffset.field.textcolor2 = CT_WHITE; //CT_DKGOLD1
 	s_playerEmotes.modelOffset.field.style = UI_CENTER | UI_SMALLFONT; //Due to Raven's hacky nature, and my exploiting it therefore, SMALLFONT MUST accompany CENTER
 
-	s_playerEmotes.emoteBind.generic.type = MTYPE_ACTION;
+	s_playerEmotes.emoteBind.generic.m_Type = EMenuItemType::Action;
 	s_playerEmotes.emoteBind.generic.flags = QMF_CENTER_JUSTIFY | QMF_GRAYED | QMF_INACTIVE;
 	s_playerEmotes.emoteBind.generic.x = 351;
 	s_playerEmotes.emoteBind.generic.y = 291;
@@ -1495,7 +1492,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.emoteBind.height = 39;
 	s_playerEmotes.emoteBind.textY = 2;
 
-	s_playerEmotes.addFav.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.addFav.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.addFav.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_playerEmotes.addFav.generic.x = 273;
 	s_playerEmotes.addFav.generic.y = 355;
@@ -1512,7 +1509,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.addFav.textcolor = CT_BLACK;
 	s_playerEmotes.addFav.textcolor2 = CT_WHITE;
 
-	s_playerEmotes.playEmote.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.playEmote.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.playEmote.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playerEmotes.playEmote.generic.x = 273;
 	s_playerEmotes.playEmote.generic.y = 381;
@@ -1530,7 +1527,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.playEmote.textcolor2 = CT_WHITE;
 
 	//Spinbox for player model
-	s_playerEmotes.playerMdl.generic.type = MTYPE_BITMAP;
+	s_playerEmotes.playerMdl.generic.m_Type = EMenuItemType::Bitmap;
 	s_playerEmotes.playerMdl.generic.flags = QMF_SILENT; //INACTIVE
 	s_playerEmotes.playerMdl.generic.callback = PlayerEmotes_SpinPlayer;
 	s_playerEmotes.playerMdl.generic.x = 82 + 363; //440 //25
@@ -1538,7 +1535,7 @@ static void PlayerEmotes_Init(void) {
 	s_playerEmotes.playerMdl.width = 164; //32*6.6 //211.2 //246.2
 	s_playerEmotes.playerMdl.height = 276; //56*6.6 //369.6 //404.6
 
-	s_playerEmotes.scrollBar.generic.type = MTYPE_ACTION;
+	s_playerEmotes.scrollBar.generic.m_Type = EMenuItemType::Action;
 	s_playerEmotes.scrollBar.generic.flags = QMF_INACTIVE | QMF_HIDDEN;
 	s_playerEmotes.scrollBar.generic.x = 241;
 	s_playerEmotes.scrollBar.generic.y = 204;

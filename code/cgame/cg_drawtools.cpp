@@ -425,7 +425,7 @@ void CG_ColorForHealth(vec4_t hcolor) {
 }
 
 
-static int32_t	propMapTiny[CHARMAX][3];
+int32_t	propMapTiny[CHARMAX][3];
 static int32_t	propMap[CHARMAX][3];
 static int32_t	propMapBig[CHARMAX][3];
 
@@ -746,7 +746,7 @@ static void UI_AdjustForWidescreen(float *x, float *w)
 UI_DrawProportionalString2
 =================
 */
-static void UI_DrawProportionalString2(int32_t x, int32_t y, const char* str, vec4_t color, float sizeScale, int32_t style, qhandle_t charset, qboolean forceColor)
+static void UI_DrawProportionalString2(int32_t x, int32_t y, const char* str, const float* color, float sizeScale, int32_t style, qhandle_t charset, qboolean forceColor)
 {
 	const char* s;
 	unsigned char	ch;
@@ -964,7 +964,7 @@ float UI_ProportionalSizeScale(int32_t style)
 UI_DrawProportionalString
 =================
 */
-void UI_DrawProportionalString(int32_t x, int32_t y, const char* str, int32_t style, vec4_t color)
+void UI_DrawProportionalString(int32_t x, int32_t y, const char* str, int32_t style, const float* color)
 {
 	vec4_t		drawcolor;
 	int32_t			width;

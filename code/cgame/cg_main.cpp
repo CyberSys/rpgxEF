@@ -7,7 +7,6 @@
 
 #include "cg_local.h"
 #include "cg_text.h"
-#include "cg_logger.h"
 
 void CG_Init( int32_t serverMessageNum, int32_t serverCommandSequence );
 void CG_Shutdown( void );

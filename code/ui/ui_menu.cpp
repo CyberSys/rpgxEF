@@ -716,20 +716,17 @@ static void InitialSetupMenu_Init(void)
 
 	InitialSetupMenu_Cache();
 
-	s_initialsetup.menu.nitems = 0;
-	s_initialsetup.menu.wrapAround = qtrue;
-	s_initialsetup.menu.draw = M_InitialSetupMenu_Draw;
-	s_initialsetup.menu.key = M_InitialSetupMenu_Key;
-	s_initialsetup.menu.fullscreen = qtrue;
-	s_initialsetup.menu.descX = MENU_DESC_X;
-	s_initialsetup.menu.descY = MENU_DESC_Y;
-	s_initialsetup.menu.titleX = MENU_TITLE_X;
-	s_initialsetup.menu.titleY = MENU_TITLE_Y;
-	s_initialsetup.menu.titleI = MNT_INITIALSETUP_TITLE;
-	s_initialsetup.menu.footNoteEnum = MNT_INITIALSETUP;
+	s_initialsetup.menu.m_ItemCount = 0;
+	s_initialsetup.menu.m_WrapAround = true;
+	s_initialsetup.menu.OnDraw = M_InitialSetupMenu_Draw;
+	s_initialsetup.menu.OnKey = M_InitialSetupMenu_Key;
+	s_initialsetup.menu.m_Fullscreen = qtrue;
+	s_initialsetup.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_initialsetup.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_INITIALSETUP_TITLE };
+	s_initialsetup.menu.m_FootNote = MNT_INITIALSETUP;
 
 
-	s_initialsetup.textlanguage.generic.type = MTYPE_SPINCONTROL;
+	s_initialsetup.textlanguage.generic.m_Type = EMenuItemType::SpinControl;
 	s_initialsetup.textlanguage.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_initialsetup.textlanguage.generic.x = x;
 	s_initialsetup.textlanguage.generic.y = y;
@@ -747,7 +744,7 @@ static void InitialSetupMenu_Init(void)
 	s_initialsetup.textlanguage.listnames = s_textlanguage_Names;
 	y += 32;
 
-	s_initialsetup.voicelanguage.generic.type = MTYPE_SPINCONTROL;
+	s_initialsetup.voicelanguage.generic.m_Type = EMenuItemType::SpinControl;
 	s_initialsetup.voicelanguage.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_initialsetup.voicelanguage.generic.x = x;
 	s_initialsetup.voicelanguage.generic.y = y;
@@ -765,7 +762,7 @@ static void InitialSetupMenu_Init(void)
 	s_initialsetup.voicelanguage.listnames = s_voicelanguage_Names;
 	y += 32;
 
-	s_initialsetup.keyboardlanguage.generic.type = MTYPE_SPINCONTROL;
+	s_initialsetup.keyboardlanguage.generic.m_Type = EMenuItemType::SpinControl;
 	s_initialsetup.keyboardlanguage.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_initialsetup.keyboardlanguage.generic.x = x;
 	s_initialsetup.keyboardlanguage.generic.y = y;
@@ -784,7 +781,7 @@ static void InitialSetupMenu_Init(void)
 
 	x = 180;
 	y = 182;
-	s_initialsetup.gamma.generic.type = MTYPE_SLIDER;
+	s_initialsetup.gamma.generic.m_Type = EMenuItemType::Slider;
 	s_initialsetup.gamma.generic.x = x + 162;
 	s_initialsetup.gamma.generic.y = y;
 	s_initialsetup.gamma.generic.flags = QMF_SMALLFONT;
@@ -816,7 +813,7 @@ static void InitialSetupMenu_Init(void)
 	s_initialsetup.gamma.thumbColor2 = CT_LTBLUE1;
 
 
-	s_initialsetup.apply.generic.type = MTYPE_ACTION;
+	s_initialsetup.apply.generic.m_Type = EMenuItemType::Action;
 	s_initialsetup.apply.generic.flags = QMF_HIGHLIGHT_IF_FOCUS | QMF_BLINK;
 	s_initialsetup.apply.generic.x = 501;
 	s_initialsetup.apply.generic.y = 357;
@@ -1474,7 +1471,7 @@ static void Player_SpinPlayer(void* ptr, int32_t event)
 static void Player_MenuInit(void)
 {
 	UI_LogFuncBegin();
-	s_main_playermdl.generic.type = MTYPE_BITMAP;
+	s_main_playermdl.generic.m_Type = EMenuItemType::Bitmap;
 	s_main_playermdl.generic.flags = QMF_SILENT; //INACTIVE
 	s_main_playermdl.generic.callback = Player_SpinPlayer;
 	s_main_playermdl.generic.x = 82; //440 //25
@@ -1928,18 +1925,15 @@ static void UI_MainMenu_Init(void)
 	//RPG-X Phenix/J2J
 	// BOOKMARK s_main.rpgxlogo = trap_R_RegisterModel( //
 
-	s_main.menu.draw = Main_MenuDraw;
-	s_main.menu.fullscreen = qtrue;
-	s_main.menu.wrapAround = qtrue;
-	s_main.menu.descX = MENU_DESC_X;
-	s_main.menu.descY = MENU_DESC_Y;
-	s_main.menu.titleX = MENU_TITLE_X;
-	s_main.menu.titleY = MENU_TITLE_Y;
-	s_main.menu.titleI = MNT_MAINMENU_TITLE;
-	s_main.menu.footNoteEnum = MNT_HOLOMATCHWEAPONRY;
+	s_main.menu.OnDraw = Main_MenuDraw;
+	s_main.menu.m_Fullscreen = qtrue;
+	s_main.menu.m_WrapAround = true;
+	s_main.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_main.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_MAINMENU_TITLE };
+	s_main.menu.m_FootNote = MNT_HOLOMATCHWEAPONRY;
 
 
-	s_main.multiplayer.generic.type = MTYPE_BITMAP;
+	s_main.multiplayer.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.multiplayer.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_main.multiplayer.generic.x = mm_buttons[0][0];
 	s_main.multiplayer.generic.y = mm_buttons[0][1];
@@ -1957,7 +1951,7 @@ static void UI_MainMenu_Init(void)
 	s_main.multiplayer.textcolor = CT_BLACK;
 	s_main.multiplayer.textcolor2 = CT_BLACK; //CT_WHITE;
 
-	s_main.setup.generic.type = MTYPE_BITMAP;
+	s_main.setup.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.setup.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_main.setup.generic.x = mm_buttons[1][0];
 	s_main.setup.generic.y = mm_buttons[1][1];
@@ -1975,7 +1969,7 @@ static void UI_MainMenu_Init(void)
 	s_main.setup.textcolor = CT_BLACK;
 	s_main.setup.textcolor2 = CT_BLACK; //CT_WHITE;
 
-	s_main.demo.generic.type = MTYPE_BITMAP;
+	s_main.demo.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.demo.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_main.demo.generic.x = mm_buttons[2][0];
 	s_main.demo.generic.y = mm_buttons[2][1];
@@ -1997,7 +1991,7 @@ static void UI_MainMenu_Init(void)
 		s_main.demo.generic.flags |= QMF_GRAYED;
 	}
 
-	s_main.mods.generic.type = MTYPE_BITMAP;
+	s_main.mods.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.mods.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_main.mods.generic.x = mm_buttons[3][0];
 	s_main.mods.generic.y = mm_buttons[3][1];
@@ -2019,7 +2013,7 @@ static void UI_MainMenu_Init(void)
 		s_main.mods.generic.flags |= QMF_GRAYED;
 	}
 
-	s_main.credits.generic.type = MTYPE_BITMAP;
+	s_main.credits.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.credits.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_main.credits.generic.x = mm_buttons[4][0];
 	s_main.credits.generic.y = mm_buttons[4][1];
@@ -2038,7 +2032,7 @@ static void UI_MainMenu_Init(void)
 	s_main.credits.textcolor2 = CT_BLACK; //CT_WHITE;
 
 
-	s_main.quit.generic.type = MTYPE_BITMAP;
+	s_main.quit.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.quit.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_main.quit.generic.x = mm_buttons[5][0];
 	s_main.quit.generic.y = mm_buttons[5][1];
@@ -2056,7 +2050,7 @@ static void UI_MainMenu_Init(void)
 	s_main.quit.textcolor = CT_BLACK;
 	s_main.quit.textcolor2 = CT_BLACK; //CT_WHITE;
 
-	s_main.mission.generic.type = MTYPE_BITMAP;
+	s_main.mission.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.mission.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_main.mission.generic.x = 30;
 	s_main.mission.generic.y = 161;
@@ -2074,7 +2068,7 @@ static void UI_MainMenu_Init(void)
 	s_main.mission.textcolor = CT_BLACK;
 	s_main.mission.textcolor2 = CT_BLACK; //CT_WHITE;
 
-	s_main.playerSettings.generic.type = MTYPE_BITMAP;
+	s_main.playerSettings.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.playerSettings.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_main.playerSettings.generic.x = 271;
 	s_main.playerSettings.generic.y = 416;
@@ -2091,7 +2085,7 @@ static void UI_MainMenu_Init(void)
 	s_main.playerSettings.textcolor = CT_BLACK;
 	s_main.playerSettings.textcolor2 = CT_WHITE;
 
-	s_main.playerModel.generic.type = MTYPE_BITMAP;
+	s_main.playerModel.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.playerModel.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_main.playerModel.generic.x = 460;
 	s_main.playerModel.generic.y = 416;
@@ -2108,7 +2102,7 @@ static void UI_MainMenu_Init(void)
 	s_main.playerModel.textcolor = CT_BLACK;
 	s_main.playerModel.textcolor2 = CT_WHITE;
 
-	s_main.upArrow.generic.type = MTYPE_BITMAP;
+	s_main.upArrow.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.upArrow.generic.flags = QMF_INACTIVE | QMF_GRAYED;
 	s_main.upArrow.generic.x = 432;
 	s_main.upArrow.generic.y = 286;
@@ -2122,7 +2116,7 @@ static void UI_MainMenu_Init(void)
 	s_main.upArrow.textcolor = CT_BLACK;
 	s_main.upArrow.textcolor2 = CT_WHITE;
 
-	s_main.dnArrow.generic.type = MTYPE_BITMAP;
+	s_main.dnArrow.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.dnArrow.generic.flags = QMF_INACTIVE | QMF_GRAYED;
 	s_main.dnArrow.generic.x = 453;
 	s_main.dnArrow.generic.y = 286;
@@ -2136,7 +2130,7 @@ static void UI_MainMenu_Init(void)
 	s_main.dnArrow.textcolor = CT_BLACK;
 	s_main.dnArrow.textcolor2 = CT_WHITE;
 
-	s_main.refresh.generic.type = MTYPE_BITMAP;
+	s_main.refresh.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.refresh.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_main.refresh.generic.x = 473;
 	s_main.refresh.generic.y = 283;
@@ -2153,7 +2147,7 @@ static void UI_MainMenu_Init(void)
 	s_main.refresh.textcolor = CT_BLACK;
 	s_main.refresh.textcolor2 = CT_WHITE;
 
-	s_main.connect.generic.type = MTYPE_BITMAP;
+	s_main.connect.generic.m_Type = EMenuItemType::Bitmap;
 	s_main.connect.generic.flags = QMF_GRAYED | QMF_INACTIVE;
 	s_main.connect.generic.x = 539;
 	s_main.connect.generic.y = 283;
@@ -2171,7 +2165,7 @@ static void UI_MainMenu_Init(void)
 	s_main.connect.textcolor2 = CT_WHITE;
 
 	for (i = 0; i < MAX_FAVBUTTONS; i++) {
-		s_main.favMenu[i].generic.type = MTYPE_BITMAP;
+		s_main.favMenu[i].generic.m_Type = EMenuItemType::Bitmap;
 		s_main.favMenu[i].generic.flags = QMF_SILENT | QMF_HIDDEN | QMF_INACTIVE;
 		s_main.favMenu[i].generic.x = 263;
 		s_main.favMenu[i].generic.y = 176 + (13 * i);
@@ -2209,7 +2203,7 @@ static void UI_MainMenu_Init(void)
 	uis.menusp = 0;
 	UI_PushMenu(&s_main.menu);
 
-	if (s_HolomatchInmenu.menu.initialized)
+	if (s_HolomatchInmenu.menu.m_Initialized)
 		trap_S_StartLocalSound(s_main.activateSound, CHAN_LOCAL);
 	UI_LogFuncEnd();
 }
@@ -2231,7 +2225,7 @@ void UI_MainMenu(void)
 	ingameFlag = qfalse;	// true when ingame menu is in use
 
 	//#ifdef NDEBUG
-	if (!s_HolomatchInmenu.menu.initialized)	// Haven't played Holomatch In menu yet
+	if (!s_HolomatchInmenu.menu.m_Initialized)	// Haven't played Holomatch In menu yet
 	{
 		UI_HolomatchIn_Menu();
 		UI_LogFuncEnd();
@@ -2374,18 +2368,15 @@ static void HolomatchInMenu_Init(void)
 	UI_LogFuncBegin();
 	UI_HolomatchInMenu_Cache();
 
-	s_HolomatchInmenu.menu.nitems = 0;
-	s_HolomatchInmenu.menu.wrapAround = qtrue;
-	s_HolomatchInmenu.menu.draw = HolomatchInMenu_Draw;
-	s_HolomatchInmenu.menu.key = M_HolomatchIn_Key;
-	s_HolomatchInmenu.menu.fullscreen = qtrue;
-	s_HolomatchInmenu.menu.descX = 0;
-	s_HolomatchInmenu.menu.descY = 0;
-	s_HolomatchInmenu.menu.titleX = 0;
-	s_HolomatchInmenu.menu.titleY = 0;
-	s_HolomatchInmenu.menu.titleI = MNT_NONE;
+	s_HolomatchInmenu.menu.m_ItemCount = 0;
+	s_HolomatchInmenu.menu.m_WrapAround = true;
+	s_HolomatchInmenu.menu.OnDraw = HolomatchInMenu_Draw;
+	s_HolomatchInmenu.menu.OnKey = M_HolomatchIn_Key;
+	s_HolomatchInmenu.menu.m_Fullscreen = qtrue;
+	s_HolomatchInmenu.menu.m_DescriptionPosition = { 0, 0 };
+	s_HolomatchInmenu.menu.m_Title = { { 0, 0 }, MNT_NONE };
 
-	s_HolomatchInmenu.menu.initialized = qtrue;
+	s_HolomatchInmenu.menu.m_Initialized = qtrue;
 
 	federationTimer = uis.realtime + 12000; //12000
 
@@ -2508,16 +2499,13 @@ static void LeavingMenu_Init(void)
 	UI_LogFuncBegin();
 	LeavingMenu_Cache();
 
-	s_leaving_menu.menu.nitems = 0;
-	s_leaving_menu.menu.wrapAround = qtrue;
-	s_leaving_menu.menu.draw = LeavingMenu_Draw;
-	s_leaving_menu.menu.key = M_Leaving_Key;
-	s_leaving_menu.menu.fullscreen = qtrue;
-	s_leaving_menu.menu.descX = 0;
-	s_leaving_menu.menu.descY = 0;
-	s_leaving_menu.menu.titleX = 0;
-	s_leaving_menu.menu.titleY = 0;
-	s_leaving_menu.menu.titleI = MNT_NONE;
+	s_leaving_menu.menu.m_ItemCount = 0;
+	s_leaving_menu.menu.m_WrapAround = true;
+	s_leaving_menu.menu.OnDraw = LeavingMenu_Draw;
+	s_leaving_menu.menu.OnKey = M_Leaving_Key;
+	s_leaving_menu.menu.m_Fullscreen = qtrue;
+	s_leaving_menu.menu.m_DescriptionPosition = { 0, 0 };
+	s_leaving_menu.menu.m_Title = { { 0, 0 }, MNT_NONE };
 
 	federationTimer = uis.realtime + 3000;
 	//trap_Cvar_Set ("rpg_playIntro", "1");
@@ -2831,20 +2819,17 @@ static void Quit_MenuInit(void)
 
 	UI_QuitMenu_Cache();
 
-	s_quit.menu.nitems = 0;
-	s_quit.menu.draw = Quit_MenuDraw;
-	s_quit.menu.key = Quit_MenuKey;
-	s_quit.menu.wrapAround = qtrue;
-	s_quit.menu.descX = MENU_DESC_X;
-	s_quit.menu.descY = MENU_DESC_Y;
-	s_quit.menu.titleX = MENU_TITLE_X;
-	s_quit.menu.titleY = MENU_TITLE_Y;
-	s_quit.menu.titleI = MNT_QUITMENU_TITLE;
-	s_quit.menu.footNoteEnum = MNT_SHIP_SYSTEMS;
+	s_quit.menu.m_ItemCount = 0;
+	s_quit.menu.OnDraw = Quit_MenuDraw;
+	s_quit.menu.OnKey = Quit_MenuKey;
+	s_quit.menu.m_WrapAround = true;
+	s_quit.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_quit.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_QUITMENU_TITLE };
+	s_quit.menu.m_FootNote = MNT_SHIP_SYSTEMS;
 
-	s_quit.menu.fullscreen = qtrue;
+	s_quit.menu.m_Fullscreen = qtrue;
 
-	s_quit.mainmenu.generic.type = MTYPE_BITMAP;
+	s_quit.mainmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_quit.mainmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_quit.mainmenu.generic.x = 482;
 	s_quit.mainmenu.generic.y = 136;
@@ -2864,7 +2849,7 @@ static void Quit_MenuInit(void)
 
 	y = 81;
 	x = 152;
-	s_quit.yes.generic.type = MTYPE_BITMAP;
+	s_quit.yes.generic.m_Type = EMenuItemType::Bitmap;
 	s_quit.yes.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_quit.yes.generic.x = x;
 	s_quit.yes.generic.y = y;
@@ -2881,7 +2866,7 @@ static void Quit_MenuInit(void)
 	s_quit.yes.textcolor = CT_BLACK;
 	s_quit.yes.textcolor2 = CT_BLACK; //CT_WHITE;
 
-	s_quit.no.generic.type = MTYPE_BITMAP;
+	s_quit.no.generic.m_Type = EMenuItemType::Bitmap;
 	s_quit.no.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_quit.no.generic.x = x;
 	s_quit.no.generic.y = y + MENU_BUTTON_MED_HEIGHT + 6;
@@ -2902,7 +2887,7 @@ static void Quit_MenuInit(void)
 	Menu_AddItem(&s_quit.menu, &s_quit.no);
 	Menu_AddItem(&s_quit.menu, &s_quit.yes);
 
-	s_quit.menu.initialized = qtrue;
+	s_quit.menu.m_Initialized = qtrue;
 
 	quitmenu_graphics[QMG_BOTTOM_BLIP].x = quitmenu_graphics[QMG_BOTTOM_BLIP].min;
 	quitmenu_graphics[QMG_BOTTOM_BLIP2].x = quitmenu_graphics[QMG_BOTTOM_BLIP].x;

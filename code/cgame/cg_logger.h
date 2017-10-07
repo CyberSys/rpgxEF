@@ -1,7 +1,7 @@
 #ifndef CG_LOGGER_H_
 #define CG_LOGGER_H_
 
-#include "cg_local.h"
+#include "../base_game/q_shared.h"
 
 enum {
 	LL_ALWAYS,
@@ -21,7 +21,7 @@ enum {
 #endif
 
 #define CG_LocLogger(X,...) _CG_LocLogger(__FILE__, __LINE__, X, __VA_ARGS__) 
-void QDECL CG_Logger(int level, char* fmt, ...) __attribute__ ((format (printf, 2, 3)));
-void QDECL _CG_LocLogger(const char* file, int line, int level, char* fmt, ...) __attribute__ ((format (printf, 4, 5)));
+void CG_Logger(int level, char* fmt, ...) __attribute__ ((format (printf, 2, 3)));
+void _CG_LocLogger(const char* file, int line, int level, char* fmt, ...) __attribute__ ((format (printf, 4, 5)));
 
 #endif /* CG_LOGGER_H_ */

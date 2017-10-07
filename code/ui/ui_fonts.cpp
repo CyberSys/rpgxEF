@@ -319,22 +319,19 @@ void FontsMenu_Init(void)
 	UI_LogFuncBegin();
 	UI_FontsMenu_Cache();
 
-	s_fonts_menu.nitems = 0;
-	s_fonts_menu.wrapAround = qtrue;
-	s_fonts_menu.draw = M_Fonts_MenuDraw;
-	s_fonts_menu.key = M_Fonts_MenuKey;
-	s_fonts_menu.fullscreen = qtrue;
-	s_fonts_menu.wrapAround = qfalse;
-	s_fonts_menu.descX = MENU_DESC_X;
-	s_fonts_menu.descY = MENU_DESC_Y;
-	s_fonts_menu.titleX = MENU_TITLE_X;
-	s_fonts_menu.titleY = MENU_TITLE_Y;
-	s_fonts_menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_fonts_menu.footNoteEnum = MNT_FONTS_DEVELOPER;
+	s_fonts_menu.m_ItemCount = 0;
+	s_fonts_menu.m_WrapAround = true;
+	s_fonts_menu.OnDraw = M_Fonts_MenuDraw;
+	s_fonts_menu.OnKey = M_Fonts_MenuKey;
+	s_fonts_menu.m_Fullscreen = qtrue;
+	s_fonts_menu.m_WrapAround = false;
+	s_fonts_menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_fonts_menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_fonts_menu.m_FootNote = MNT_FONTS_DEVELOPER;
 
 	SetupMenu_TopButtons(&s_fonts_menu, MENU_FONTS, NULL);
 
-	s_fonts_small.generic.type = MTYPE_BITMAP;
+	s_fonts_small.generic.m_Type = EMenuItemType::Bitmap;
 	s_fonts_small.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_fonts_small.generic.x = 100;
 	s_fonts_small.generic.y = 170;
@@ -351,7 +348,7 @@ void FontsMenu_Init(void)
 	s_fonts_small.textcolor = CT_BLACK;
 	s_fonts_small.textcolor2 = CT_WHITE;
 
-	s_fonts_medium.generic.type = MTYPE_BITMAP;
+	s_fonts_medium.generic.m_Type = EMenuItemType::Bitmap;
 	s_fonts_medium.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_fonts_medium.generic.x = 250;
 	s_fonts_medium.generic.y = 170;
@@ -368,7 +365,7 @@ void FontsMenu_Init(void)
 	s_fonts_medium.textcolor = CT_BLACK;
 	s_fonts_medium.textcolor2 = CT_WHITE;
 
-	s_fonts_large.generic.type = MTYPE_BITMAP;
+	s_fonts_large.generic.m_Type = EMenuItemType::Bitmap;
 	s_fonts_large.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_fonts_large.generic.x = 400;
 	s_fonts_large.generic.y = 170;
@@ -385,7 +382,7 @@ void FontsMenu_Init(void)
 	s_fonts_large.textcolor = CT_BLACK;
 	s_fonts_large.textcolor2 = CT_WHITE;
 
-	s_fonts_grid.generic.type = MTYPE_BITMAP;
+	s_fonts_grid.generic.m_Type = EMenuItemType::Bitmap;
 	s_fonts_grid.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_fonts_grid.generic.x = 550;
 	s_fonts_grid.generic.y = 170;

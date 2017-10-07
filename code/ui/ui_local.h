@@ -1,13 +1,13 @@
 // Copyright (C) 1999-2000 Id Software, Inc.
 //
-#ifndef __UI_LOCAL_H__
-#define __UI_LOCAL_H__
+#pragma once
 
-#include "../base_game//q_shared.h"
+#include "../base_game/q_shared.h"
 #include "../cgame/tr_types.h"
 #include "ui_public.h"
 #include "keycodes.h"
 #include "../base_game/bg_public.h"
+#include "../common_game/Position2D.h"
 
 //RPG-X : TiM
 //Defines for animation code in UI module
@@ -1419,21 +1419,22 @@ static const char BUTTON_GRAPHIC_LONGRIGHT[] = "menu/common/bar1.tga";
 
 static const uint32_t SLIDER_RANGE = 10;
 
-enum ui_localMtype_e {
-	MTYPE_NULL,
-	MTYPE_SLIDER,
-	MTYPE_ACTION,
-	MTYPE_SPINCONTROL,
-	MTYPE_FIELD,
-	MTYPE_RADIOBUTTON,
-	MTYPE_BITMAP,
-	MTYPE_TEXT,
-	MTYPE_SCROLLLIST,
-	MTYPE_PTEXT,
-	MTYPE_BTEXT
+enum class EMenuItemType 
+{
+	Null,
+	Slider,
+	Action,
+	SpinControl,
+	Field,
+	RadioButton,
+	Bitmap,
+	Text,
+	ScrollList,
+	PText,
+	BText
 };
 
-enum ui_localQmf_e {
+enum ui_localQmf_e : size_t {
 	QMF_BLINK = 0x00000001,
 	QMF_SMALLFONT = 0x00000002,
 	QMF_LEFT_JUSTIFY = 0x00000004,
@@ -1466,37 +1467,45 @@ enum ui_localQm_e {
 	QM_ACTIVATED
 };
 
+using StringID = int32_t;
+using MenuPosition = Common::Position2D;
+
+struct MenuTitle
+{
+  MenuPosition m_Position = { MENU_TITLE_X, MENU_TITLE_Y };
+  StringID m_StringID = 0;
+
+  operator bool() const { return m_StringID > 0; }
+  operator StringID() const { return m_StringID; }
+};
+
 typedef struct _tag_menuframework
 {
-	int32_t	cursor;
-	int32_t cursor_prev;
+	int32_t	m_Cursor;
+	int32_t m_CursorPrev;
 
-	int32_t	nitems;
-	/*@shared@*/ void *items[MAX_MENUITEMS];
+	int32_t	m_ItemCount;
+	/*@shared@*/ void *m_Items[MAX_MENUITEMS];
 
-	void(*draw) (void);
-	sfxHandle_t(*key) (int32_t key);
+	void(*OnDraw) (void);
+	sfxHandle_t(*OnKey) (int32_t key);
 
-	qboolean	wrapAround;
-	qboolean	fullscreen;
-	qboolean	nobackground;
-	qboolean	initialized;		// Have the structures for this menu been initialized?
-	int32_t			descX;				// Description x pos
-	int32_t			descY;				// Description y pos
-	int32_t			listX;				// Beginning X position of list
-	int32_t			listY;				// Beginning Y position of list
-	int32_t			titleX;				// Title x pos
-	int32_t			titleY;				// Title y pos
-	int32_t			titleI;				// The title
-	int32_t			footNoteEnum;		// Footnote text
+	bool m_WrapAround;
+	bool m_Fullscreen;
+	bool m_NoBackground;
+	bool m_Initialized;		// Have the structures for this menu been initialized?
+  MenuPosition m_DescriptionPosition;
+  MenuPosition m_ListPosition;
+  MenuTitle m_Title;
+	StringID m_FootNote;		// Footnote text
 
-	/*@shared@*/ void		*displaySpinList;	//if not NULL, display the list from this one (must be typecast as menulist_s when used)
-	qboolean	noNewSelecting;		//used when we want to stop other buttons getting selected. mainly for the spin list, and slider dragging
+	/*@shared@*/ void		*m_DisplaySpinList;	//if not NULL, display the list from this one (must be typecast as menulist_s when used)
+	bool m_NoNewSelecting;		//used when we want to stop other buttons getting selected. mainly for the spin list, and slider dragging
 } menuframework_s;
 
 typedef struct
 {
-	int32_t type;
+  EMenuItemType m_Type;
 	/*@shared@*/ const /*@shared@*/  char *name;
 	int32_t	id;
 	int32_t x, y;
@@ -1720,7 +1729,6 @@ extern void Mouse_Show(void);
 
 extern void	UI_HolomatchInMenu_Cache(void);
 extern void	Menu_Cache(void);
-extern void	Menu_Focus(menucommon_s *m);
 extern void	Menu_AddItem(menuframework_s *menu, void *item);
 extern void	Menu_AdjustCursor(menuframework_s *menu, int32_t dir);
 extern void	Menu_Draw(menuframework_s *menu);
@@ -2209,15 +2217,15 @@ extern void			UI_DrawRect(float x, float y, float width, float height, const flo
 //extern void			UI_LerpColor(vec4_t a, vec4_t b, vec4_t c, float t);
 extern void			UI_DrawBannerString(int32_t x, int32_t y, const char* str, int32_t style, vec4_t color);
 extern float		UI_ProportionalSizeScale(int32_t style);
-extern void			UI_DrawProportionalString(int32_t x, int32_t y, const char* str, int32_t style, vec4_t color);
+extern void			UI_DrawProportionalString(int32_t x, int32_t y, const char* str, int32_t style, const float* color);
 extern int32_t			UI_ProportionalStringWidth(const char* str, int32_t style);
-extern void			UI_DrawString(int32_t x, int32_t y, const char* str, int32_t style, vec4_t color, qboolean highRes);
-extern void			UI_DrawChar(int32_t x, int32_t y, int32_t ch, int32_t style, vec4_t color);
+extern void			UI_DrawString(int32_t x, int32_t y, const char* str, int32_t style, const float* color, qboolean highRes);
+extern void			UI_DrawChar(int32_t x, int32_t y, int32_t ch, int32_t style, const float* color);
 extern qboolean 	UI_CursorInRect(int32_t x, int32_t y, int32_t width, int32_t height);
 extern void			UI_AdjustFrom640(float *x, float *y, float *w, float *h);
 
 //extern void			UI_DrawTextBox (int32_t x, int32_t y, int32_t width, int32_t lines);
-extern qboolean		UI_IsFullscreen(void);
+extern bool UI_IsFullscreen(void);
 extern void			UI_SetActiveMenu(uiMenuCommand_t menu);
 extern void			UI_PushMenu(menuframework_s *menu);
 extern void			UI_PopMenu(void);
@@ -2228,6 +2236,7 @@ extern void			UI_Refresh(int32_t time);
 extern void			UI_KeyEvent(int32_t key);
 //extern int32_t			UI_RandomNumbers(int32_t max);
 extern void			UI_PrecacheMenuGraphics(menugraphics_s *menuGraphics, int32_t maxI);
+
 extern void			UI_MenuFrame(menuframework_s *menu);
 extern void			UI_MenuFrame2(menuframework_s *menu);
 
@@ -2434,4 +2443,3 @@ typedef struct {
 */
 #define UI_Assert(ptr, ret) 	if (ptr == NULL) { _UI_LocLogger(__FILE__, __LINE__, LL_ERROR, "%s == NULL!\n", #ptr); _UI_LocLogger(__FILE__, __LINE__, LL_TRACE, "%s - End\n", __FUNCTION__); return ret; }
 
-#endif

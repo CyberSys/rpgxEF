@@ -2128,10 +2128,10 @@ static void CG_DrawCrosshair(void) {
 			cgs.widescreen.state = WIDESCREEN_CENTER;
 			
 			UI_DrawProportionalString(x + 320,
-										y + 270, 
-										va("Entity: %i", cg.crosshairClientNum), 
-										UI_CENTER|UI_SMALLFONT, 
-										ccolor); //170
+			                          y + 270, 
+			                          va("Entity: %i", cg.crosshairClientNum),
+			                          UI_CENTER|UI_SMALLFONT, 
+			                          ccolor); //170
 
 		}
 	}

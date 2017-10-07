@@ -291,23 +291,19 @@ static void UI_ServerInfoMenu_Init(void)
 
 	ServerInfo_Cache();
 
-	s_serverinfo.menu.draw = ServerInfo_MenuDraw;
-	s_serverinfo.menu.key = ServerInfo_MenuKey;
-	s_serverinfo.menu.wrapAround = qtrue;
-	s_serverinfo.menu.fullscreen = qtrue;
-	s_serverinfo.menu.nitems = 0;
-	s_serverinfo.menu.descX = MENU_DESC_X;
-	s_serverinfo.menu.descY = MENU_DESC_Y;
-	s_serverinfo.menu.listX = 230;
-	s_serverinfo.menu.listY = 188;
-	s_serverinfo.menu.titleX = MENU_TITLE_X;
-	s_serverinfo.menu.titleY = MENU_TITLE_Y;
-	s_serverinfo.menu.titleI = MNT_SERVERINFO_TITLE;
-	s_serverinfo.menu.footNoteEnum = MNT_SERVERINFO;
+	s_serverinfo.menu.OnDraw = ServerInfo_MenuDraw;
+	s_serverinfo.menu.OnKey = ServerInfo_MenuKey;
+	s_serverinfo.menu.m_WrapAround = true;
+	s_serverinfo.menu.m_Fullscreen = qtrue;
+	s_serverinfo.menu.m_ItemCount = 0;
+	s_serverinfo.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_serverinfo.menu.m_ListPosition = { 230, 188 };
+	s_serverinfo.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_SERVERINFO_TITLE };
+	s_serverinfo.menu.m_FootNote = MNT_SERVERINFO;
 
 	y = 400;
 	// Button Data
-	s_serverinfo.mainmenu.generic.type = MTYPE_BITMAP;
+	s_serverinfo.mainmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_serverinfo.mainmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_serverinfo.mainmenu.generic.x = 90;
 	s_serverinfo.mainmenu.generic.y = 400;
@@ -324,7 +320,7 @@ static void UI_ServerInfoMenu_Init(void)
 	s_serverinfo.mainmenu.textcolor = CT_BLACK;
 	s_serverinfo.mainmenu.textcolor2 = CT_WHITE;
 
-	s_serverinfo.add.generic.type = MTYPE_BITMAP;
+	s_serverinfo.add.generic.m_Type = EMenuItemType::Bitmap;
 	s_serverinfo.add.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_serverinfo.add.generic.x = 460;
 	s_serverinfo.add.generic.y = y;
@@ -341,7 +337,7 @@ static void UI_ServerInfoMenu_Init(void)
 	s_serverinfo.add.textcolor = CT_BLACK;
 	s_serverinfo.add.textcolor2 = CT_WHITE;
 
-	s_serverinfo.arrowup.generic.type = MTYPE_BITMAP;
+	s_serverinfo.arrowup.generic.m_Type = EMenuItemType::Bitmap;
 	s_serverinfo.arrowup.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_serverinfo.arrowup.generic.x = 270;
 	s_serverinfo.arrowup.generic.y = y + 2;
@@ -358,7 +354,7 @@ static void UI_ServerInfoMenu_Init(void)
 	s_serverinfo.arrowup.textcolor = CT_BLACK;
 	s_serverinfo.arrowup.textcolor2 = CT_WHITE;
 
-	s_serverinfo.arrowdwn.generic.type = MTYPE_BITMAP;
+	s_serverinfo.arrowdwn.generic.m_Type = EMenuItemType::Bitmap;
 	s_serverinfo.arrowdwn.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_serverinfo.arrowdwn.generic.x = 394;
 	s_serverinfo.arrowdwn.generic.y = y + 2;
@@ -390,7 +386,7 @@ static void UI_ServerInfoMenu_Init(void)
 	{
 		hold_key->generic.x = x - 8;
 		hold_key->generic.y = y;
-		hold_key->generic.type = MTYPE_TEXT;
+		hold_key->generic.m_Type = EMenuItemType::Text;
 		hold_key->generic.flags = UI_RIGHT | UI_SMALLFONT;
 		hold_key->color = colorTable[CT_LTBLUE2];
 		hold_key->string = s_serverinfo.key[i];
@@ -398,7 +394,7 @@ static void UI_ServerInfoMenu_Init(void)
 
 		hold_value->generic.x = x + 8;
 		hold_value->generic.y = y;
-		hold_value->generic.type = MTYPE_TEXT;
+		hold_value->generic.m_Type = EMenuItemType::Text;
 		hold_value->generic.flags = UI_LEFT | UI_SMALLFONT;
 		hold_value->color = colorTable[CT_LTGOLD1];
 		hold_value->string = s_serverinfo.value[i];

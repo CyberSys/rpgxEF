@@ -151,16 +151,16 @@ static void M_msdMenu_Graphics(void)
 
 	if (s_msd.alertstate == 2)
 		UI_DrawProportionalString(xTurboStart, 24,
-		"MASTER SYSTEMS DISPLAY", UI_BIGFONT | UI_RIGHT, colorTable[CT_RED]);
+		                          "MASTER SYSTEMS DISPLAY", UI_BIGFONT | UI_RIGHT, colorTable[CT_RED]);
 	else if (s_msd.alertstate == 1)
 		UI_DrawProportionalString(xTurboStart, 24,
-		"MASTER SYSTEMS DISPLAY", UI_BIGFONT | UI_RIGHT, colorTable[CT_YELLOW]);
+		                          "MASTER SYSTEMS DISPLAY", UI_BIGFONT | UI_RIGHT, colorTable[CT_YELLOW]);
 	else if (s_msd.alertstate == 3)
 		UI_DrawProportionalString(xTurboStart, 24,
-		"MASTER SYSTEMS DISPLAY", UI_BIGFONT | UI_RIGHT, colorTable[CT_BLUE]);
+		                          "MASTER SYSTEMS DISPLAY", UI_BIGFONT | UI_RIGHT, colorTable[CT_BLUE]);
 	else
 		UI_DrawProportionalString(xTurboStart, 24,
-		"MASTER SYSTEMS DISPLAY", UI_BIGFONT | UI_RIGHT, colorTable[CT_WHITE]);
+		                          "MASTER SYSTEMS DISPLAY", UI_BIGFONT | UI_RIGHT, colorTable[CT_WHITE]);
 
 	trap_R_SetColor(colorTable[CT_DKPURPLE1]); //DKGOLD1
 	UI_DrawHandlePic(607, 24, -16, 32, leftRound);
@@ -350,16 +350,14 @@ msdMenu_Init
 void msdMenu_Init(void)
 {
 	UI_LogFuncBegin();
-	s_msd.menu.nitems = 0;
-	s_msd.menu.draw = msdMenu_Draw;
-	s_msd.menu.key = msdMenu_Key;
-	s_msd.menu.wrapAround = qtrue;
-	s_msd.menu.descX = MENU_DESC_X;
-	s_msd.menu.descY = MENU_DESC_Y;
-	s_msd.menu.titleX = MENU_TITLE_X;
-	s_msd.menu.titleY = MENU_TITLE_Y;
+	s_msd.menu.m_ItemCount = 0;
+	s_msd.menu.OnDraw = msdMenu_Draw;
+	s_msd.menu.OnKey = msdMenu_Key;
+	s_msd.menu.m_WrapAround = true;
+	s_msd.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_msd.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y } };
 
-	s_msd.quitmenu.generic.type = MTYPE_BITMAP;
+	s_msd.quitmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_msd.quitmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_msd.quitmenu.generic.x = 490;
 	s_msd.quitmenu.generic.y = 380;

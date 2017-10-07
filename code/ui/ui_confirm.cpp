@@ -285,18 +285,15 @@ void UI_ConfirmMenu(const char *question, void(*draw)(void), void(*action)(qbool
 	s_confirm.draw = draw;
 	s_confirm.action = action;
 
-	s_confirm.menu.draw = ConfirmMenu_Draw;
-	s_confirm.menu.key = ConfirmMenu_Key;
-	s_confirm.menu.wrapAround = qtrue;
-	s_confirm.menu.fullscreen = qtrue;
-	s_confirm.menu.descX = MENU_DESC_X;
-	s_confirm.menu.descY = MENU_DESC_Y;
-	s_confirm.menu.titleX = MENU_TITLE_X;
-	s_confirm.menu.titleY = MENU_TITLE_Y;
-	s_confirm.menu.titleI = MNT_CONFIRMATIONMENU_TITLE;
-	s_confirm.menu.footNoteEnum = MNT_CONFIRMATION;
+	s_confirm.menu.OnDraw = ConfirmMenu_Draw;
+	s_confirm.menu.OnKey = ConfirmMenu_Key;
+	s_confirm.menu.m_WrapAround = true;
+	s_confirm.menu.m_Fullscreen = qtrue;
+	s_confirm.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_confirm.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONFIRMATIONMENU_TITLE };
+	s_confirm.menu.m_FootNote = MNT_CONFIRMATION;
 
-	s_confirm.yes.generic.type = MTYPE_BITMAP;
+	s_confirm.yes.generic.m_Type = EMenuItemType::Bitmap;
 	s_confirm.yes.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_confirm.yes.generic.x = 215;
 	s_confirm.yes.generic.y = 365;
@@ -313,7 +310,7 @@ void UI_ConfirmMenu(const char *question, void(*draw)(void), void(*action)(qbool
 	s_confirm.yes.textcolor = CT_BLACK;
 	s_confirm.yes.textcolor2 = CT_WHITE;
 
-	s_confirm.no.generic.type = MTYPE_BITMAP;
+	s_confirm.no.generic.m_Type = EMenuItemType::Bitmap;
 	s_confirm.no.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_confirm.no.generic.x = 371;
 	s_confirm.no.generic.y = 365;

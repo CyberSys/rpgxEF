@@ -133,18 +133,16 @@ msdMenu_Init
 void sqlMenu_Init(void)
 {
 	UI_LogFuncBegin();
-	s_sql.menu.nitems = 0;
-	s_sql.menu.draw = sqlMenu_Draw;
-	s_sql.menu.key = sqlMenu_Key;
-	s_sql.menu.wrapAround = qtrue;
-	s_sql.menu.descX = -400;
-	s_sql.menu.descY = -400;
-	s_sql.menu.titleX = MENU_TITLE_X;
-	s_sql.menu.titleY = MENU_TITLE_Y;
-	s_sql.menu.fullscreen = qfalse;
-	s_sql.menu.nobackground = qtrue;
+	s_sql.menu.m_ItemCount = 0;
+	s_sql.menu.OnDraw = sqlMenu_Draw;
+	s_sql.menu.OnKey = sqlMenu_Key;
+	s_sql.menu.m_WrapAround = true;
+	s_sql.menu.m_DescriptionPosition = { -400, -400 };
+	s_sql.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y } };
+	s_sql.menu.m_Fullscreen = qfalse;
+	s_sql.menu.m_NoBackground = qtrue;
 
-	s_sql.quitmenu.generic.type = MTYPE_BITMAP;
+	s_sql.quitmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_sql.quitmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_sql.quitmenu.generic.x = 490;
 	s_sql.quitmenu.generic.y = 380;
@@ -162,7 +160,7 @@ void sqlMenu_Init(void)
 	s_sql.quitmenu.textcolor2 = CT_WHITE;
 	s_sql.quitmenu.textStyle = UI_TINYFONT;
 
-	s_sql.login.generic.type = MTYPE_BITMAP;
+	s_sql.login.generic.m_Type = EMenuItemType::Bitmap;
 	s_sql.login.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_sql.login.generic.x = 350;
 	s_sql.login.generic.y = 380;
@@ -180,7 +178,7 @@ void sqlMenu_Init(void)
 	s_sql.login.textcolor2 = CT_WHITE;
 	s_sql.login.textStyle = UI_TINYFONT;
 
-	s_sql.user.generic.type = MTYPE_FIELD;
+	s_sql.user.generic.m_Type = EMenuItemType::Field;
 	s_sql.user.field.widthInChars = 16;
 	s_sql.user.field.maxchars = 64;
 	s_sql.user.generic.x = 260;

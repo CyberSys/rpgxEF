@@ -241,7 +241,7 @@ static void M_TurboliftMenu_Graphics(void)
 
 
 	UI_DrawProportionalString(xTurboStart, 24,
-		menu_normal_text[MNT_TURBOLIFT], UI_BIGFONT | UI_RIGHT, colorTable[CT_WHITE]);
+	                          menu_normal_text[MNT_TURBOLIFT], UI_BIGFONT | UI_RIGHT, colorTable[CT_WHITE]);
 
 	trap_R_SetColor(colorTable[CT_DKPURPLE1]); //DKGOLD1
 	UI_DrawHandlePic(607, 24, -16, 32, leftRound);
@@ -265,8 +265,8 @@ static void M_TurboliftMenu_Graphics(void)
 			}
 
 			UI_DrawProportionalString(holdDeck->generic.x - 6,
-				holdDeck->generic.y,
-				va("%d", s_turbolift.deckData[i].deckNum), UI_BIGFONT | UI_RIGHT, colorTable[numColor]);		//i+1
+			                          holdDeck->generic.y,
+			                          va("%d", s_turbolift.deckData[i].deckNum), UI_BIGFONT | UI_RIGHT, colorTable[numColor]);		//i+1
 
 			trap_R_SetColor(colorTable[roundColor]);
 			UI_DrawHandlePic(holdDeck->generic.x - 45,
@@ -281,7 +281,7 @@ static void M_TurboliftMenu_Graphics(void)
 	if (s_turbolift.highLightedDeck >= 0)
 	{
 		UI_DrawProportionalString(353, 409,
-			s_turbolift.deckData[s_turbolift.highLightedDeck].deckDesc, UI_SMALLFONT | UI_CENTER, colorTable[CT_WHITE]);
+		                          s_turbolift.deckData[s_turbolift.highLightedDeck].deckDesc, UI_SMALLFONT | UI_CENTER, colorTable[CT_WHITE]);
 	}
 	else
 	{
@@ -511,14 +511,12 @@ void TurboliftMenu_Init(void)
 
 	UI_ManageDeckLoading();
 
-	s_turbolift.menu.nitems = 0;
-	s_turbolift.menu.draw = TurboliftMenu_Draw;
-	s_turbolift.menu.key = TurboliftMenu_Key;
-	s_turbolift.menu.wrapAround = qtrue;
-	s_turbolift.menu.descX = MENU_DESC_X;
-	s_turbolift.menu.descY = MENU_DESC_Y;
-	s_turbolift.menu.titleX = MENU_TITLE_X;
-	s_turbolift.menu.titleY = MENU_TITLE_Y;
+	s_turbolift.menu.m_ItemCount = 0;
+	s_turbolift.menu.OnDraw = TurboliftMenu_Draw;
+	s_turbolift.menu.OnKey = TurboliftMenu_Key;
+	s_turbolift.menu.m_WrapAround = true;
+	s_turbolift.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_turbolift.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y } };
 
 	s_turbolift.chosenDeck = -1;
 	s_turbolift.highLightedDeck = -1;
@@ -533,7 +531,7 @@ void TurboliftMenu_Init(void)
 
 	for (i = 0; i < s_turbolift.maxDecks; i++)
 	{
-		holdDeck->generic.type = MTYPE_BITMAP;
+		holdDeck->generic.m_Type = EMenuItemType::Bitmap;
 		holdDeck->generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 		holdDeck->generic.x = x;
 		holdDeck->generic.y = y;
@@ -562,7 +560,7 @@ void TurboliftMenu_Init(void)
 		}
 	}
 
-	s_turbolift.engage.generic.type = MTYPE_BITMAP;
+	s_turbolift.engage.generic.m_Type = EMenuItemType::Bitmap;
 	s_turbolift.engage.generic.flags = QMF_GRAYED;
 	s_turbolift.engage.generic.x = 110;
 	s_turbolift.engage.generic.y = 72 + (pad * 5);
@@ -580,7 +578,7 @@ void TurboliftMenu_Init(void)
 	s_turbolift.engage.textcolor2 = CT_WHITE;
 	//s_turbolift.engage.generic.statusbarfunc	= Turbolift_StatusBar;
 
-	s_turbolift.quitmenu.generic.type = MTYPE_BITMAP;
+	s_turbolift.quitmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_turbolift.quitmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_turbolift.quitmenu.generic.x = 110;
 	s_turbolift.quitmenu.generic.y = 72 + (pad * 7);

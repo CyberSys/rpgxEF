@@ -880,7 +880,7 @@ static void Controls_DrawKeyBinding(void *self)
 	{
 		if (menu_normal_text[g_bindings[a->generic.id].desc])
 		{
-			UI_DrawProportionalString(a->generic.parent->descX, a->generic.parent->descY, menu_normal_text[g_bindings[a->generic.id].desc], UI_LEFT | UI_TINYFONT, colorTable[CT_BLACK]);
+			UI_DrawProportionalString(a->generic.parent->m_DescriptionPosition.X(), a->generic.parent->m_DescriptionPosition.Y(), menu_normal_text[g_bindings[a->generic.id].desc], UI_LEFT | UI_TINYFONT, colorTable[CT_BLACK]);
 		}
 	}
 
@@ -1231,7 +1231,7 @@ static sfxHandle_t Controls_MenuKey(int32_t key)
 
 	// assign key to local store
 	//	id      = ((menucommon_s*)(s_controls.menu.items[s_controls.menu.cursor]))->id;
-	id = ((menucommon_s*)(current_menu->items[current_menu->cursor]))->id;
+	id = ((menucommon_s*)(current_menu->m_Items[current_menu->m_Cursor]))->id;
 	bindptr = g_bindings;
 	for (i = 0;; i++, bindptr++)
 	{
@@ -1345,7 +1345,7 @@ void SetupMenu_TopButtons(menuframework_s *menu, int32_t menuType, menuaction_s 
 	UI_LogFuncBegin();
 	vid_apply_action = s_video_apply_action;
 
-	s_controls_mainmenu.generic.type = MTYPE_BITMAP;
+	s_controls_mainmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_mainmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_mainmenu.generic.x = 482;
 	s_controls_mainmenu.generic.y = 136;
@@ -1377,7 +1377,7 @@ void SetupMenu_TopButtons(menuframework_s *menu, int32_t menuType, menuaction_s 
 	s_controls_mainmenu.textcolor = CT_BLACK;
 	s_controls_mainmenu.textcolor2 = CT_WHITE;
 
-	s_controls_controls.generic.type = MTYPE_BITMAP;
+	s_controls_controls.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_controls.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_controls.generic.x = setup_menubuttons[0][0];
 	s_controls_controls.generic.y = setup_menubuttons[0][1];
@@ -1401,7 +1401,7 @@ void SetupMenu_TopButtons(menuframework_s *menu, int32_t menuType, menuaction_s 
 	s_controls_controls.textcolor = CT_BLACK;
 	s_controls_controls.textcolor2 = CT_WHITE;
 
-	s_controls_video.generic.type = MTYPE_BITMAP;
+	s_controls_video.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_video.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_video.generic.x = setup_menubuttons[1][0];
 	s_controls_video.generic.y = setup_menubuttons[1][1];
@@ -1425,7 +1425,7 @@ void SetupMenu_TopButtons(menuframework_s *menu, int32_t menuType, menuaction_s 
 	s_controls_video.textcolor = CT_BLACK;
 	s_controls_video.textcolor2 = CT_WHITE;
 
-	s_controls_sound.generic.type = MTYPE_BITMAP;
+	s_controls_sound.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_sound.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_sound.generic.x = setup_menubuttons[2][0];
 	s_controls_sound.generic.y = setup_menubuttons[2][1];
@@ -1449,7 +1449,7 @@ void SetupMenu_TopButtons(menuframework_s *menu, int32_t menuType, menuaction_s 
 	s_controls_sound.textcolor = CT_BLACK;
 	s_controls_sound.textcolor2 = CT_WHITE;
 
-	s_controls_game.generic.type = MTYPE_BITMAP;
+	s_controls_game.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_game.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_game.generic.x = setup_menubuttons[3][0];
 	s_controls_game.generic.y = setup_menubuttons[3][1];
@@ -1473,7 +1473,7 @@ void SetupMenu_TopButtons(menuframework_s *menu, int32_t menuType, menuaction_s 
 	s_controls_game.textcolor = CT_BLACK;
 	s_controls_game.textcolor2 = CT_WHITE;
 
-	s_controls_player.generic.type = MTYPE_BITMAP;
+	s_controls_player.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_player.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_player.generic.x = setup_menubuttons[4][0];
 	s_controls_player.generic.y = setup_menubuttons[4][1];
@@ -1497,7 +1497,7 @@ void SetupMenu_TopButtons(menuframework_s *menu, int32_t menuType, menuaction_s 
 	s_controls_player.textcolor = CT_BLACK;
 	s_controls_player.textcolor2 = CT_WHITE;
 
-	s_controls_default.generic.type = MTYPE_BITMAP;
+	s_controls_default.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_default.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_default.generic.x = setup_menubuttons[5][0];
 	s_controls_default.generic.y = setup_menubuttons[5][1];
@@ -1521,7 +1521,7 @@ void SetupMenu_TopButtons(menuframework_s *menu, int32_t menuType, menuaction_s 
 	s_controls_default.textcolor = CT_BLACK;
 	s_controls_default.textcolor2 = CT_WHITE;
 
-	s_controls_cdkey.generic.type = MTYPE_BITMAP;
+	s_controls_cdkey.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_cdkey.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_cdkey.generic.x = setup_menubuttons[6][0];
 	s_controls_cdkey.generic.y = setup_menubuttons[6][1];
@@ -1550,7 +1550,7 @@ void SetupMenu_TopButtons(menuframework_s *menu, int32_t menuType, menuaction_s 
 		s_controls_cdkey.generic.flags |= QMF_GRAYED;
 	}
 
-	s_controls_fonts.generic.type = MTYPE_BITMAP;
+	s_controls_fonts.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_fonts.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_fonts.generic.x = setup_menubuttons[7][0];
 	s_controls_fonts.generic.y = setup_menubuttons[7][1];
@@ -1804,7 +1804,7 @@ Playermodel_MenuInit
 static void Playermodel_MenuInit(void)
 {
 	UI_LogFuncBegin();
-	s_controls_playermdl.generic.type = MTYPE_BITMAP;
+	s_controls_playermdl.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_playermdl.generic.flags = QMF_SILENT; //INACTIVE
 	s_controls_playermdl.generic.callback = Controls_ModelEvent;
 	s_controls_playermdl.generic.ownerdraw = Controls_DrawPlayer;
@@ -1858,7 +1858,7 @@ static void SetupActionButtons_Init(int32_t section)
 	}
 
 
-	y = current_menu->listY;
+	y = current_menu->m_ListPosition.Y();
 
 	for (i = 0; i < 99; i++)	// The 99 is to avoid runaway loops
 	{
@@ -1867,7 +1867,7 @@ static void SetupActionButtons_Init(int32_t section)
 			break;
 		}
 
-		((menuaction_s*)controlptr[i])->generic.x = current_menu->listX;
+		((menuaction_s*)controlptr[i])->generic.x = current_menu->m_ListPosition.X();
 		((menuaction_s*)controlptr[i])->generic.y = y;
 		((menuaction_s*)controlptr[i])->textX = 5;
 		((menuaction_s*)controlptr[i])->textY = 1;
@@ -1895,21 +1895,17 @@ static void Weapons_MenuInit(void)
 
 	attackmenu_graphics[AMG_MIDLEFT].timer = uis.realtime + 500;
 
-	s_weapons_menu.nitems = 0;
-	s_weapons_menu.wrapAround = qtrue;
+	s_weapons_menu.m_ItemCount = 0;
+	s_weapons_menu.m_WrapAround = true;
 	//	s_weapons_menu.opening						= NULL;
 	//	s_weapons_menu.closing						= NULL;
-	s_weapons_menu.draw = Weapons_MenuDraw;
-	s_weapons_menu.key = Controls_MenuKey;
-	s_weapons_menu.fullscreen = qtrue;
-	s_weapons_menu.descX = MENU_DESC_X;
-	s_weapons_menu.descY = MENU_DESC_Y;
-	s_weapons_menu.listX = 170;
-	s_weapons_menu.listY = 184;
-	s_weapons_menu.titleX = MENU_TITLE_X;
-	s_weapons_menu.titleY = MENU_TITLE_Y;
-	s_weapons_menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_weapons_menu.footNoteEnum = MNT_WEAPONKEY_SETUP;
+	s_weapons_menu.OnDraw = Weapons_MenuDraw;
+	s_weapons_menu.OnKey = Controls_MenuKey;
+	s_weapons_menu.m_Fullscreen = qtrue;
+	s_weapons_menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+  s_weapons_menu.m_ListPosition = { 170, 184 };
+	s_weapons_menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_weapons_menu.m_FootNote = MNT_WEAPONKEY_SETUP;
 
 	Playermodel_MenuInit();
 
@@ -1920,61 +1916,61 @@ static void Weapons_MenuInit(void)
 	s_controls_weapon.textcolor = CT_LTGOLD1;
 	s_controls_weapon.textcolor2 = CT_LTGOLD1;
 
-	s_attack_weapon0_action.generic.type = MTYPE_ACTION;
+	s_attack_weapon0_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_weapon0_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_weapon0_action.generic.callback = Controls_ActionEvent;
 	s_attack_weapon0_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_weapon0_action.generic.id = ID_WEAPON0;
 
-	s_attack_weapon1_action.generic.type = MTYPE_ACTION;
+	s_attack_weapon1_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_weapon1_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_weapon1_action.generic.callback = Controls_ActionEvent;
 	s_attack_weapon1_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_weapon1_action.generic.id = ID_WEAPON1;
 
-	s_attack_weapon2_action.generic.type = MTYPE_ACTION;
+	s_attack_weapon2_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_weapon2_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_weapon2_action.generic.callback = Controls_ActionEvent;
 	s_attack_weapon2_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_weapon2_action.generic.id = ID_WEAPON2;
 
-	s_attack_weapon3_action.generic.type = MTYPE_ACTION;
+	s_attack_weapon3_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_weapon3_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_weapon3_action.generic.callback = Controls_ActionEvent;
 	s_attack_weapon3_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_weapon3_action.generic.id = ID_WEAPON3;
 
-	s_attack_weapon3_action.generic.type = MTYPE_ACTION;
+	s_attack_weapon3_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_weapon3_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_weapon3_action.generic.callback = Controls_ActionEvent;
 	s_attack_weapon3_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_weapon3_action.generic.id = ID_WEAPON3;
 
-	s_attack_weapon4_action.generic.type = MTYPE_ACTION;
+	s_attack_weapon4_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_weapon4_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_weapon4_action.generic.callback = Controls_ActionEvent;
 	s_attack_weapon4_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_weapon4_action.generic.id = ID_WEAPON4;
 
-	s_attack_weapon5_action.generic.type = MTYPE_ACTION;
+	s_attack_weapon5_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_weapon5_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_weapon5_action.generic.callback = Controls_ActionEvent;
 	s_attack_weapon5_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_weapon5_action.generic.id = ID_WEAPON5;
 
-	s_attack_weapon_next_action.generic.type = MTYPE_ACTION;
+	s_attack_weapon_next_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_weapon_next_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_weapon_next_action.generic.callback = Controls_ActionEvent;
 	s_attack_weapon_next_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_weapon_next_action.generic.id = ID_WEAPNEXT;
 
-	s_attack_weapon_prev_action.generic.type = MTYPE_ACTION;
+	s_attack_weapon_prev_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_weapon_prev_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_weapon_prev_action.generic.callback = Controls_ActionEvent;
 	s_attack_weapon_prev_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_weapon_prev_action.generic.id = ID_WEAPPREV;
 
-	s_attack_waiting_action.generic.type = MTYPE_ACTION;
+	s_attack_waiting_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_waiting_action.generic.flags = QMF_HIDDEN;
 	s_attack_waiting_action.generic.x = 202;
 	s_attack_waiting_action.generic.y = 410;
@@ -2055,7 +2051,7 @@ static void SetupMenu_SideButtons(menuframework_s *menu, int32_t menuType)
 	inc = 6;
 	x = 30;
 
-	s_controls_weapon.generic.type = MTYPE_BITMAP;
+	s_controls_weapon.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_weapon.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_weapon.generic.x = x;
 	s_controls_weapon.generic.y = y;
@@ -2073,7 +2069,7 @@ static void SetupMenu_SideButtons(menuframework_s *menu, int32_t menuType)
 	s_controls_weapon.textcolor2 = CT_WHITE;
 
 	y += inc + MENU_BUTTON_MED_HEIGHT;
-	s_controls_look.generic.type = MTYPE_BITMAP;
+	s_controls_look.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_look.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_look.generic.x = x;
 	s_controls_look.generic.y = y;
@@ -2091,7 +2087,7 @@ static void SetupMenu_SideButtons(menuframework_s *menu, int32_t menuType)
 	s_controls_look.textcolor2 = CT_WHITE;
 
 	y += inc + MENU_BUTTON_MED_HEIGHT;
-	s_controls_movement.generic.type = MTYPE_BITMAP;
+	s_controls_movement.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_movement.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_movement.generic.x = x;
 	s_controls_movement.generic.y = y;
@@ -2109,7 +2105,7 @@ static void SetupMenu_SideButtons(menuframework_s *menu, int32_t menuType)
 	s_controls_movement.textcolor2 = CT_WHITE;
 
 	y += inc + MENU_BUTTON_MED_HEIGHT;
-	s_controls_command.generic.type = MTYPE_BITMAP;
+	s_controls_command.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_command.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_command.generic.x = x;
 	s_controls_command.generic.y = y;
@@ -2127,7 +2123,7 @@ static void SetupMenu_SideButtons(menuframework_s *menu, int32_t menuType)
 	s_controls_command.textcolor2 = CT_WHITE;
 
 	y += inc + MENU_BUTTON_MED_HEIGHT;
-	s_controls_modelview.generic.type = MTYPE_BITMAP;
+	s_controls_modelview.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_modelview.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_modelview.generic.x = x;
 	s_controls_modelview.generic.y = y;
@@ -2146,7 +2142,7 @@ static void SetupMenu_SideButtons(menuframework_s *menu, int32_t menuType)
 
 	y += inc + MENU_BUTTON_MED_HEIGHT;
 	y += inc + MENU_BUTTON_MED_HEIGHT - 3;
-	s_controls_mouse.generic.type = MTYPE_BITMAP;
+	s_controls_mouse.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_mouse.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_mouse.generic.x = x;
 	s_controls_mouse.generic.y = y;
@@ -2164,7 +2160,7 @@ static void SetupMenu_SideButtons(menuframework_s *menu, int32_t menuType)
 	s_controls_mouse.textcolor2 = CT_WHITE;
 
 	y += inc + MENU_BUTTON_MED_HEIGHT;
-	s_controls_other.generic.type = MTYPE_BITMAP;
+	s_controls_other.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_other.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_other.generic.x = x;
 	s_controls_other.generic.y = y;
@@ -2271,7 +2267,7 @@ static void Controls_UpdateNew(void)
 
 	if (s_controls.waitingforkey)
 	{
-		((menucommon_s*)(current_menu->items[current_menu->cursor]))->flags &= ~QMF_HIGHLIGHT;
+		((menucommon_s*)(current_menu->m_Items[current_menu->m_Cursor]))->flags &= ~QMF_HIGHLIGHT;
 		UI_LogFuncEnd();
 		return;
 	}
@@ -2493,19 +2489,15 @@ ControlsMove_MenuInit
 static void ControlsMove_MenuInit(void)
 {
 	UI_LogFuncBegin();
-	s_controlsmove_menu.nitems = 0;
-	s_controlsmove_menu.wrapAround = qtrue;
-	s_controlsmove_menu.draw = ControlsMove_MenuDraw;
-	s_controlsmove_menu.key = Controls_MenuKey;
-	s_controlsmove_menu.fullscreen = qtrue;
-	s_controlsmove_menu.descX = MENU_DESC_X;
-	s_controlsmove_menu.descY = MENU_DESC_Y;
-	s_controlsmove_menu.listX = 170;
-	s_controlsmove_menu.listY = 188;
-	s_controlsmove_menu.titleX = MENU_TITLE_X;
-	s_controlsmove_menu.titleY = MENU_TITLE_Y;
-	s_controlsmove_menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_controlsmove_menu.footNoteEnum = MNT_MOVEMENTKEYS_SETUP;
+	s_controlsmove_menu.m_ItemCount = 0;
+	s_controlsmove_menu.m_WrapAround = true;
+	s_controlsmove_menu.OnDraw = ControlsMove_MenuDraw;
+	s_controlsmove_menu.OnKey = Controls_MenuKey;
+	s_controlsmove_menu.m_Fullscreen = qtrue;
+	s_controlsmove_menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_controlsmove_menu.m_ListPosition = { 170, 188 };
+	s_controlsmove_menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_controlsmove_menu.m_FootNote = MNT_MOVEMENTKEYS_SETUP;
 
 	Playermodel_MenuInit();
 
@@ -2515,67 +2507,67 @@ static void ControlsMove_MenuInit(void)
 	s_controls_movement.textcolor = CT_LTGOLD1;
 	s_controls_movement.textcolor2 = CT_LTGOLD1;
 
-	s_move_walkforward_action.generic.type = MTYPE_ACTION;
+	s_move_walkforward_action.generic.m_Type = EMenuItemType::Action;
 	s_move_walkforward_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_move_walkforward_action.generic.callback = Controls_ActionEvent;
 	s_move_walkforward_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_move_walkforward_action.generic.id = ID_FORWARD;
 
-	s_move_backpedal_action.generic.type = MTYPE_ACTION;
+	s_move_backpedal_action.generic.m_Type = EMenuItemType::Action;
 	s_move_backpedal_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_move_backpedal_action.generic.callback = Controls_ActionEvent;
 	s_move_backpedal_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_move_backpedal_action.generic.id = ID_BACKPEDAL;
 
-	s_move_turnleft_action.generic.type = MTYPE_ACTION;
+	s_move_turnleft_action.generic.m_Type = EMenuItemType::Action;
 	s_move_turnleft_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_move_turnleft_action.generic.callback = Controls_ActionEvent;
 	s_move_turnleft_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_move_turnleft_action.generic.id = ID_LEFT;
 
-	s_move_turnright_action.generic.type = MTYPE_ACTION;
+	s_move_turnright_action.generic.m_Type = EMenuItemType::Action;
 	s_move_turnright_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_move_turnright_action.generic.callback = Controls_ActionEvent;
 	s_move_turnright_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_move_turnright_action.generic.id = ID_RIGHT;
 
-	s_move_run_action.generic.type = MTYPE_ACTION;
+	s_move_run_action.generic.m_Type = EMenuItemType::Action;
 	s_move_run_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_move_run_action.generic.callback = Controls_ActionEvent;
 	s_move_run_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_move_run_action.generic.id = ID_SPEED;
 
-	s_move_stepleft_action.generic.type = MTYPE_ACTION;
+	s_move_stepleft_action.generic.m_Type = EMenuItemType::Action;
 	s_move_stepleft_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_move_stepleft_action.generic.callback = Controls_ActionEvent;
 	s_move_stepleft_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_move_stepleft_action.generic.id = ID_MOVELEFT;
 
-	s_move_stepright_action.generic.type = MTYPE_ACTION;
+	s_move_stepright_action.generic.m_Type = EMenuItemType::Action;
 	s_move_stepright_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_move_stepright_action.generic.callback = Controls_ActionEvent;
 	s_move_stepright_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_move_stepright_action.generic.id = ID_MOVERIGHT;
 
-	s_move_sidestep_action.generic.type = MTYPE_ACTION;
+	s_move_sidestep_action.generic.m_Type = EMenuItemType::Action;
 	s_move_sidestep_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_move_sidestep_action.generic.callback = Controls_ActionEvent;
 	s_move_sidestep_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_move_sidestep_action.generic.id = ID_STRAFE;
 
-	s_move_moveup_action.generic.type = MTYPE_ACTION;
+	s_move_moveup_action.generic.m_Type = EMenuItemType::Action;
 	s_move_moveup_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_move_moveup_action.generic.callback = Controls_ActionEvent;
 	s_move_moveup_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_move_moveup_action.generic.id = ID_MOVEUP;
 
-	s_move_movedown_action.generic.type = MTYPE_ACTION;
+	s_move_movedown_action.generic.m_Type = EMenuItemType::Action;
 	s_move_movedown_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_move_movedown_action.generic.callback = Controls_ActionEvent;
 	s_move_movedown_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_move_movedown_action.generic.id = ID_MOVEDOWN;
 
-	s_attack_waiting_action.generic.type = MTYPE_ACTION;
+	s_attack_waiting_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_waiting_action.generic.flags = QMF_HIDDEN;
 	s_attack_waiting_action.generic.x = 202;
 	s_attack_waiting_action.generic.y = 410;
@@ -2698,19 +2690,15 @@ ControlsAttackLook_MenuInit
 static void ControlsAttackLook_MenuInit(void)
 {
 	UI_LogFuncBegin();
-	s_controlslook_menu.nitems = 0;
-	s_controlslook_menu.wrapAround = qtrue;
-	s_controlslook_menu.draw = ControlsAttackLook_MenuDraw;
-	s_controlslook_menu.key = Controls_MenuKey;
-	s_controlslook_menu.fullscreen = qtrue;
-	s_controlslook_menu.descX = MENU_DESC_X;
-	s_controlslook_menu.descY = MENU_DESC_Y;
-	s_controlslook_menu.listX = 170;
-	s_controlslook_menu.listY = 188;
-	s_controlslook_menu.titleX = MENU_TITLE_X;
-	s_controlslook_menu.titleY = MENU_TITLE_Y;
-	s_controlslook_menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_controlslook_menu.footNoteEnum = MNT_ATTACKLOOKKEY_SETUP;
+	s_controlslook_menu.m_ItemCount = 0;
+	s_controlslook_menu.m_WrapAround = true;
+	s_controlslook_menu.OnDraw = ControlsAttackLook_MenuDraw;
+	s_controlslook_menu.OnKey = Controls_MenuKey;
+	s_controlslook_menu.m_Fullscreen = qtrue;
+	s_controlslook_menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_controlslook_menu.m_ListPosition = { 170, 188 };
+	s_controlslook_menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_controlslook_menu.m_FootNote = MNT_ATTACKLOOKKEY_SETUP;
 
 	Playermodel_MenuInit();
 
@@ -2720,73 +2708,73 @@ static void ControlsAttackLook_MenuInit(void)
 	s_controls_look.textcolor = CT_LTGOLD1;
 	s_controls_look.textcolor2 = CT_LTGOLD1;
 
-	s_attack_attack_action.generic.type = MTYPE_ACTION;
+	s_attack_attack_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_attack_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_attack_action.generic.callback = Controls_ActionEvent;
 	s_attack_attack_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_attack_action.generic.id = ID_ATTACK;
 
-	s_attack_alt_attack_action.generic.type = MTYPE_ACTION;
+	s_attack_alt_attack_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_alt_attack_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_alt_attack_action.generic.callback = Controls_ActionEvent;
 	s_attack_alt_attack_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_alt_attack_action.generic.id = ID_ALT_ATTACK;
 
-	s_attack_use_action.generic.type = MTYPE_ACTION;
+	s_attack_use_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_use_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_use_action.generic.callback = Controls_ActionEvent;
 	s_attack_use_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_use_action.generic.id = ID_USEITEM;
 
-	s_attack_use_inv_action.generic.type = MTYPE_ACTION;
+	s_attack_use_inv_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_use_inv_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_use_inv_action.generic.callback = Controls_ActionEvent;
 	s_attack_use_inv_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_use_inv_action.generic.id = ID_USEINVENTORY;
 
-	s_attack_objectives.generic.type = MTYPE_ACTION;
+	s_attack_objectives.generic.m_Type = EMenuItemType::Action;
 	s_attack_objectives.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_attack_objectives.generic.callback = Controls_ActionEvent;
 	s_attack_objectives.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_attack_objectives.generic.id = ID_OBJECTIVES;
 
-	s_look_lookup_action.generic.type = MTYPE_ACTION;
+	s_look_lookup_action.generic.m_Type = EMenuItemType::Action;
 	s_look_lookup_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_look_lookup_action.generic.callback = Controls_ActionEvent;
 	s_look_lookup_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_look_lookup_action.generic.id = ID_LOOKUP;
 
-	s_look_lookdown_action.generic.type = MTYPE_ACTION;
+	s_look_lookdown_action.generic.m_Type = EMenuItemType::Action;
 	s_look_lookdown_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_look_lookdown_action.generic.callback = Controls_ActionEvent;
 	s_look_lookdown_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_look_lookdown_action.generic.id = ID_LOOKDOWN;
 
-	s_look_mouselook_action.generic.type = MTYPE_ACTION;
+	s_look_mouselook_action.generic.m_Type = EMenuItemType::Action;
 	s_look_mouselook_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_look_mouselook_action.generic.callback = Controls_ActionEvent;
 	s_look_mouselook_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_look_mouselook_action.generic.id = ID_MOUSELOOK;
 
-	s_look_centerview_action.generic.type = MTYPE_ACTION;
+	s_look_centerview_action.generic.m_Type = EMenuItemType::Action;
 	s_look_centerview_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_look_centerview_action.generic.callback = Controls_ActionEvent;
 	s_look_centerview_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_look_centerview_action.generic.id = ID_CENTERVIEW;
 
-	s_zoomview_action.generic.type = MTYPE_ACTION;
+	s_zoomview_action.generic.m_Type = EMenuItemType::Action;
 	s_zoomview_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_zoomview_action.generic.callback = Controls_ActionEvent;
 	s_zoomview_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_zoomview_action.generic.id = ID_ZOOMVIEW;
 
-	s_controls.showscores.generic.type = MTYPE_ACTION;
+	s_controls.showscores.generic.m_Type = EMenuItemType::Action;
 	s_controls.showscores.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls.showscores.generic.callback = Controls_ActionEvent;
 	s_controls.showscores.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_controls.showscores.generic.id = ID_SHOWSCORES;
 
-	s_attack_waiting_action.generic.type = MTYPE_ACTION;
+	s_attack_waiting_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_waiting_action.generic.flags = QMF_HIDDEN;
 	s_attack_waiting_action.generic.x = 202;
 	s_attack_waiting_action.generic.y = 410;
@@ -2956,19 +2944,15 @@ static void ControlsMouseJoyStick_MenuInit(void)
 
 	UI_ControlsMouseJoyStickMenu_Cache();
 
-	s_controlsmouse_menu.nitems = 0;
-	s_controlsmouse_menu.wrapAround = qtrue;
-	s_controlsmouse_menu.draw = ControlsMouseJoyStick_MenuDraw;
-	s_controlsmouse_menu.key = ControlsMouseJoyStick_MenuKey;
-	s_controlsmouse_menu.fullscreen = qtrue;
-	s_controlsmouse_menu.descX = MENU_DESC_X;
-	s_controlsmouse_menu.descY = MENU_DESC_Y;
-	s_controlsmouse_menu.listX = 230;
-	s_controlsmouse_menu.listY = 188;
-	s_controlsmouse_menu.titleX = MENU_TITLE_X;
-	s_controlsmouse_menu.titleY = MENU_TITLE_Y;
-	s_controlsmouse_menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_controlsmouse_menu.footNoteEnum = MNT_MOUSEJOYSTICK_SETUP;
+	s_controlsmouse_menu.m_ItemCount = 0;
+	s_controlsmouse_menu.m_WrapAround = true;
+	s_controlsmouse_menu.OnDraw = ControlsMouseJoyStick_MenuDraw;
+	s_controlsmouse_menu.OnKey = ControlsMouseJoyStick_MenuKey;
+	s_controlsmouse_menu.m_Fullscreen = qtrue;
+	s_controlsmouse_menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_controlsmouse_menu.m_ListPosition = { 230, 188 };
+	s_controlsmouse_menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_controlsmouse_menu.m_FootNote = MNT_MOUSEJOYSTICK_SETUP;
 
 	SetupMenu_TopButtons(&s_controlsmouse_menu, MENU_CONTROLS, NULL);
 	SetupMenu_SideButtons(&s_controlsmouse_menu, MENU_CONTROLS_MOUSE);
@@ -2979,7 +2963,7 @@ static void ControlsMouseJoyStick_MenuInit(void)
 	x = 250;
 	y = 193;
 
-	s_controls.freelook.generic.type = MTYPE_SPINCONTROL;
+	s_controls.freelook.generic.m_Type = EMenuItemType::SpinControl;
 	s_controls.freelook.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls.freelook.generic.x = x;
 	s_controls.freelook.generic.y = y;
@@ -2995,7 +2979,7 @@ static void ControlsMouseJoyStick_MenuInit(void)
 	s_controls.freelook.listnames = s_OffOnNone_Names;
 
 	y += 22;
-	s_controls.sensitivity.generic.type = MTYPE_SLIDER;
+	s_controls.sensitivity.generic.m_Type = EMenuItemType::Slider;
 	s_controls.sensitivity.generic.x = x + 162;
 	s_controls.sensitivity.generic.y = y;
 	s_controls.sensitivity.generic.flags = QMF_SMALLFONT;
@@ -3028,7 +3012,7 @@ static void ControlsMouseJoyStick_MenuInit(void)
 	s_controls.sensitivity.thumbColor2 = CT_LTBLUE1;
 
 	y += 22;
-	s_controls.invertmouse.generic.type = MTYPE_SPINCONTROL;
+	s_controls.invertmouse.generic.m_Type = EMenuItemType::SpinControl;
 	s_controls.invertmouse.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls.invertmouse.generic.id = ID_INVERTMOUSE;
 	s_controls.invertmouse.generic.x = x;
@@ -3045,7 +3029,7 @@ static void ControlsMouseJoyStick_MenuInit(void)
 
 
 	y += 22;
-	s_controls.smoothmouse.generic.type = MTYPE_SPINCONTROL;
+	s_controls.smoothmouse.generic.m_Type = EMenuItemType::SpinControl;
 	s_controls.smoothmouse.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls.smoothmouse.generic.x = x;
 	s_controls.smoothmouse.generic.y = y;
@@ -3062,7 +3046,7 @@ static void ControlsMouseJoyStick_MenuInit(void)
 
 
 	y = 315;
-	s_controls.joyenable.generic.type = MTYPE_SPINCONTROL;
+	s_controls.joyenable.generic.m_Type = EMenuItemType::SpinControl;
 	s_controls.joyenable.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls.joyenable.generic.x = x;
 	s_controls.joyenable.generic.y = y;
@@ -3078,7 +3062,7 @@ static void ControlsMouseJoyStick_MenuInit(void)
 	s_controls.joyenable.listnames = s_OffOnNone_Names;
 
 	y += 22;
-	s_controls.joythreshold.generic.type = MTYPE_SLIDER;
+	s_controls.joythreshold.generic.m_Type = EMenuItemType::Slider;
 	s_controls.joythreshold.generic.x = x + 162;
 	s_controls.joythreshold.generic.y = y;
 	s_controls.joythreshold.generic.flags = QMF_SMALLFONT;
@@ -3111,7 +3095,7 @@ static void ControlsMouseJoyStick_MenuInit(void)
 	s_controls.joythreshold.thumbColor2 = CT_LTBLUE1;
 
 	y += 22;
-	s_joyxbutton_box.generic.type = MTYPE_SPINCONTROL;
+	s_joyxbutton_box.generic.m_Type = EMenuItemType::SpinControl;
 	s_joyxbutton_box.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_joyxbutton_box.generic.x = x;
 	s_joyxbutton_box.generic.y = y;
@@ -3126,7 +3110,7 @@ static void ControlsMouseJoyStick_MenuInit(void)
 	s_joyxbutton_box.listnames = s_OffOnNone_Names;
 
 	y += 22;
-	s_joyybutton_box.generic.type = MTYPE_SPINCONTROL;
+	s_joyybutton_box.generic.m_Type = EMenuItemType::SpinControl;
 	s_joyybutton_box.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_joyybutton_box.generic.x = x;
 	s_joyybutton_box.generic.y = y;
@@ -3282,26 +3266,22 @@ ControlsOther_MenuInit
 static void ControlsDefault_MenuInit(void)
 {
 	UI_LogFuncBegin();
-	s_controlsdefault_menu.nitems = 0;
-	s_controlsdefault_menu.wrapAround = qtrue;
-	s_controlsdefault_menu.draw = ControlsDefault_MenuDraw;
-	s_controlsdefault_menu.key = ControlsDefault_MenuKey;
-	s_controlsdefault_menu.fullscreen = qtrue;
-	s_controlsdefault_menu.descX = MENU_DESC_X;
-	s_controlsdefault_menu.descY = MENU_DESC_Y;
-	s_controlsdefault_menu.listX = 230;
-	s_controlsdefault_menu.listY = 188;
-	s_controlsdefault_menu.titleX = MENU_TITLE_X;
-	s_controlsdefault_menu.titleY = MENU_TITLE_Y;
-	s_controlsdefault_menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_controlsdefault_menu.footNoteEnum = MNT_DEFAULT_SETUP;
+	s_controlsdefault_menu.m_ItemCount = 0;
+	s_controlsdefault_menu.m_WrapAround = true;
+	s_controlsdefault_menu.OnDraw = ControlsDefault_MenuDraw;
+	s_controlsdefault_menu.OnKey = ControlsDefault_MenuKey;
+	s_controlsdefault_menu.m_Fullscreen = qtrue;
+	s_controlsdefault_menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_controlsdefault_menu.m_ListPosition = { 230, 188 };
+	s_controlsdefault_menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_controlsdefault_menu.m_FootNote = MNT_DEFAULT_SETUP;
 
 	SetupMenu_TopButtons(&s_controlsdefault_menu, MENU_DEFAULT, NULL);
 
 	s_controls_other.textcolor = CT_LTGOLD1;
 	s_controls_other.textcolor2 = CT_LTGOLD1;
 
-	s_controls_default_yes.generic.type = MTYPE_BITMAP;
+	s_controls_default_yes.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_default_yes.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_default_yes.generic.x = 215;
 	s_controls_default_yes.generic.y = 365;
@@ -3319,7 +3299,7 @@ static void ControlsDefault_MenuInit(void)
 	s_controls_default_yes.textcolor2 = CT_WHITE;
 	s_controls_default_yes.textStyle = UI_SMALLFONT;
 
-	s_controls_default_no.generic.type = MTYPE_BITMAP;
+	s_controls_default_no.generic.m_Type = EMenuItemType::Bitmap;
 	s_controls_default_no.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls_default_no.generic.x = 371;
 	s_controls_default_no.generic.y = 365;
@@ -3452,19 +3432,15 @@ static void ControlsOther_MenuInit(void)
 
 	ControlsOther_Cache();
 
-	s_controlsother_menu.nitems = 0;
-	s_controlsother_menu.wrapAround = qtrue;
-	s_controlsother_menu.draw = ControlsOther_MenuDraw;
-	s_controlsother_menu.key = ControlsOther_MenuKey;
-	s_controlsother_menu.fullscreen = qtrue;
-	s_controlsother_menu.descX = MENU_DESC_X;
-	s_controlsother_menu.descY = MENU_DESC_Y;
-	s_controlsother_menu.listX = 230;
-	s_controlsother_menu.listY = 188;
-	s_controlsother_menu.titleX = MENU_TITLE_X;
-	s_controlsother_menu.titleY = MENU_TITLE_Y;
-	s_controlsother_menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_controlsother_menu.footNoteEnum = MNT_OTHEROPTIONS_SETUP;
+	s_controlsother_menu.m_ItemCount = 0;
+	s_controlsother_menu.m_WrapAround = true;
+	s_controlsother_menu.OnDraw = ControlsOther_MenuDraw;
+	s_controlsother_menu.OnKey = ControlsOther_MenuKey;
+	s_controlsother_menu.m_Fullscreen = qtrue;
+	s_controlsother_menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_controlsother_menu.m_ListPosition = { 230, 188 };
+	s_controlsother_menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_controlsother_menu.m_FootNote = MNT_OTHEROPTIONS_SETUP;
 
 	SetupMenu_TopButtons(&s_controlsother_menu, MENU_CONTROLS, NULL);
 	SetupMenu_SideButtons(&s_controlsother_menu, MENU_CONTROLS_OTHER);
@@ -3475,7 +3451,7 @@ static void ControlsOther_MenuInit(void)
 	x = 210;
 	y = 172;
 
-	s_keyturnspeed_slider.generic.type = MTYPE_SLIDER;
+	s_keyturnspeed_slider.generic.m_Type = EMenuItemType::Slider;
 	s_keyturnspeed_slider.generic.x = x + 162;
 	s_keyturnspeed_slider.generic.y = y;
 	s_keyturnspeed_slider.generic.flags = QMF_SMALLFONT;
@@ -3509,7 +3485,7 @@ static void ControlsOther_MenuInit(void)
 
 
 	y = 225;
-	s_controls.alwaysrun.generic.type = MTYPE_SPINCONTROL;
+	s_controls.alwaysrun.generic.m_Type = EMenuItemType::SpinControl;
 	s_controls.alwaysrun.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls.alwaysrun.generic.x = x;
 	s_controls.alwaysrun.generic.y = y;
@@ -3527,7 +3503,7 @@ static void ControlsOther_MenuInit(void)
 	y += 22;
 	y += 22;
 
-	s_controls.autoswitch.generic.type = MTYPE_SPINCONTROL;
+	s_controls.autoswitch.generic.m_Type = EMenuItemType::SpinControl;
 	s_controls.autoswitch.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls.autoswitch.generic.x = x;
 	s_controls.autoswitch.generic.y = y;
@@ -3632,19 +3608,15 @@ ControlsCommand_MenuInit
 static void ControlsCommand_MenuInit(void)
 {
 	UI_LogFuncBegin();
-	s_controlscommand_menu.nitems = 0;
-	s_controlscommand_menu.wrapAround = qtrue;
-	s_controlscommand_menu.draw = ControlsCommand_MenuDraw;
-	s_controlscommand_menu.key = Controls_MenuKey;
-	s_controlscommand_menu.fullscreen = qtrue;
-	s_controlscommand_menu.descX = MENU_DESC_X;
-	s_controlscommand_menu.descY = MENU_DESC_Y;
-	s_controlscommand_menu.listX = 170;
-	s_controlscommand_menu.listY = 188;
-	s_controlscommand_menu.titleX = MENU_TITLE_X;
-	s_controlscommand_menu.titleY = MENU_TITLE_Y;
-	s_controlscommand_menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_controlscommand_menu.footNoteEnum = MNT_COMMANDKEYS_SETUP;
+	s_controlscommand_menu.m_ItemCount = 0;
+	s_controlscommand_menu.m_WrapAround = true;
+	s_controlscommand_menu.OnDraw = ControlsCommand_MenuDraw;
+	s_controlscommand_menu.OnKey = Controls_MenuKey;
+	s_controlscommand_menu.m_Fullscreen = qtrue;
+	s_controlscommand_menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_controlscommand_menu.m_ListPosition = { 170, 188 };
+	s_controlscommand_menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_controlscommand_menu.m_FootNote = MNT_COMMANDKEYS_SETUP;
 
 	Playermodel_MenuInit();
 
@@ -3654,68 +3626,68 @@ static void ControlsCommand_MenuInit(void)
 	s_controls_command.textcolor = CT_LTGOLD1;
 	s_controls_command.textcolor2 = CT_LTGOLD1;
 
-	s_controls.chat.generic.type = MTYPE_ACTION;
+	s_controls.chat.generic.m_Type = EMenuItemType::Action;
 	s_controls.chat.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls.chat.generic.callback = Controls_ActionEvent;
 	s_controls.chat.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_controls.chat.generic.id = ID_CHAT;
 
-	s_controls.chat2.generic.type = MTYPE_ACTION;
+	s_controls.chat2.generic.m_Type = EMenuItemType::Action;
 	s_controls.chat2.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls.chat2.generic.callback = Controls_ActionEvent;
 	s_controls.chat2.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_controls.chat2.generic.id = ID_CHAT2;
 
-	s_controls.chat3.generic.type = MTYPE_ACTION;
+	s_controls.chat3.generic.m_Type = EMenuItemType::Action;
 	s_controls.chat3.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls.chat3.generic.callback = Controls_ActionEvent;
 	s_controls.chat3.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_controls.chat3.generic.id = ID_CHAT3;
 
-	s_controls.gesture.generic.type = MTYPE_ACTION;
+	s_controls.gesture.generic.m_Type = EMenuItemType::Action;
 	s_controls.gesture.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_controls.gesture.generic.callback = Controls_ActionEvent;
 	s_controls.gesture.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_controls.gesture.generic.id = ID_GESTURE;
 
-	s_equip_action.generic.type = MTYPE_ACTION;
+	s_equip_action.generic.m_Type = EMenuItemType::Action;
 	s_equip_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_equip_action.generic.callback = Controls_ActionEvent;
 	s_equip_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_equip_action.generic.id = ID_EQUIP;
 
 	// RPG-X | Marcin | 04/12/2008
-	s_drop_action.generic.type = MTYPE_ACTION;
+	s_drop_action.generic.m_Type = EMenuItemType::Action;
 	s_drop_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_drop_action.generic.callback = Controls_ActionEvent;
 	s_drop_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_drop_action.generic.id = ID_DROP;
 
-	s_thirdperson_action.generic.type = MTYPE_ACTION;
+	s_thirdperson_action.generic.m_Type = EMenuItemType::Action;
 	s_thirdperson_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_thirdperson_action.generic.callback = Controls_ActionEvent;
 	s_thirdperson_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_thirdperson_action.generic.id = ID_TOGGLE3DP;
 
-	s_thirdpersoncommit_action.generic.type = MTYPE_ACTION;
+	s_thirdpersoncommit_action.generic.m_Type = EMenuItemType::Action;
 	s_thirdpersoncommit_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_thirdpersoncommit_action.generic.callback = Controls_ActionEvent;
 	s_thirdpersoncommit_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_thirdpersoncommit_action.generic.id = ID_COMMITANGLES;
 
-	s_thirdpersonrevert_action.generic.type = MTYPE_ACTION;
+	s_thirdpersonrevert_action.generic.m_Type = EMenuItemType::Action;
 	s_thirdpersonrevert_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_thirdpersonrevert_action.generic.callback = Controls_ActionEvent;
 	s_thirdpersonrevert_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_thirdpersonrevert_action.generic.id = ID_REVERTANGLES;
 
-	s_thirdpersonreset_action.generic.type = MTYPE_ACTION;
+	s_thirdpersonreset_action.generic.m_Type = EMenuItemType::Action;
 	s_thirdpersonreset_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_thirdpersonreset_action.generic.callback = Controls_ActionEvent;
 	s_thirdpersonreset_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_thirdpersonreset_action.generic.id = ID_RESETANGLES;
 
-	s_attack_waiting_action.generic.type = MTYPE_ACTION;
+	s_attack_waiting_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_waiting_action.generic.flags = QMF_HIDDEN;
 	s_attack_waiting_action.generic.x = 202;
 	s_attack_waiting_action.generic.y = 410;
@@ -3837,19 +3809,15 @@ ControlsModelView_MenuInit
 static void ControlsModelView_MenuInit(void)
 {
 	UI_LogFuncBegin();
-	s_controlsmodelview_menu.nitems = 0;
-	s_controlsmodelview_menu.wrapAround = qtrue;
-	s_controlsmodelview_menu.draw = ControlsModelView_MenuDraw;
-	s_controlsmodelview_menu.key = Controls_MenuKey;
-	s_controlsmodelview_menu.fullscreen = qtrue;
-	s_controlsmodelview_menu.descX = MENU_DESC_X;
-	s_controlsmodelview_menu.descY = MENU_DESC_Y;
-	s_controlsmodelview_menu.listX = 170;
-	s_controlsmodelview_menu.listY = 188;
-	s_controlsmodelview_menu.titleX = MENU_TITLE_X;
-	s_controlsmodelview_menu.titleY = MENU_TITLE_Y;
-	s_controlsmodelview_menu.titleI = MNT_CONTROLSMENU_TITLE;
-	s_controlsmodelview_menu.footNoteEnum = MNT_MODELVIEW_SETUP;
+	s_controlsmodelview_menu.m_ItemCount = 0;
+	s_controlsmodelview_menu.m_WrapAround = true;
+	s_controlsmodelview_menu.OnDraw = ControlsModelView_MenuDraw;
+	s_controlsmodelview_menu.OnKey = Controls_MenuKey;
+	s_controlsmodelview_menu.m_Fullscreen = qtrue;
+	s_controlsmodelview_menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_controlsmodelview_menu.m_ListPosition = { 170, 188 };
+	s_controlsmodelview_menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CONTROLSMENU_TITLE };
+	s_controlsmodelview_menu.m_FootNote = MNT_MODELVIEW_SETUP;
 
 	Playermodel_MenuInit();
 
@@ -3859,67 +3827,67 @@ static void ControlsModelView_MenuInit(void)
 	s_controls_modelview.textcolor = CT_LTGOLD1;
 	s_controls_modelview.textcolor2 = CT_LTGOLD1;
 
-	s_zoomforward_action.generic.type = MTYPE_ACTION;
+	s_zoomforward_action.generic.m_Type = EMenuItemType::Action;
 	s_zoomforward_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_zoomforward_action.generic.callback = Controls_ActionEvent;
 	s_zoomforward_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_zoomforward_action.generic.id = ID_ZOOMFORWARD;
 
-	s_zoombackward_action.generic.type = MTYPE_ACTION;
+	s_zoombackward_action.generic.m_Type = EMenuItemType::Action;
 	s_zoombackward_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_zoombackward_action.generic.callback = Controls_ActionEvent;
 	s_zoombackward_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_zoombackward_action.generic.id = ID_ZOOMBACKWARD;
 
-	s_panleft_action.generic.type = MTYPE_ACTION;
+	s_panleft_action.generic.m_Type = EMenuItemType::Action;
 	s_panleft_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_panleft_action.generic.callback = Controls_ActionEvent;
 	s_panleft_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_panleft_action.generic.id = ID_PANLEFT;
 
-	s_panright_action.generic.type = MTYPE_ACTION;
+	s_panright_action.generic.m_Type = EMenuItemType::Action;
 	s_panright_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_panright_action.generic.callback = Controls_ActionEvent;
 	s_panright_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_panright_action.generic.id = ID_PANRIGHT;
 
-	s_panup_action.generic.type = MTYPE_ACTION;
+	s_panup_action.generic.m_Type = EMenuItemType::Action;
 	s_panup_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_panup_action.generic.callback = Controls_ActionEvent;
 	s_panup_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_panup_action.generic.id = ID_PANUP;
 
-	s_pandown_action.generic.type = MTYPE_ACTION;
+	s_pandown_action.generic.m_Type = EMenuItemType::Action;
 	s_pandown_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_pandown_action.generic.callback = Controls_ActionEvent;
 	s_pandown_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_pandown_action.generic.id = ID_PANDOWN;
 
-	s_rotateleft_action.generic.type = MTYPE_ACTION;
+	s_rotateleft_action.generic.m_Type = EMenuItemType::Action;
 	s_rotateleft_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_rotateleft_action.generic.callback = Controls_ActionEvent;
 	s_rotateleft_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_rotateleft_action.generic.id = ID_ROTATELEFT;
 
-	s_rotateright_action.generic.type = MTYPE_ACTION;
+	s_rotateright_action.generic.m_Type = EMenuItemType::Action;
 	s_rotateright_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_rotateright_action.generic.callback = Controls_ActionEvent;
 	s_rotateright_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_rotateright_action.generic.id = ID_ROTATERIGHT;
 
-	s_pitchup_action.generic.type = MTYPE_ACTION;
+	s_pitchup_action.generic.m_Type = EMenuItemType::Action;
 	s_pitchup_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_pitchup_action.generic.callback = Controls_ActionEvent;
 	s_pitchup_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_pitchup_action.generic.id = ID_PITCHUP;
 
-	s_pitchdown_action.generic.type = MTYPE_ACTION;
+	s_pitchdown_action.generic.m_Type = EMenuItemType::Action;
 	s_pitchdown_action.generic.flags = QMF_LEFT_JUSTIFY | QMF_HIGHLIGHT_IF_FOCUS;
 	s_pitchdown_action.generic.callback = Controls_ActionEvent;
 	s_pitchdown_action.generic.ownerdraw = Controls_DrawKeyBinding;
 	s_pitchdown_action.generic.id = ID_PITCHDOWN;
 
-	s_attack_waiting_action.generic.type = MTYPE_ACTION;
+	s_attack_waiting_action.generic.m_Type = EMenuItemType::Action;
 	s_attack_waiting_action.generic.flags = QMF_HIDDEN;
 	s_attack_waiting_action.generic.x = 202;
 	s_attack_waiting_action.generic.y = 410;

@@ -206,8 +206,8 @@ void UI_DrawConnectScreen( qboolean overlay ) {
 //	UI_DrawProportionalString( 320, y, menu_normal_text[MNT_PRESSESCAPETOABORT], UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, menu_text_color );
 
 	// display global MOTD at bottom
-	UI_DrawProportionalString( SCREEN_WIDTH/2, 262, 
-		Info_ValueForKey( cstate.updateInfoString, "motd" ), UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_WHITE]  );
+	UI_DrawProportionalString(SCREEN_WIDTH/2, 262, 
+	                          Info_ValueForKey( cstate.updateInfoString, "motd" ), UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_WHITE]  );
 	
 	// print any server info (server full, bad version, etc)
 	if ( cstate.connState < CA_CONNECTED ) {
@@ -216,7 +216,7 @@ void UI_DrawConnectScreen( qboolean overlay ) {
 		trap_GetConfigString( CS_CON_FAIL, passFailMsg, sizeof( passFailMsg ) );
 		if ( passFailMsg[0] ) {
 			UI_DrawProportionalString(320, 186, passFailMsg,
-				UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
+			                          UI_SMALLFONT|UI_DROPSHADOW, colorTable[CT_VLTGOLD1] );
 			//y += PROP_HEIGHT;
 		}
 
@@ -231,7 +231,7 @@ void UI_DrawConnectScreen( qboolean overlay ) {
 		s_ingame_menu.nitems = 0;
 		s_ingame_menu.wrapAround = qtrue;
 
-		passwordField.generic.type = MTYPE_FIELD;
+		passwordField.generic.type = EMenuItemType::Field;
 		passwordField.generic.name = "Password:";
 		passwordField.generic.callback = 0;
 		passwordField.generic.x		= 10;

@@ -713,19 +713,16 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	//s_playersettings.rankList[s_playersettings.numRanks] = "Other";
 	s_playersettings.numRankSets = UI_PopulateRankSetArray(s_playersettings.rankSetList);
 
-	s_playersettings.menu.key = PlayerSettings_MenuKey;
-	s_playersettings.menu.wrapAround = qtrue;
-	s_playersettings.menu.fullscreen = qtrue;
-	s_playersettings.menu.draw = PlayerSettings_MenuDraw;
-	s_playersettings.menu.descX = MENU_DESC_X;
-	s_playersettings.menu.descY = MENU_DESC_Y;
-	s_playersettings.menu.titleX = MENU_TITLE_X;
-	s_playersettings.menu.titleY = MENU_TITLE_Y;
-	s_playersettings.menu.titleI = MNT_CHANGEPLAYER_TITLE;
-	s_playersettings.menu.footNoteEnum = MNT_CHANGEPLAYER;
+	s_playersettings.menu.OnKey = PlayerSettings_MenuKey;
+	s_playersettings.menu.m_WrapAround = true;
+	s_playersettings.menu.m_Fullscreen = qtrue;
+	s_playersettings.menu.OnDraw = PlayerSettings_MenuDraw;
+	s_playersettings.menu.m_DescriptionPosition = { MENU_DESC_X, MENU_DESC_Y };
+	s_playersettings.menu.m_Title = { { MENU_TITLE_X, MENU_TITLE_Y }, MNT_CHANGEPLAYER_TITLE };
+	s_playersettings.menu.m_FootNote = MNT_CHANGEPLAYER;
 
 
-	s_playersettings.mainmenu.generic.type = MTYPE_BITMAP;
+	s_playersettings.mainmenu.generic.m_Type = EMenuItemType::Bitmap;
 	s_playersettings.mainmenu.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playersettings.mainmenu.generic.x = 110;
 	s_playersettings.mainmenu.generic.y = 391;
@@ -752,7 +749,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.mainmenu.textcolor = CT_BLACK;
 	s_playersettings.mainmenu.textcolor2 = CT_WHITE;
 
-	s_playersettings.back.generic.type = MTYPE_BITMAP;
+	s_playersettings.back.generic.m_Type = EMenuItemType::Bitmap;
 	s_playersettings.back.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playersettings.back.generic.x = 110;
 	s_playersettings.back.generic.y = 415;
@@ -770,7 +767,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.back.textcolor2 = CT_WHITE;
 
 	y = 134;//144;
-	s_playersettings.name.generic.type = MTYPE_FIELD;
+	s_playersettings.name.generic.m_Type = EMenuItemType::Field;
 	s_playersettings.name.field.widthInChars = MAX_NAMELENGTH;
 	s_playersettings.name.field.maxchars = MAX_NAMELENGTH;
 	s_playersettings.name.generic.id = ID_NAME;
@@ -784,7 +781,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.name.field.textcolor2 = CT_LTGOLD1;
 
 	y += 25;//3 * PROP_HEIGHT;
-	s_playersettings.pClass.generic.type = MTYPE_SPINCONTROL;
+	s_playersettings.pClass.generic.m_Type = EMenuItemType::SpinControl;
 	s_playersettings.pClass.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playersettings.pClass.generic.id = ID_CLASS;
 	s_playersettings.pClass.generic.callback = PlayerSettings_MenuEvent;
@@ -801,7 +798,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.pClass.textY = 2;
 	s_playersettings.pClass.itemnames = (const char **)s_playersettings.classNameList;//playerClassList;
 
-	s_playersettings.classTxt.generic.type = MTYPE_FIELD;
+	s_playersettings.classTxt.generic.m_Type = EMenuItemType::Field;
 	s_playersettings.classTxt.generic.flags = QMF_HIDDEN;
 	s_playersettings.classTxt.generic.callback = PlayerSettings_MenuEvent;
 	s_playersettings.classTxt.generic.id = ID_CLASSTXT;
@@ -816,7 +813,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.classTxt.field.textcolor2 = CT_LTGOLD1;
 
 	y += 25;
-	s_playersettings.pRank.generic.type = MTYPE_SPINCONTROL;
+	s_playersettings.pRank.generic.m_Type = EMenuItemType::SpinControl;
 	s_playersettings.pRank.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playersettings.pRank.generic.id = ID_RANK;
 	s_playersettings.pRank.generic.callback = PlayerSettings_MenuEvent;
@@ -833,7 +830,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.pRank.textY = 2;
 	s_playersettings.pRank.itemnames = (const char**)s_playersettings.rankList; //prank_items_formal3;
 
-	s_playersettings.rankTxt.generic.type = MTYPE_FIELD;
+	s_playersettings.rankTxt.generic.m_Type = EMenuItemType::Field;
 	s_playersettings.rankTxt.generic.flags = QMF_HIDDEN;
 	s_playersettings.rankTxt.generic.callback = PlayerSettings_MenuEvent;
 	s_playersettings.rankTxt.generic.id = ID_RANKTXT;
@@ -848,7 +845,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.rankTxt.field.textcolor2 = CT_LTGOLD1;
 
 	y += 25;
-	s_playersettings.age.generic.type = MTYPE_FIELD;
+	s_playersettings.age.generic.m_Type = EMenuItemType::Field;
 	s_playersettings.age.generic.id = ID_AGE;
 	s_playersettings.age.generic.callback = PlayerSettings_MenuEvent;
 	s_playersettings.age.field.widthInChars = MAX_NAMELENGTH;
@@ -862,7 +859,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.age.field.textcolor2 = CT_LTGOLD1;
 
 	y += 25;
-	s_playersettings.race.generic.type = MTYPE_FIELD;
+	s_playersettings.race.generic.m_Type = EMenuItemType::Field;
 	s_playersettings.race.generic.id = ID_RACE;
 	s_playersettings.race.generic.callback = PlayerSettings_MenuEvent;
 	s_playersettings.race.field.widthInChars = MAX_NAMELENGTH;
@@ -876,7 +873,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.race.field.textcolor2 = CT_LTGOLD1;
 
 	y += 25;
-	s_playersettings.height.generic.type = MTYPE_SLIDER;
+	s_playersettings.height.generic.m_Type = EMenuItemType::Slider;
 	s_playersettings.height.generic.x = 115 + 90; //162
 	s_playersettings.height.generic.y = y;
 	s_playersettings.height.generic.flags = QMF_SMALLFONT;
@@ -910,7 +907,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.height.thumbColor2 = CT_LTBLUE1;
 
 	y += 25;
-	s_playersettings.weight.generic.type = MTYPE_SLIDER;
+	s_playersettings.weight.generic.m_Type = EMenuItemType::Slider;
 	s_playersettings.weight.generic.x = 115 + 90; //162
 	s_playersettings.weight.generic.y = y;
 	s_playersettings.weight.generic.flags = QMF_SMALLFONT;
@@ -944,7 +941,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.weight.thumbColor2 = CT_LTBLUE1;
 
 	if (s_playersettings.numRankSets > 1) {
-		s_playersettings.rankSets.generic.type = MTYPE_SPINCONTROL;
+		s_playersettings.rankSets.generic.m_Type = EMenuItemType::SpinControl;
 		s_playersettings.rankSets.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 		s_playersettings.rankSets.generic.id = ID_RANKSETS;
 		s_playersettings.rankSets.generic.callback = PlayerSettings_MenuEvent;
@@ -963,7 +960,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 
 	if (s_playersettings.numClassSets > 1)
 	{
-		s_playersettings.classSets.generic.type = MTYPE_SPINCONTROL;
+		s_playersettings.classSets.generic.m_Type = EMenuItemType::SpinControl;
 		s_playersettings.classSets.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 		s_playersettings.classSets.generic.id = ID_CLASSSETS;
 		s_playersettings.classSets.generic.callback = PlayerSettings_MenuEvent;
@@ -980,7 +977,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 		s_playersettings.classSets.itemnames = (const char**)s_playersettings.classSetList; //rankSets_items_formal3;
 	}
 
-	s_playersettings.commit.generic.type = MTYPE_BITMAP;
+	s_playersettings.commit.generic.m_Type = EMenuItemType::Bitmap;
 	s_playersettings.commit.generic.flags = (QMF_GRAYED | QMF_INACTIVE);
 	s_playersettings.commit.generic.x = 196;
 	s_playersettings.commit.generic.y = 314;
@@ -997,7 +994,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.commit.textcolor2 = CT_WHITE;
 	s_playersettings.commit.textEnum = MBT_COMMIT;
 
-	s_playersettings.data.generic.type = MTYPE_BITMAP;
+	s_playersettings.data.generic.m_Type = EMenuItemType::Bitmap;
 	s_playersettings.data.generic.name = BUTTON_GRAPHIC_LONGRIGHT;
 	s_playersettings.data.generic.flags = QMF_GRAYED;
 	s_playersettings.data.generic.id = ID_DATA;
@@ -1016,7 +1013,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.data.textcolor = CT_BLACK;
 	s_playersettings.data.textcolor2 = CT_WHITE;
 
-	s_playersettings.model.generic.type = MTYPE_BITMAP;
+	s_playersettings.model.generic.m_Type = EMenuItemType::Bitmap;
 	s_playersettings.model.generic.name = BUTTON_GRAPHIC_LONGRIGHT;
 	s_playersettings.model.generic.flags = QMF_HIGHLIGHT_IF_FOCUS;
 	s_playersettings.model.generic.id = ID_MODEL;
@@ -1033,7 +1030,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.model.textcolor = CT_BLACK;
 	s_playersettings.model.textcolor2 = CT_WHITE;
 
-	s_playersettings.player.generic.type = MTYPE_BITMAP;
+	s_playersettings.player.generic.m_Type = EMenuItemType::Bitmap;
 	s_playersettings.player.generic.flags = QMF_SILENT;
 	s_playersettings.player.generic.ownerdraw = PlayerSettings_DrawPlayer;
 	s_playersettings.player.generic.callback = PlayerSettings_SpinPlayer;
@@ -1042,7 +1039,7 @@ static void PlayerSettings_MenuInit(int32_t menuFrom)
 	s_playersettings.player.width = 151; //32*7.3
 	s_playersettings.player.height = 291; //56*7.3
 
-	s_playersettings.item_null.generic.type = MTYPE_BITMAP;
+	s_playersettings.item_null.generic.m_Type = EMenuItemType::Bitmap;
 	s_playersettings.item_null.generic.flags = QMF_LEFT_JUSTIFY | QMF_MOUSEONLY | QMF_SILENT;
 	s_playersettings.item_null.generic.x = 0;
 	s_playersettings.item_null.generic.y = 0;

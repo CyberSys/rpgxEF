@@ -14,7 +14,11 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\common_game\FlagSupport.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\common_game\Position2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\common_game\Range.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\common_game\Rect.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\common_game\Size.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\common_game\String.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\code\common_game\Warnings.h" />
   </ItemGroup>
